@@ -52,6 +52,7 @@ Installation:
 
     npm install next-auth@beta prisma @prisma/client zustand recharts react-icons
     npm install shadcn@latest init
+    npm install next-themes
 
 Contributing:
 

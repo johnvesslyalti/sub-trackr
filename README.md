@@ -47,3 +47,12 @@ Project Structure:
                 |- globals.css
                 |- layout.tsx
                 |- page.tsx
+
+Installation:
+
+    npm install next-auth@beta prisma @prisma/client zustand recharts react-icons
+    npm install shadcn@latest init
+
+Contributing:
+
+    Contributions are welcome! Please fork the repository and submit a pull request with your changes.

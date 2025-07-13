@@ -1,3 +1,5 @@
+import './globals.css';
+import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "../components/ThemeProvider";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -13,6 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     defaultTheme="system"
                     enableSystem={true}
                     disableTransitionOnChange={true}>
+                        <Navbar />
                 {children}
                 </ThemeProvider>
             </body>

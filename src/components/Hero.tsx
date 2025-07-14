@@ -34,6 +34,16 @@ export default function Hero() {
       >
         Login with Google
       </motion.button>
+
+      {/* Dashboard Preview Placeholder
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.7 }}
+        className="mt-12 w-full max-w-4xl aspect-video bg-gray-900 border border-gray-700 rounded-2xl flex items-center justify-center text-gray-500"
+      >
+        Dashboard Preview Coming Soon
+      </motion.div> */}
     </section>
   );
 }

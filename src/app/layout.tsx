@@ -1,6 +1,6 @@
 import './globals.css';
-import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "../components/ThemeProvider";
+import ClientWrapper from '@/components/ClientWrapper';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -15,8 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     defaultTheme="system"
                     enableSystem={true}
                     disableTransitionOnChange={true}>
-                        <Navbar />
-                {children}
+                <ClientWrapper>{children}</ClientWrapper>
                 </ThemeProvider>
             </body>
         </html>

@@ -54,6 +54,7 @@ Installation:
     npm install shadcn@latest init
     npm install next-themes
     npm install framer-motion
+    npm install react-icons --save 
 
 
 Contributing:

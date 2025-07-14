@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { FaGoogle } from "react-icons/fa";
 
 export default function Hero() {
   return (
@@ -32,7 +33,10 @@ export default function Hero() {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="bg-white text-black font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-200 transition"
       >
-        Login with Google
+        <div className="flex items-center justify-center gap-2">
+          <span><FaGoogle /></span>
+          <p>Login with Google</p>
+        </div>
       </motion.button>
 
       {/* Dashboard Preview Placeholder

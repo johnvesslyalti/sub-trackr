@@ -20,7 +20,7 @@ export default function CTASection() {
           <p className="text-gray-400 mb-6">
             Take control of your recurring expenses with reminders, analytics, and clean organization.
           </p>
-          <button className="bg-emerald-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-emerald-400 transition">
+          <button className="bg-white/10 px-6 py-3 rounded-full font-semibold hover:bg-emerald-400 transition">
             Get Started for Free
           </button>
         </motion.div>

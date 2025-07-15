@@ -38,8 +38,9 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ delay: 0.3 * index, duration: 0.5 }}
               className="bg-white/10 border border-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition"
             >

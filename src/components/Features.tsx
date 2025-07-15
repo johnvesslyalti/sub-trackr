@@ -32,7 +32,8 @@ export default function Features() {
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl font-bold mb-12"
         >
@@ -44,7 +45,8 @@ export default function Features() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ delay: 0.2 * index, duration: 0.5 }}
               className="bg-white/10 p-6 rounded-xl shadow-lg hover:shadow-xl transition border border-gray-800"
             >

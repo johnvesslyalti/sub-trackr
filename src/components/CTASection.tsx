@@ -11,6 +11,7 @@ export default function CTASection() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -29,6 +30,7 @@ export default function CTASection() {
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="w-full h-64 bg-gradient-to-tr from-gray-800 via-[#1b1b1b] to-black rounded-2xl border border-gray-700 flex items-center justify-center text-gray-500"
         >
           Dashboard Preview Coming Soon

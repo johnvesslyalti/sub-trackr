@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(uuid())
+  email          String         @unique
+  name           String?
+  image          String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  subscriptions  Subscription[] // One-to-many
+}
+
+model Subscription {
+  id             String     @id @default(uuid())
+  name           String
+  price          Float
+  billingCycle   BillingCycle
+  nextBillingDate DateTime
+  isActive       Boolean    @default(true)
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+// Enum for monthly, yearly, etc.
+enum BillingCycle {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}

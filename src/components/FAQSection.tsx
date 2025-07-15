@@ -50,7 +50,7 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-[#1b1b1b] border border-gray-800 rounded-xl"
+              className="bg-white/10 border border-gray-800 rounded-xl"
             >
               <button
                 onClick={() => toggle(index)}

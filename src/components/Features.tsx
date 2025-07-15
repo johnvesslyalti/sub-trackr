@@ -46,7 +46,7 @@ export default function Features() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.5 }}
-              className="bg-[#1b1b1b] p-6 rounded-xl shadow-lg hover:shadow-xl transition border border-gray-800"
+              className="bg-white/10 p-6 rounded-xl shadow-lg hover:shadow-xl transition border border-gray-800"
             >
               <div className="flex items-center justify-center mb-4">
                 {feature.icon}

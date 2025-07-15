@@ -41,7 +41,7 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 * index, duration: 0.5 }}
-              className="bg-[#1b1b1b] border border-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition"
+              className="bg-white/10 border border-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition"
             >
               <div className="flex items-center justify-center mb-4">
                 {step.icon}

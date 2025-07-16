@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 import { FaGoogle } from "react-icons/fa";
 
 export default function Hero() {
@@ -23,21 +24,26 @@ export default function Hero() {
         transition={{ delay: 0.2, duration: 0.6 }}
         className="text-lg md:text-xl text-gray-300 max-w-xl mb-8"
       >
-        Stay on top of your subscriptions. Track spending, get reminders, and never miss a renewal again.
+        Stay on top of your subscriptions. Track spending, get reminders, and
+        never miss a renewal again.
       </motion.p>
 
       {/* CTA Button */}
-      <motion.button
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
-        className="bg-white text-black font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-200 transition"
       >
-        <div className="flex items-center justify-center gap-2">
-          <span><FaGoogle /></span>
-          <p>Login with Google</p>
-        </div>
-      </motion.button>
+        <button
+          onClick={() => signIn("google")}
+          className="bg-white text-black font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-200 transition"
+        >
+          <div className="flex items-center justify-center gap-2">
+            <FaGoogle />
+            <span>Login with Google</span>
+          </div>
+        </button>
+      </motion.div>
 
       {/* Dashboard Preview Placeholder
       <motion.div

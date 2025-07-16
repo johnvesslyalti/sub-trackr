@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { FaGoogle } from "react-icons/fa";
 
 export default function Hero() {
+    
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
       {/* Logo / App Name */}
@@ -35,7 +36,7 @@ export default function Hero() {
         transition={{ delay: 0.4, duration: 0.5 }}
       >
         <button
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           className="bg-white text-black font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-gray-200 transition"
         >
           <div className="flex items-center justify-center gap-2">

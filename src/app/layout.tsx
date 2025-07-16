@@ -1,6 +1,7 @@
 import './globals.css';
 import { ThemeProvider } from "../components/ThemeProvider";
 import ClientWrapper from '@/components/ClientWrapper';
+import LenisProvider from '@/components/LenisProvider';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -15,9 +16,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     defaultTheme="system"
                     enableSystem={true}
                     disableTransitionOnChange={true}>
-                <ClientWrapper>{children}</ClientWrapper>
-                </ThemeProvider>
-            </body>
-        </html>
-    )
+                <ClientWrapper>
+                    <LenisProvider>{children}</LenisProvider>
+                </ClientWrapper>
+            </ThemeProvider>
+        </body>
+    </html>
+)
 }

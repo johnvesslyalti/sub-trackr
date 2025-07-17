@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import { FaGoogle } from "react-icons/fa";
 
 export default function Hero() {
@@ -15,7 +16,15 @@ export default function Hero() {
         transition={{ duration: 0.6 }}
         className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"
       >
-        SubTrackr
+        <div className="flex items-center gap-2 text-4xl font-bold text-white">
+        <Image
+          src="/subtrackr-icon.png"
+          alt="Sub Trackr Icon"
+          width={40}
+          height={40}
+        />
+        <span>Sub Trackr</span>
+        </div>
       </motion.h1>
 
       {/* Subtext */}

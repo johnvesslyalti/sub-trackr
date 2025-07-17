@@ -21,22 +21,33 @@ export function ThemeToggle() {
         size="sm"
         onClick={() => setTheme('light')}
         className={cn(
-          'rounded-l-md px-4 text-sm',
+          'px-3 text-sm rounded-l-md',
           theme === 'light' && 'bg-white text-black dark:bg-gray-200'
         )}
       >
-        ☀️ Light
+        ☀️
       </Button>
       <Button
         variant="ghost"
         size="sm"
         onClick={() => setTheme('dark')}
         className={cn(
-          'rounded-r-md px-4 text-sm',
+          'px-3 text-sm',
           theme === 'dark' && 'bg-gray-900 text-white'
         )}
       >
-        🌙 Dark
+        🌙 
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setTheme('system')}
+        className={cn(
+          'px-3 text-sm rounded-r-md',
+          theme === 'system' && 'bg-muted-foreground text-background'
+        )}
+      >
+        💻
       </Button>
     </div>
   )

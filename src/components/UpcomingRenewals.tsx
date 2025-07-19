@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { CalendarClock } from "lucide-react"
 
 const upcoming = [
   { name: "Spotify", renews: "Jul 20", amount: "₹129" },
@@ -7,17 +8,24 @@ const upcoming = [
 
 export default function UpcomingRenewals() {
   return (
-    <div>
-      <h2 className="text-lg font-semibold mb-2">Upcoming Renewals</h2>
-      <div className="grid gap-2 sm:grid-cols-2">
+    <div className="mb-6">
+      <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+        <CalendarClock className="w-5 h-5 text-primary" />
+        Upcoming Renewals
+      </h2>
+
+      <div className="grid gap-4 sm:grid-cols-2">
         {upcoming.map((sub) => (
-          <Card key={sub.name}>
-            <CardContent className="p-4 flex justify-between items-center">
+          <Card
+            key={sub.name}
+            className="hover:shadow-sm transition-shadow rounded-xl border"
+          >
+            <CardContent className="p-5 flex justify-between items-center">
               <div>
-                <p className="font-medium">{sub.name}</p>
+                <p className="text-base font-semibold">{sub.name}</p>
                 <p className="text-sm text-muted-foreground">Renews on {sub.renews}</p>
               </div>
-              <p className="font-semibold">{sub.amount}</p>
+              <p className="text-lg font-bold text-primary">{sub.amount}</p>
             </CardContent>
           </Card>
         ))}

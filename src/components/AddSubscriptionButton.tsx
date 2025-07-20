@@ -8,7 +8,7 @@ export default function AddSubscriptionButton() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/add-subscription");
+    router.push("/subscription/add");
   };
 
   return (

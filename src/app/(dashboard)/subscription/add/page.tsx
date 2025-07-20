@@ -31,7 +31,7 @@ export default function AddSubscriptionPage() {
       return;
     }
 
-    const res = await fetch("/api/subscription", {
+    const res = await fetch("/api/subscriptions", {
       method: "POST",
       body: JSON.stringify({
         ...form,

@@ -45,7 +45,7 @@ export default function AddSubscriptionPage() {
 
     if (res.ok) {
       toast.success("Subscription added!");
-      router.push("/subscription"); // Redirect to subscription list
+      router.push("/dashboard"); // Redirect to dashboard list
     } else {
       toast.error("Failed to add subscription.");
     }

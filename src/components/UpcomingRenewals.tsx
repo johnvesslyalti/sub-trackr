@@ -47,7 +47,7 @@ export default function UpcomingRenewals() {
           className={
             upcoming.length <= 2
               ? "grid gap-4 sm:grid-cols-2"
-              : "flex gap-4 overflow-x-auto scrollbar-hide px-1"
+              : "flex gap-4 overflow-x-auto px-1 no-scrollbar"
           }
         >
           {upcoming.map((sub) => (

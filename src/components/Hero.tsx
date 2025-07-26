@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Image from "next/image";
 import { FaGoogle, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { Button } from "./ui/button";
 
 export default function Hero() {
   const { status } = useSession();
@@ -52,13 +53,13 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.4 }}
           >
-            <button
+            <Button
               onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-              className="bg-white text-black font-semibold px-6 py-3 rounded-full shadow-lg flex items-center justify-center gap-3 hover:bg-gray-100 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="font-semibold px-6 py-3 rounded-full shadow-lg flex items-center justify-center gap-3 transition focus-visible:outline-none"
             >
               <FaGoogle />
               <span>Login with Google</span>
-            </button>
+            </Button>
           </motion.div>
         </motion.div>
 
@@ -70,7 +71,7 @@ export default function Hero() {
           className="flex flex-col items-center w-full md:max-w-xl px-2"
         >
           {/* Video */}
-          <div className="w-full aspect-video rounded-xl overflow-hidden bg-black shadow-md mb-8">
+          <div className="w-full aspect-video rounded-xl overflow-hidden bg-black shadow-md mb-8 p-5">
             <video
               autoPlay
               muted

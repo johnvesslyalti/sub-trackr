@@ -2,13 +2,17 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-// Get one subscription
+// GET one subscription
 export async function GET(
-  _: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
+  const { params } = context;
   const session = await auth();
-  if (!session?.user) return new NextResponse("Unauthorized", { status: 401 });
+
+  if (!session?.user) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
 
   const sub = await db.subscription.findUnique({
     where: {
@@ -17,19 +21,26 @@ export async function GET(
     },
   });
 
-  if (!sub) return new NextResponse("Not Found", { status: 404 });
+  if (!sub) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   return NextResponse.json(sub);
 }
 
-// Update a subscription
+// PUT update subscription
 export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
+  const { params } = context;
   const session = await auth();
-  if (!session?.user) return new NextResponse("Unauthorized", { status: 401 });
 
-  const data = await req.json();
+  if (!session?.user) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
+  const data = await request.json();
 
   const updated = await db.subscription.update({
     where: {
@@ -47,13 +58,17 @@ export async function PUT(
   return NextResponse.json(updated);
 }
 
-// Delete a subscription
+// DELETE a subscription
 export async function DELETE(
-  _: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
+  const { params } = context;
   const session = await auth();
-  if (!session?.user) return new NextResponse("Unauthorized", { status: 401 });
+
+  if (!session?.user) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
 
   await db.subscription.delete({
     where: {

@@ -1,8 +1,10 @@
-interface DashboardHeaderProps {
-  name?: string | null
-}
+// app/dashboard/_components/dashboard-header.tsx (or your actual path)
+import { auth } from "@/lib/auth";
 
-export default function DashboardHeader({ name }: DashboardHeaderProps) {
+export default async function DashboardHeader() {
+  const session = await auth(); // Pull session from NextAuth
+  const name = session?.user?.name;
+
   return (
     <div className="mb-6 space-y-1">
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-snug">
@@ -15,5 +17,5 @@ export default function DashboardHeader({ name }: DashboardHeaderProps) {
         Here&apos;s your personalized subscription overview.
       </p>
     </div>
-  )
+  );
 }

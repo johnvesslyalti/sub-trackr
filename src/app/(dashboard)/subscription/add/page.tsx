@@ -45,7 +45,7 @@ export default function AddSubscriptionPage() {
 
     if (res.ok) {
       toast.success("Subscription added!");
-      router.push("/dashboard"); // Redirect to dashboard list
+      router.push("/dashboard");
     } else {
       toast.error("Failed to add subscription.");
     }
@@ -54,18 +54,19 @@ export default function AddSubscriptionPage() {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white dark:bg-zinc-900 rounded-xl shadow-md space-y-4">
       <h2 className="text-xl font-semibold text-center">Add Subscription</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <Label>Name</Label>
-          <Input name="name" value={form.name} onChange={handleChange} required />
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="flex flex-col space-y-1">
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" name="name" value={form.name} onChange={handleChange} required />
         </div>
-        <div>
-          <Label>Plan</Label>
-          <Input name="plan" value={form.plan} onChange={handleChange} />
+        <div className="flex flex-col space-y-1">
+          <Label htmlFor="plan">Plan</Label>
+          <Input id="plan" name="plan" value={form.plan} onChange={handleChange} />
         </div>
-        <div>
-          <Label>Amount (₹)</Label>
+        <div className="flex flex-col space-y-1">
+          <Label htmlFor="amount">Amount (₹)</Label>
           <Input
+            id="amount"
             name="amount"
             type="number"
             value={form.amount}
@@ -73,9 +74,10 @@ export default function AddSubscriptionPage() {
             required
           />
         </div>
-        <div>
-          <Label>Billing Cycle</Label>
+        <div className="flex flex-col space-y-1">
+          <Label htmlFor="billingCycle">Billing Cycle</Label>
           <select
+            id="billingCycle"
             name="billingCycle"
             value={form.billingCycle}
             onChange={handleChange}
@@ -86,9 +88,10 @@ export default function AddSubscriptionPage() {
             <option value="Weekly">Weekly</option>
           </select>
         </div>
-        <div>
-          <Label>Next Billing Date</Label>
+        <div className="flex flex-col space-y-1">
+          <Label htmlFor="nextBillingDate">Next Billing Date</Label>
           <Input
+            id="nextBillingDate"
             name="nextBillingDate"
             type="date"
             value={form.nextBillingDate}
@@ -96,9 +99,10 @@ export default function AddSubscriptionPage() {
             required
           />
         </div>
-        <div>
-          <Label>Reminder Before (days)</Label>
+        <div className="flex flex-col space-y-1">
+          <Label htmlFor="reminderBefore">Reminder Before (days)</Label>
           <Input
+            id="reminderBefore"
             name="reminderBefore"
             type="number"
             value={form.reminderBefore}

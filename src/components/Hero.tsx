@@ -37,6 +37,7 @@ export default function Hero() {
               width={48}
               height={48}
               className="rounded-sm"
+              priority
             />
             <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
               Sub Trackr
@@ -48,7 +49,7 @@ export default function Hero() {
             and never miss a renewal again.
           </p>
 
-          {/* Button Centered */}
+          {/* Login Button */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -72,25 +73,22 @@ export default function Hero() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="flex flex-col items-center w-full md:max-w-xl px-2"
         >
-          {/* Video */}
-          <div className="w-full aspect-video rounded-xl overflow-hidden bg-black shadow-md mb-8 p-5">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
+          {/* GIF instead of video */}
+          <div className="w-full aspect-video rounded-xl overflow-hidden bg-black shadow-md mb-8 p-5 flex items-center justify-center">
+            <Image
+              src="/subtrackr-preview.gif"
+              alt="Sub Trackr Preview"
+              width={1280}
+              height={720}
               className="w-full h-full object-contain"
-              poster="/preview-thumb.png"
-            >
-              <source src="/subtrackr.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+              priority
+            />
           </div>
 
           {/* Social Links */}
           <div className="flex gap-6 text-2xl">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/johnvesslyalti"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -99,7 +97,7 @@ export default function Hero() {
               <FaGithub />
             </a>
             <a
-              href="https://linkedin.com/in/yourprofile"
+              href="https://linkedin.com/in/johnvesslyalti"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"

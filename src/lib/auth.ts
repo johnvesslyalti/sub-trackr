@@ -19,17 +19,15 @@ export const {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
-      // Store Google avatar into DB on first login
-      if (account?.provider === "google" && profile?.picture) {
+    async session({ session, user }) {
+      // Update image if not already set
+      if (!user.image && session.user.image) {
         await db.user.update({
           where: { id: user.id },
-          data: { image: profile.picture },
+          data: { image: session.user.image },
         });
       }
-      return true;
-    },
-    async session({ session, user }) {
+
       session.user.id = user.id;
       session.user.name = user.name ?? null;
       session.user.email = user.email ?? null;

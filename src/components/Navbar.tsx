@@ -6,12 +6,14 @@ import { signOut, useSession } from "next-auth/react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation"; // ✅
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { data: session } = useSession();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter(); // ✅
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -30,6 +32,11 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const goToProfile = () => {
+    setDropdownOpen(false);
+    router.push("/profile");
+  };
+
   return (
     <header className="w-full border-b bg-white dark:bg-black sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -47,7 +54,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Nav (No links) */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6 items-center">
           {session?.user?.image && (
             <div className="relative" ref={dropdownRef}>
@@ -62,6 +69,12 @@ export default function Navbar() {
 
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-zinc-900 shadow-md rounded-md py-2 z-50">
+                  <button
+                    onClick={goToProfile}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                  >
+                    Profile
+                  </button>
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
                     className="w-full text-left px-4 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
@@ -83,7 +96,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Nav (No links) */}
+      {/* Mobile Nav */}
       {isOpen && (
         <nav className="md:hidden px-4 pb-4 space-y-2">
           {session?.user?.image && (
@@ -97,6 +110,15 @@ export default function Navbar() {
                 </Avatar>
                 <span>{session.user.name}</span>
               </div>
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  goToProfile();
+                }}
+                className="text-left text-sm text-muted-foreground hover:text-primary"
+              >
+                Profile
+              </button>
               <button
                 onClick={() => {
                   setIsOpen(false);

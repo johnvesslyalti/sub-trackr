@@ -41,7 +41,7 @@ export default function Navbar() {
     <header className="w-full border-b bg-white dark:bg-black sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-primary">
+        <Link href={session ? "/dashboard" : "/"} className="text-xl font-bold text-primary">
           <div className="flex items-center gap-2">
             <Image
               src="/subtrackr-icon.png"

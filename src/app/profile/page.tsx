@@ -1,14 +1,20 @@
 // app/profile/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import Image from "next/image";
 
 const avatarOptions = [
@@ -19,19 +25,44 @@ const avatarOptions = [
   "/avatar5.png",
   "/avatar6.png",
   "/avatar7.png",
-  "/avatar8.png"
+  "/avatar8.png",
 ];
 
 export default function ProfilePage() {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [selectedAvatar, setSelectedAvatar] = useState(
-    session?.user?.image ?? "/placeholder-avatar.png"
+    session?.user?.customAvatar ??
+      session?.user?.image ??
+      "/placeholder-avatar.png"
   );
+  const [isPending, startTransition] = useTransition();
 
   const user = {
     name: session?.user?.name ?? "John Doe",
     email: session?.user?.email ?? "john@example.com",
     image: selectedAvatar,
+  };
+
+  const handleSave = async () => {
+    startTransition(async () => {
+      try {
+        const res = await fetch("/api/avatar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ avatar: selectedAvatar }),
+        });
+
+        if (!res.ok) throw new Error("Failed to update avatar");
+
+        // Refresh session so UI updates with new avatar
+        await update();
+
+        alert("Profile updated successfully ✅");
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong ❌");
+      }
+    });
   };
 
   return (
@@ -62,6 +93,7 @@ export default function ProfilePage() {
                   {avatarOptions.map((avatar, idx) => (
                     <button
                       key={idx}
+                      type="button"
                       className={`rounded-full p-1 border-2 ${
                         selectedAvatar === avatar
                           ? "border-blue-500"
@@ -95,7 +127,9 @@ export default function ProfilePage() {
             </div>
 
             <div className="flex justify-end">
-              <Button>Save Changes</Button>
+              <Button onClick={handleSave} disabled={isPending}>
+                {isPending ? "Saving..." : "Save Changes"}
+              </Button>
             </div>
           </div>
         </CardContent>

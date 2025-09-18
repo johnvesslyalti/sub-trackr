@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
+import Alert from "@/components/(customized)/alert";
 
 const avatarOptions = [
   "/avatar1.png",
@@ -36,6 +37,7 @@ export default function ProfilePage() {
       "/placeholder-avatar.png"
   );
   const [isPending, startTransition] = useTransition();
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const user = {
     name: session?.user?.name ?? "John Doe",
@@ -57,7 +59,8 @@ export default function ProfilePage() {
         // Refresh session so UI updates with new avatar
         await update();
 
-        alert("Profile updated successfully ✅");
+        setSuccessMessage(true);
+        setTimeout(() => setSuccessMessage(false), 3000);
       } catch (err) {
         console.error(err);
         alert("Something went wrong ❌");
@@ -67,6 +70,9 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+        {successMessage && (
+          <Alert message={"Profile updated successfully"} />
+        )}
       <h1 className="text-3xl font-bold">Profile Settings</h1>
 
       <Card>

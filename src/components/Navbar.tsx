@@ -60,7 +60,7 @@ export default function Navbar() {
             <div className="relative" ref={dropdownRef}>
               <button onClick={toggleDropdown}>
                 <Avatar>
-                  <AvatarImage src={session.user.image} alt="Profile" />
+                  <AvatarImage src={session.user.customAvatar ?? session.user.image} alt="Profile" />
                   <AvatarFallback>
                     {session.user.name?.[0] ?? "U"}
                   </AvatarFallback>

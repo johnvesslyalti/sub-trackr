@@ -2,10 +2,11 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 import { BillingCycle } from "@prisma/client";
+import { headers } from "next/headers";
 
 // Get all subscriptions for the current user
 export async function GET() {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -20,7 +21,7 @@ export async function GET() {
 
 // Create a new subscription
 export async function POST(req: Request) {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) {
     return new NextResponse("Unauthorized", { status: 401 });
   }

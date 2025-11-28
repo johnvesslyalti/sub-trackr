@@ -1,11 +1,12 @@
 // app/api/stats/route.ts
 import { db } from "@/lib/db";
-import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { startOfMonth, endOfMonth } from "date-fns";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function GET() {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

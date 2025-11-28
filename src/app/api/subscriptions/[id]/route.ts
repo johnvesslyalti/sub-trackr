@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 // Helper to extract ID from dynamic segment
@@ -11,7 +12,7 @@ const getIdFromUrl = (url: string): string | null => {
 // GET one subscription
 export async function GET(request: NextRequest) {
   const id = getIdFromUrl(request.url);
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() })
 
   if (!id) return new NextResponse("Bad Request", { status: 400 });
   if (!session?.user) return new NextResponse("Unauthorized", { status: 401 });
@@ -33,7 +34,7 @@ export async function GET(request: NextRequest) {
 // PUT update subscription
 export async function PUT(request: NextRequest) {
   const id = getIdFromUrl(request.url);
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
 
   if (!id) return new NextResponse("Bad Request", { status: 400 });
   if (!session?.user) return new NextResponse("Unauthorized", { status: 401 });
@@ -59,7 +60,7 @@ export async function PUT(request: NextRequest) {
 // DELETE a subscription
 export async function DELETE(request: NextRequest) {
   const id = getIdFromUrl(request.url);
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
 
   if (!id) return new NextResponse("Bad Request", { status: 400 });
   if (!session?.user) return new NextResponse("Unauthorized", { status: 401 });

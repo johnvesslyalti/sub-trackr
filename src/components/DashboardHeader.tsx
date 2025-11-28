@@ -1,9 +1,8 @@
-// app/dashboard/_components/dashboard-header.tsx (or your actual path)
-import { auth } from "@/lib/auth";
+import { authClient } from "@/lib/auth-client";
 
 export default async function DashboardHeader() {
-  const session = await auth(); // Pull session from NextAuth
-  const name = session?.user?.name;
+  const { data } = authClient.useSession() // Pull session from NextAuth
+  const name = data?.user?.name;
 
   return (
     <div className="mb-6 space-y-1">

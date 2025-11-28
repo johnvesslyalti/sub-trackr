@@ -1,6 +1,8 @@
+'use client';
+
 import { authClient } from "@/lib/auth-client";
 
-export default async function DashboardHeader() {
+export default function DashboardHeader() {
   const { data } = authClient.useSession() // Pull session from NextAuth
   const name = data?.user?.name;
 

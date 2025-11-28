@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { BillingCycle } from "@prisma/client";
 import { headers } from "next/headers";

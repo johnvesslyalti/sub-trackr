@@ -1,5 +1,5 @@
 // app/api/stats/route.ts
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { startOfMonth, endOfMonth } from "date-fns";
 import { auth } from "@/lib/auth";

@@ -1,9 +1,9 @@
 // app/api/stats/route.ts
-import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { startOfMonth, endOfMonth } from "date-fns";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import db from "@/lib/prisma";
 
 export async function GET() {
   const session = await auth.api.getSession({ headers: await headers() })

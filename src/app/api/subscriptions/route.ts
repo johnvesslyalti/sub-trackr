@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
-import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { BillingCycle } from "@prisma/client";
 import { headers } from "next/headers";
+import db from "@/lib/prisma";
 
 // Get all subscriptions for the current user
 export async function GET() {

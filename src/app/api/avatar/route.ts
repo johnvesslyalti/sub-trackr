@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
   await db.user.update({
     where: { id: session.user.id },
-    data: { customAvatar: avatar },
+    data: { customavatar: avatar },
   });
 
   return NextResponse.json({ success: true });

@@ -21,4 +21,5 @@ export const createSubscriptionSchema = z.object({
 
 export const updateSubscriptionSchema = createSubscriptionSchema.partial()
 
-export type subscriptionInput = z.infer<typeof createSubscriptionSchema>;
+export type createSubscriptionInput = z.infer<typeof createSubscriptionSchema>;
+export type updateSubscriptionInput = z.infer<typeof updateSubscriptionSchema>;

@@ -126,7 +126,6 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
-  customavatar: 'customavatar',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -169,13 +168,39 @@ exports.Prisma.VerificationScalarFieldEnum = {
 
 exports.Prisma.SubscriptionScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   name: 'name',
+  platform: 'platform',
   plan: 'plan',
   amount: 'amount',
+  currency: 'currency',
   billingCycle: 'billingCycle',
+  interval: 'interval',
   nextBillingDate: 'nextBillingDate',
   reminderBefore: 'reminderBefore',
+  status: 'status',
+  createAt: 'createAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriptionHistoryScalarFieldEnum = {
+  id: 'id',
+  subscriptionId: 'subscriptionId',
   userId: 'userId',
+  name: 'name',
+  platform: 'platform',
+  plan: 'plan',
+  amount: 'amount',
+  currency: 'currency',
+  billingCycle: 'billingCycle',
+  endedAt: 'endedAt'
+};
+
+exports.Prisma.NotificationSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  reminderDayBefore: 'reminderDayBefore',
+  emailReminders: 'emailReminders',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -198,7 +223,14 @@ exports.BillingCycle = exports.$Enums.BillingCycle = {
   DAILY: 'DAILY',
   WEEKLY: 'WEEKLY',
   MONTHLY: 'MONTHLY',
-  YEARLY: 'YEARLY'
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELED: 'CANCELED',
+  PAUSED: 'PAUSED'
 };
 
 exports.Prisma.ModelName = {
@@ -206,7 +238,9 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
   Verification: 'Verification',
-  Subscription: 'Subscription'
+  Subscription: 'Subscription',
+  SubscriptionHistory: 'SubscriptionHistory',
+  NotificationSettings: 'NotificationSettings'
 };
 
 /**

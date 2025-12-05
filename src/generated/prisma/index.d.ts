@@ -38,6 +38,16 @@ export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
  * 
  */
 export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
+/**
+ * Model SubscriptionHistory
+ * 
+ */
+export type SubscriptionHistory = $Result.DefaultSelection<Prisma.$SubscriptionHistoryPayload>
+/**
+ * Model NotificationSettings
+ * 
+ */
+export type NotificationSettings = $Result.DefaultSelection<Prisma.$NotificationSettingsPayload>
 
 /**
  * Enums
@@ -47,16 +57,30 @@ export namespace $Enums {
   DAILY: 'DAILY',
   WEEKLY: 'WEEKLY',
   MONTHLY: 'MONTHLY',
-  YEARLY: 'YEARLY'
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
 };
 
 export type BillingCycle = (typeof BillingCycle)[keyof typeof BillingCycle]
+
+
+export const SubscriptionStatus: {
+  ACTIVE: 'ACTIVE',
+  CANCELED: 'CANCELED',
+  PAUSED: 'PAUSED'
+};
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
 
 }
 
 export type BillingCycle = $Enums.BillingCycle
 
 export const BillingCycle: typeof $Enums.BillingCycle
+
+export type SubscriptionStatus = $Enums.SubscriptionStatus
+
+export const SubscriptionStatus: typeof $Enums.SubscriptionStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -224,6 +248,26 @@ export class PrismaClient<
     * ```
     */
   get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subscriptionHistory`: Exposes CRUD operations for the **SubscriptionHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SubscriptionHistories
+    * const subscriptionHistories = await prisma.subscriptionHistory.findMany()
+    * ```
+    */
+  get subscriptionHistory(): Prisma.SubscriptionHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notificationSettings`: Exposes CRUD operations for the **NotificationSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NotificationSettings
+    * const notificationSettings = await prisma.notificationSettings.findMany()
+    * ```
+    */
+  get notificationSettings(): Prisma.NotificationSettingsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -662,7 +706,9 @@ export namespace Prisma {
     Account: 'Account',
     Session: 'Session',
     Verification: 'Verification',
-    Subscription: 'Subscription'
+    Subscription: 'Subscription',
+    SubscriptionHistory: 'SubscriptionHistory',
+    NotificationSettings: 'NotificationSettings'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -678,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verification" | "subscription"
+      modelProps: "user" | "account" | "session" | "verification" | "subscription" | "subscriptionHistory" | "notificationSettings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1052,6 +1098,154 @@ export namespace Prisma {
           }
         }
       }
+      SubscriptionHistory: {
+        payload: Prisma.$SubscriptionHistoryPayload<ExtArgs>
+        fields: Prisma.SubscriptionHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubscriptionHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.SubscriptionHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>
+          }
+          update: {
+            args: Prisma.SubscriptionHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubscriptionHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubscriptionHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscriptionHistory>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      NotificationSettings: {
+        payload: Prisma.$NotificationSettingsPayload<ExtArgs>
+        fields: Prisma.NotificationSettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationSettingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationSettingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationSettingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationSettingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationSettingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationSettingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationSettingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationSettingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationSettingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>
+          }
+          update: {
+            args: Prisma.NotificationSettingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationSettingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationSettingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationSettingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationSettingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationSettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationSettingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotificationSettings>
+          }
+          groupBy: {
+            args: Prisma.NotificationSettingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationSettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationSettingsCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationSettingsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1149,6 +1343,8 @@ export namespace Prisma {
     session?: SessionOmit
     verification?: VerificationOmit
     subscription?: SubscriptionOmit
+    subscriptionHistory?: SubscriptionHistoryOmit
+    notificationSettings?: NotificationSettingsOmit
   }
 
   /* Types for Logging */
@@ -1232,12 +1428,14 @@ export namespace Prisma {
     accounts: number
     sessions: number
     subscriptions: number
+    history: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
+    history?: boolean | UserCountOutputTypeCountHistoryArgs
   }
 
   // Custom InputTypes
@@ -1272,6 +1470,44 @@ export namespace Prisma {
     where?: SubscriptionWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionHistoryWhereInput
+  }
+
+
+  /**
+   * Count Type SubscriptionCountOutputType
+   */
+
+  export type SubscriptionCountOutputType = {
+    history: number
+  }
+
+  export type SubscriptionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    history?: boolean | SubscriptionCountOutputTypeCountHistoryArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SubscriptionCountOutputType without action
+   */
+  export type SubscriptionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionCountOutputType
+     */
+    select?: SubscriptionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SubscriptionCountOutputType without action
+   */
+  export type SubscriptionCountOutputTypeCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionHistoryWhereInput
+  }
+
 
   /**
    * Models
@@ -1293,7 +1529,6 @@ export namespace Prisma {
     email: string | null
     emailVerified: boolean | null
     image: string | null
-    customavatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1304,7 +1539,6 @@ export namespace Prisma {
     email: string | null
     emailVerified: boolean | null
     image: string | null
-    customavatar: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1315,7 +1549,6 @@ export namespace Prisma {
     email: number
     emailVerified: number
     image: number
-    customavatar: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1328,7 +1561,6 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     image?: true
-    customavatar?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1339,7 +1571,6 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     image?: true
-    customavatar?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1350,7 +1581,6 @@ export namespace Prisma {
     email?: true
     emailVerified?: true
     image?: true
-    customavatar?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1434,7 +1664,6 @@ export namespace Prisma {
     email: string | null
     emailVerified: boolean
     image: string | null
-    customavatar: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1462,12 +1691,13 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     image?: boolean
-    customavatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     subscriptions?: boolean | User$subscriptionsArgs<ExtArgs>
+    history?: boolean | User$historyArgs<ExtArgs>
+    settings?: boolean | User$settingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1477,7 +1707,6 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     image?: boolean
-    customavatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1488,7 +1717,6 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     image?: boolean
-    customavatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1499,16 +1727,17 @@ export namespace Prisma {
     email?: boolean
     emailVerified?: boolean
     image?: boolean
-    customavatar?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "customavatar" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     subscriptions?: boolean | User$subscriptionsArgs<ExtArgs>
+    history?: boolean | User$historyArgs<ExtArgs>
+    settings?: boolean | User$settingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1520,6 +1749,8 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+      history: Prisma.$SubscriptionHistoryPayload<ExtArgs>[]
+      settings: Prisma.$NotificationSettingsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1527,7 +1758,6 @@ export namespace Prisma {
       email: string | null
       emailVerified: boolean
       image: string | null
-      customavatar: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1927,6 +2157,8 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends User$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    history<T extends User$historyArgs<ExtArgs> = {}>(args?: Subset<T, User$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    settings<T extends User$settingsArgs<ExtArgs> = {}>(args?: Subset<T, User$settingsArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1961,7 +2193,6 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly image: FieldRef<"User", 'String'>
-    readonly customavatar: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2421,6 +2652,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * User.history
+   */
+  export type User$historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    where?: SubscriptionHistoryWhereInput
+    orderBy?: SubscriptionHistoryOrderByWithRelationInput | SubscriptionHistoryOrderByWithRelationInput[]
+    cursor?: SubscriptionHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubscriptionHistoryScalarFieldEnum | SubscriptionHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * User.settings
+   */
+  export type User$settingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    where?: NotificationSettingsWhereInput
   }
 
   /**
@@ -5722,51 +5996,65 @@ export namespace Prisma {
   }
 
   export type SubscriptionAvgAggregateOutputType = {
-    amount: number | null
+    amount: Decimal | null
+    interval: number | null
     reminderBefore: number | null
   }
 
   export type SubscriptionSumAggregateOutputType = {
-    amount: number | null
+    amount: Decimal | null
+    interval: number | null
     reminderBefore: number | null
   }
 
   export type SubscriptionMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     name: string | null
+    platform: string | null
     plan: string | null
-    amount: number | null
+    amount: Decimal | null
+    currency: string | null
     billingCycle: $Enums.BillingCycle | null
+    interval: number | null
     nextBillingDate: Date | null
     reminderBefore: number | null
-    userId: string | null
-    createdAt: Date | null
+    status: $Enums.SubscriptionStatus | null
+    createAt: Date | null
     updatedAt: Date | null
   }
 
   export type SubscriptionMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     name: string | null
+    platform: string | null
     plan: string | null
-    amount: number | null
+    amount: Decimal | null
+    currency: string | null
     billingCycle: $Enums.BillingCycle | null
+    interval: number | null
     nextBillingDate: Date | null
     reminderBefore: number | null
-    userId: string | null
-    createdAt: Date | null
+    status: $Enums.SubscriptionStatus | null
+    createAt: Date | null
     updatedAt: Date | null
   }
 
   export type SubscriptionCountAggregateOutputType = {
     id: number
+    userId: number
     name: number
+    platform: number
     plan: number
     amount: number
+    currency: number
     billingCycle: number
+    interval: number
     nextBillingDate: number
     reminderBefore: number
-    userId: number
-    createdAt: number
+    status: number
+    createAt: number
     updatedAt: number
     _all: number
   }
@@ -5774,50 +6062,64 @@ export namespace Prisma {
 
   export type SubscriptionAvgAggregateInputType = {
     amount?: true
+    interval?: true
     reminderBefore?: true
   }
 
   export type SubscriptionSumAggregateInputType = {
     amount?: true
+    interval?: true
     reminderBefore?: true
   }
 
   export type SubscriptionMinAggregateInputType = {
     id?: true
+    userId?: true
     name?: true
+    platform?: true
     plan?: true
     amount?: true
+    currency?: true
     billingCycle?: true
+    interval?: true
     nextBillingDate?: true
     reminderBefore?: true
-    userId?: true
-    createdAt?: true
+    status?: true
+    createAt?: true
     updatedAt?: true
   }
 
   export type SubscriptionMaxAggregateInputType = {
     id?: true
+    userId?: true
     name?: true
+    platform?: true
     plan?: true
     amount?: true
+    currency?: true
     billingCycle?: true
+    interval?: true
     nextBillingDate?: true
     reminderBefore?: true
-    userId?: true
-    createdAt?: true
+    status?: true
+    createAt?: true
     updatedAt?: true
   }
 
   export type SubscriptionCountAggregateInputType = {
     id?: true
+    userId?: true
     name?: true
+    platform?: true
     plan?: true
     amount?: true
+    currency?: true
     billingCycle?: true
+    interval?: true
     nextBillingDate?: true
     reminderBefore?: true
-    userId?: true
-    createdAt?: true
+    status?: true
+    createAt?: true
     updatedAt?: true
     _all?: true
   }
@@ -5910,14 +6212,18 @@ export namespace Prisma {
 
   export type SubscriptionGroupByOutputType = {
     id: string
+    userId: string
     name: string
+    platform: string | null
     plan: string | null
-    amount: number
+    amount: Decimal
+    currency: string
     billingCycle: $Enums.BillingCycle
+    interval: number
     nextBillingDate: Date
     reminderBefore: number
-    userId: string
-    createdAt: Date
+    status: $Enums.SubscriptionStatus
+    createAt: Date
     updatedAt: Date
     _count: SubscriptionCountAggregateOutputType | null
     _avg: SubscriptionAvgAggregateOutputType | null
@@ -5942,62 +6248,82 @@ export namespace Prisma {
 
   export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     name?: boolean
+    platform?: boolean
     plan?: boolean
     amount?: boolean
+    currency?: boolean
     billingCycle?: boolean
+    interval?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
-    userId?: boolean
-    createdAt?: boolean
+    status?: boolean
+    createAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    history?: boolean | Subscription$historyArgs<ExtArgs>
+    _count?: boolean | SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     name?: boolean
+    platform?: boolean
     plan?: boolean
     amount?: boolean
+    currency?: boolean
     billingCycle?: boolean
+    interval?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
-    userId?: boolean
-    createdAt?: boolean
+    status?: boolean
+    createAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     name?: boolean
+    platform?: boolean
     plan?: boolean
     amount?: boolean
+    currency?: boolean
     billingCycle?: boolean
+    interval?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
-    userId?: boolean
-    createdAt?: boolean
+    status?: boolean
+    createAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectScalar = {
     id?: boolean
+    userId?: boolean
     name?: boolean
+    platform?: boolean
     plan?: boolean
     amount?: boolean
+    currency?: boolean
     billingCycle?: boolean
+    interval?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
-    userId?: boolean
-    createdAt?: boolean
+    status?: boolean
+    createAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "plan" | "amount" | "billingCycle" | "nextBillingDate" | "reminderBefore" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "platform" | "plan" | "amount" | "currency" | "billingCycle" | "interval" | "nextBillingDate" | "reminderBefore" | "status" | "createAt" | "updatedAt", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    history?: boolean | Subscription$historyArgs<ExtArgs>
+    _count?: boolean | SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -6010,17 +6336,22 @@ export namespace Prisma {
     name: "Subscription"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      history: Prisma.$SubscriptionHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string
       name: string
+      platform: string | null
       plan: string | null
-      amount: number
+      amount: Prisma.Decimal
+      currency: string
       billingCycle: $Enums.BillingCycle
+      interval: number
       nextBillingDate: Date
       reminderBefore: number
-      userId: string
-      createdAt: Date
+      status: $Enums.SubscriptionStatus
+      createAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["subscription"]>
     composites: {}
@@ -6417,6 +6748,7 @@ export namespace Prisma {
   export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    history<T extends Subscription$historyArgs<ExtArgs> = {}>(args?: Subset<T, Subscription$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6447,14 +6779,18 @@ export namespace Prisma {
    */
   interface SubscriptionFieldRefs {
     readonly id: FieldRef<"Subscription", 'String'>
+    readonly userId: FieldRef<"Subscription", 'String'>
     readonly name: FieldRef<"Subscription", 'String'>
+    readonly platform: FieldRef<"Subscription", 'String'>
     readonly plan: FieldRef<"Subscription", 'String'>
-    readonly amount: FieldRef<"Subscription", 'Int'>
+    readonly amount: FieldRef<"Subscription", 'Decimal'>
+    readonly currency: FieldRef<"Subscription", 'String'>
     readonly billingCycle: FieldRef<"Subscription", 'BillingCycle'>
+    readonly interval: FieldRef<"Subscription", 'Int'>
     readonly nextBillingDate: FieldRef<"Subscription", 'DateTime'>
     readonly reminderBefore: FieldRef<"Subscription", 'Int'>
-    readonly userId: FieldRef<"Subscription", 'String'>
-    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
+    readonly status: FieldRef<"Subscription", 'SubscriptionStatus'>
+    readonly createAt: FieldRef<"Subscription", 'DateTime'>
     readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
   }
     
@@ -6852,6 +7188,30 @@ export namespace Prisma {
   }
 
   /**
+   * Subscription.history
+   */
+  export type Subscription$historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    where?: SubscriptionHistoryWhereInput
+    orderBy?: SubscriptionHistoryOrderByWithRelationInput | SubscriptionHistoryOrderByWithRelationInput[]
+    cursor?: SubscriptionHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubscriptionHistoryScalarFieldEnum | SubscriptionHistoryScalarFieldEnum[]
+  }
+
+  /**
    * Subscription without action
    */
   export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6867,6 +7227,2295 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SubscriptionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SubscriptionHistory
+   */
+
+  export type AggregateSubscriptionHistory = {
+    _count: SubscriptionHistoryCountAggregateOutputType | null
+    _avg: SubscriptionHistoryAvgAggregateOutputType | null
+    _sum: SubscriptionHistorySumAggregateOutputType | null
+    _min: SubscriptionHistoryMinAggregateOutputType | null
+    _max: SubscriptionHistoryMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionHistoryAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type SubscriptionHistorySumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type SubscriptionHistoryMinAggregateOutputType = {
+    id: string | null
+    subscriptionId: string | null
+    userId: string | null
+    name: string | null
+    platform: string | null
+    plan: string | null
+    amount: Decimal | null
+    currency: string | null
+    billingCycle: $Enums.BillingCycle | null
+    endedAt: Date | null
+  }
+
+  export type SubscriptionHistoryMaxAggregateOutputType = {
+    id: string | null
+    subscriptionId: string | null
+    userId: string | null
+    name: string | null
+    platform: string | null
+    plan: string | null
+    amount: Decimal | null
+    currency: string | null
+    billingCycle: $Enums.BillingCycle | null
+    endedAt: Date | null
+  }
+
+  export type SubscriptionHistoryCountAggregateOutputType = {
+    id: number
+    subscriptionId: number
+    userId: number
+    name: number
+    platform: number
+    plan: number
+    amount: number
+    currency: number
+    billingCycle: number
+    endedAt: number
+    _all: number
+  }
+
+
+  export type SubscriptionHistoryAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type SubscriptionHistorySumAggregateInputType = {
+    amount?: true
+  }
+
+  export type SubscriptionHistoryMinAggregateInputType = {
+    id?: true
+    subscriptionId?: true
+    userId?: true
+    name?: true
+    platform?: true
+    plan?: true
+    amount?: true
+    currency?: true
+    billingCycle?: true
+    endedAt?: true
+  }
+
+  export type SubscriptionHistoryMaxAggregateInputType = {
+    id?: true
+    subscriptionId?: true
+    userId?: true
+    name?: true
+    platform?: true
+    plan?: true
+    amount?: true
+    currency?: true
+    billingCycle?: true
+    endedAt?: true
+  }
+
+  export type SubscriptionHistoryCountAggregateInputType = {
+    id?: true
+    subscriptionId?: true
+    userId?: true
+    name?: true
+    platform?: true
+    plan?: true
+    amount?: true
+    currency?: true
+    billingCycle?: true
+    endedAt?: true
+    _all?: true
+  }
+
+  export type SubscriptionHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubscriptionHistory to aggregate.
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionHistories to fetch.
+     */
+    orderBy?: SubscriptionHistoryOrderByWithRelationInput | SubscriptionHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SubscriptionHistories
+    **/
+    _count?: true | SubscriptionHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubscriptionHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubscriptionHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionHistoryMaxAggregateInputType
+  }
+
+  export type GetSubscriptionHistoryAggregateType<T extends SubscriptionHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscriptionHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscriptionHistory[P]>
+      : GetScalarType<T[P], AggregateSubscriptionHistory[P]>
+  }
+
+
+
+
+  export type SubscriptionHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionHistoryWhereInput
+    orderBy?: SubscriptionHistoryOrderByWithAggregationInput | SubscriptionHistoryOrderByWithAggregationInput[]
+    by: SubscriptionHistoryScalarFieldEnum[] | SubscriptionHistoryScalarFieldEnum
+    having?: SubscriptionHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionHistoryCountAggregateInputType | true
+    _avg?: SubscriptionHistoryAvgAggregateInputType
+    _sum?: SubscriptionHistorySumAggregateInputType
+    _min?: SubscriptionHistoryMinAggregateInputType
+    _max?: SubscriptionHistoryMaxAggregateInputType
+  }
+
+  export type SubscriptionHistoryGroupByOutputType = {
+    id: string
+    subscriptionId: string | null
+    userId: string
+    name: string
+    platform: string | null
+    plan: string | null
+    amount: Decimal
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt: Date
+    _count: SubscriptionHistoryCountAggregateOutputType | null
+    _avg: SubscriptionHistoryAvgAggregateOutputType | null
+    _sum: SubscriptionHistorySumAggregateOutputType | null
+    _min: SubscriptionHistoryMinAggregateOutputType | null
+    _max: SubscriptionHistoryMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionHistoryGroupByPayload<T extends SubscriptionHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subscriptionId?: boolean
+    userId?: boolean
+    name?: boolean
+    platform?: boolean
+    plan?: boolean
+    amount?: boolean
+    currency?: boolean
+    billingCycle?: boolean
+    endedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
+  }, ExtArgs["result"]["subscriptionHistory"]>
+
+  export type SubscriptionHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subscriptionId?: boolean
+    userId?: boolean
+    name?: boolean
+    platform?: boolean
+    plan?: boolean
+    amount?: boolean
+    currency?: boolean
+    billingCycle?: boolean
+    endedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
+  }, ExtArgs["result"]["subscriptionHistory"]>
+
+  export type SubscriptionHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subscriptionId?: boolean
+    userId?: boolean
+    name?: boolean
+    platform?: boolean
+    plan?: boolean
+    amount?: boolean
+    currency?: boolean
+    billingCycle?: boolean
+    endedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
+  }, ExtArgs["result"]["subscriptionHistory"]>
+
+  export type SubscriptionHistorySelectScalar = {
+    id?: boolean
+    subscriptionId?: boolean
+    userId?: boolean
+    name?: boolean
+    platform?: boolean
+    plan?: boolean
+    amount?: boolean
+    currency?: boolean
+    billingCycle?: boolean
+    endedAt?: boolean
+  }
+
+  export type SubscriptionHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subscriptionId" | "userId" | "name" | "platform" | "plan" | "amount" | "currency" | "billingCycle" | "endedAt", ExtArgs["result"]["subscriptionHistory"]>
+  export type SubscriptionHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
+  }
+  export type SubscriptionHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
+  }
+  export type SubscriptionHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
+  }
+
+  export type $SubscriptionHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SubscriptionHistory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      subscriptionId: string | null
+      userId: string
+      name: string
+      platform: string | null
+      plan: string | null
+      amount: Prisma.Decimal
+      currency: string
+      billingCycle: $Enums.BillingCycle
+      endedAt: Date
+    }, ExtArgs["result"]["subscriptionHistory"]>
+    composites: {}
+  }
+
+  type SubscriptionHistoryGetPayload<S extends boolean | null | undefined | SubscriptionHistoryDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionHistoryPayload, S>
+
+  type SubscriptionHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubscriptionHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubscriptionHistoryCountAggregateInputType | true
+    }
+
+  export interface SubscriptionHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SubscriptionHistory'], meta: { name: 'SubscriptionHistory' } }
+    /**
+     * Find zero or one SubscriptionHistory that matches the filter.
+     * @param {SubscriptionHistoryFindUniqueArgs} args - Arguments to find a SubscriptionHistory
+     * @example
+     * // Get one SubscriptionHistory
+     * const subscriptionHistory = await prisma.subscriptionHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionHistoryFindUniqueArgs>(args: SelectSubset<T, SubscriptionHistoryFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SubscriptionHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubscriptionHistoryFindUniqueOrThrowArgs} args - Arguments to find a SubscriptionHistory
+     * @example
+     * // Get one SubscriptionHistory
+     * const subscriptionHistory = await prisma.subscriptionHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubscriptionHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryFindFirstArgs} args - Arguments to find a SubscriptionHistory
+     * @example
+     * // Get one SubscriptionHistory
+     * const subscriptionHistory = await prisma.subscriptionHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionHistoryFindFirstArgs>(args?: SelectSubset<T, SubscriptionHistoryFindFirstArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubscriptionHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryFindFirstOrThrowArgs} args - Arguments to find a SubscriptionHistory
+     * @example
+     * // Get one SubscriptionHistory
+     * const subscriptionHistory = await prisma.subscriptionHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SubscriptionHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SubscriptionHistories
+     * const subscriptionHistories = await prisma.subscriptionHistory.findMany()
+     * 
+     * // Get first 10 SubscriptionHistories
+     * const subscriptionHistories = await prisma.subscriptionHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionHistoryWithIdOnly = await prisma.subscriptionHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionHistoryFindManyArgs>(args?: SelectSubset<T, SubscriptionHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SubscriptionHistory.
+     * @param {SubscriptionHistoryCreateArgs} args - Arguments to create a SubscriptionHistory.
+     * @example
+     * // Create one SubscriptionHistory
+     * const SubscriptionHistory = await prisma.subscriptionHistory.create({
+     *   data: {
+     *     // ... data to create a SubscriptionHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionHistoryCreateArgs>(args: SelectSubset<T, SubscriptionHistoryCreateArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SubscriptionHistories.
+     * @param {SubscriptionHistoryCreateManyArgs} args - Arguments to create many SubscriptionHistories.
+     * @example
+     * // Create many SubscriptionHistories
+     * const subscriptionHistory = await prisma.subscriptionHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionHistoryCreateManyArgs>(args?: SelectSubset<T, SubscriptionHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SubscriptionHistories and returns the data saved in the database.
+     * @param {SubscriptionHistoryCreateManyAndReturnArgs} args - Arguments to create many SubscriptionHistories.
+     * @example
+     * // Create many SubscriptionHistories
+     * const subscriptionHistory = await prisma.subscriptionHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SubscriptionHistories and only return the `id`
+     * const subscriptionHistoryWithIdOnly = await prisma.subscriptionHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubscriptionHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SubscriptionHistory.
+     * @param {SubscriptionHistoryDeleteArgs} args - Arguments to delete one SubscriptionHistory.
+     * @example
+     * // Delete one SubscriptionHistory
+     * const SubscriptionHistory = await prisma.subscriptionHistory.delete({
+     *   where: {
+     *     // ... filter to delete one SubscriptionHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionHistoryDeleteArgs>(args: SelectSubset<T, SubscriptionHistoryDeleteArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SubscriptionHistory.
+     * @param {SubscriptionHistoryUpdateArgs} args - Arguments to update one SubscriptionHistory.
+     * @example
+     * // Update one SubscriptionHistory
+     * const subscriptionHistory = await prisma.subscriptionHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionHistoryUpdateArgs>(args: SelectSubset<T, SubscriptionHistoryUpdateArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SubscriptionHistories.
+     * @param {SubscriptionHistoryDeleteManyArgs} args - Arguments to filter SubscriptionHistories to delete.
+     * @example
+     * // Delete a few SubscriptionHistories
+     * const { count } = await prisma.subscriptionHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionHistoryDeleteManyArgs>(args?: SelectSubset<T, SubscriptionHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubscriptionHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SubscriptionHistories
+     * const subscriptionHistory = await prisma.subscriptionHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionHistoryUpdateManyArgs>(args: SelectSubset<T, SubscriptionHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubscriptionHistories and returns the data updated in the database.
+     * @param {SubscriptionHistoryUpdateManyAndReturnArgs} args - Arguments to update many SubscriptionHistories.
+     * @example
+     * // Update many SubscriptionHistories
+     * const subscriptionHistory = await prisma.subscriptionHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SubscriptionHistories and only return the `id`
+     * const subscriptionHistoryWithIdOnly = await prisma.subscriptionHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubscriptionHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, SubscriptionHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SubscriptionHistory.
+     * @param {SubscriptionHistoryUpsertArgs} args - Arguments to update or create a SubscriptionHistory.
+     * @example
+     * // Update or create a SubscriptionHistory
+     * const subscriptionHistory = await prisma.subscriptionHistory.upsert({
+     *   create: {
+     *     // ... data to create a SubscriptionHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SubscriptionHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionHistoryUpsertArgs>(args: SelectSubset<T, SubscriptionHistoryUpsertArgs<ExtArgs>>): Prisma__SubscriptionHistoryClient<$Result.GetResult<Prisma.$SubscriptionHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SubscriptionHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryCountArgs} args - Arguments to filter SubscriptionHistories to count.
+     * @example
+     * // Count the number of SubscriptionHistories
+     * const count = await prisma.subscriptionHistory.count({
+     *   where: {
+     *     // ... the filter for the SubscriptionHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionHistoryCountArgs>(
+      args?: Subset<T, SubscriptionHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SubscriptionHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionHistoryAggregateArgs>(args: Subset<T, SubscriptionHistoryAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionHistoryAggregateType<T>>
+
+    /**
+     * Group by SubscriptionHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SubscriptionHistory model
+   */
+  readonly fields: SubscriptionHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SubscriptionHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    subscription<T extends SubscriptionHistory$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionHistory$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SubscriptionHistory model
+   */
+  interface SubscriptionHistoryFieldRefs {
+    readonly id: FieldRef<"SubscriptionHistory", 'String'>
+    readonly subscriptionId: FieldRef<"SubscriptionHistory", 'String'>
+    readonly userId: FieldRef<"SubscriptionHistory", 'String'>
+    readonly name: FieldRef<"SubscriptionHistory", 'String'>
+    readonly platform: FieldRef<"SubscriptionHistory", 'String'>
+    readonly plan: FieldRef<"SubscriptionHistory", 'String'>
+    readonly amount: FieldRef<"SubscriptionHistory", 'Decimal'>
+    readonly currency: FieldRef<"SubscriptionHistory", 'String'>
+    readonly billingCycle: FieldRef<"SubscriptionHistory", 'BillingCycle'>
+    readonly endedAt: FieldRef<"SubscriptionHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SubscriptionHistory findUnique
+   */
+  export type SubscriptionHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionHistory to fetch.
+     */
+    where: SubscriptionHistoryWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionHistory findUniqueOrThrow
+   */
+  export type SubscriptionHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionHistory to fetch.
+     */
+    where: SubscriptionHistoryWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionHistory findFirst
+   */
+  export type SubscriptionHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionHistory to fetch.
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionHistories to fetch.
+     */
+    orderBy?: SubscriptionHistoryOrderByWithRelationInput | SubscriptionHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubscriptionHistories.
+     */
+    cursor?: SubscriptionHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubscriptionHistories.
+     */
+    distinct?: SubscriptionHistoryScalarFieldEnum | SubscriptionHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * SubscriptionHistory findFirstOrThrow
+   */
+  export type SubscriptionHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionHistory to fetch.
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionHistories to fetch.
+     */
+    orderBy?: SubscriptionHistoryOrderByWithRelationInput | SubscriptionHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubscriptionHistories.
+     */
+    cursor?: SubscriptionHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubscriptionHistories.
+     */
+    distinct?: SubscriptionHistoryScalarFieldEnum | SubscriptionHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * SubscriptionHistory findMany
+   */
+  export type SubscriptionHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SubscriptionHistories to fetch.
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubscriptionHistories to fetch.
+     */
+    orderBy?: SubscriptionHistoryOrderByWithRelationInput | SubscriptionHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SubscriptionHistories.
+     */
+    cursor?: SubscriptionHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubscriptionHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubscriptionHistories.
+     */
+    skip?: number
+    distinct?: SubscriptionHistoryScalarFieldEnum | SubscriptionHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * SubscriptionHistory create
+   */
+  export type SubscriptionHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SubscriptionHistory.
+     */
+    data: XOR<SubscriptionHistoryCreateInput, SubscriptionHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * SubscriptionHistory createMany
+   */
+  export type SubscriptionHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SubscriptionHistories.
+     */
+    data: SubscriptionHistoryCreateManyInput | SubscriptionHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SubscriptionHistory createManyAndReturn
+   */
+  export type SubscriptionHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many SubscriptionHistories.
+     */
+    data: SubscriptionHistoryCreateManyInput | SubscriptionHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubscriptionHistory update
+   */
+  export type SubscriptionHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SubscriptionHistory.
+     */
+    data: XOR<SubscriptionHistoryUpdateInput, SubscriptionHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which SubscriptionHistory to update.
+     */
+    where: SubscriptionHistoryWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionHistory updateMany
+   */
+  export type SubscriptionHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SubscriptionHistories.
+     */
+    data: XOR<SubscriptionHistoryUpdateManyMutationInput, SubscriptionHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which SubscriptionHistories to update
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * Limit how many SubscriptionHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubscriptionHistory updateManyAndReturn
+   */
+  export type SubscriptionHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update SubscriptionHistories.
+     */
+    data: XOR<SubscriptionHistoryUpdateManyMutationInput, SubscriptionHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which SubscriptionHistories to update
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * Limit how many SubscriptionHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubscriptionHistory upsert
+   */
+  export type SubscriptionHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SubscriptionHistory to update in case it exists.
+     */
+    where: SubscriptionHistoryWhereUniqueInput
+    /**
+     * In case the SubscriptionHistory found by the `where` argument doesn't exist, create a new SubscriptionHistory with this data.
+     */
+    create: XOR<SubscriptionHistoryCreateInput, SubscriptionHistoryUncheckedCreateInput>
+    /**
+     * In case the SubscriptionHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionHistoryUpdateInput, SubscriptionHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * SubscriptionHistory delete
+   */
+  export type SubscriptionHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which SubscriptionHistory to delete.
+     */
+    where: SubscriptionHistoryWhereUniqueInput
+  }
+
+  /**
+   * SubscriptionHistory deleteMany
+   */
+  export type SubscriptionHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubscriptionHistories to delete
+     */
+    where?: SubscriptionHistoryWhereInput
+    /**
+     * Limit how many SubscriptionHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubscriptionHistory.subscription
+   */
+  export type SubscriptionHistory$subscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    where?: SubscriptionWhereInput
+  }
+
+  /**
+   * SubscriptionHistory without action
+   */
+  export type SubscriptionHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubscriptionHistory
+     */
+    select?: SubscriptionHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubscriptionHistory
+     */
+    omit?: SubscriptionHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NotificationSettings
+   */
+
+  export type AggregateNotificationSettings = {
+    _count: NotificationSettingsCountAggregateOutputType | null
+    _avg: NotificationSettingsAvgAggregateOutputType | null
+    _sum: NotificationSettingsSumAggregateOutputType | null
+    _min: NotificationSettingsMinAggregateOutputType | null
+    _max: NotificationSettingsMaxAggregateOutputType | null
+  }
+
+  export type NotificationSettingsAvgAggregateOutputType = {
+    reminderDayBefore: number | null
+  }
+
+  export type NotificationSettingsSumAggregateOutputType = {
+    reminderDayBefore: number | null
+  }
+
+  export type NotificationSettingsMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    reminderDayBefore: number | null
+    emailReminders: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationSettingsMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    reminderDayBefore: number | null
+    emailReminders: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationSettingsCountAggregateOutputType = {
+    id: number
+    userId: number
+    reminderDayBefore: number
+    emailReminders: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NotificationSettingsAvgAggregateInputType = {
+    reminderDayBefore?: true
+  }
+
+  export type NotificationSettingsSumAggregateInputType = {
+    reminderDayBefore?: true
+  }
+
+  export type NotificationSettingsMinAggregateInputType = {
+    id?: true
+    userId?: true
+    reminderDayBefore?: true
+    emailReminders?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationSettingsMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    reminderDayBefore?: true
+    emailReminders?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationSettingsCountAggregateInputType = {
+    id?: true
+    userId?: true
+    reminderDayBefore?: true
+    emailReminders?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NotificationSettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationSettings to aggregate.
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationSettings to fetch.
+     */
+    orderBy?: NotificationSettingsOrderByWithRelationInput | NotificationSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NotificationSettings
+    **/
+    _count?: true | NotificationSettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NotificationSettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NotificationSettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationSettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationSettingsMaxAggregateInputType
+  }
+
+  export type GetNotificationSettingsAggregateType<T extends NotificationSettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotificationSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotificationSettings[P]>
+      : GetScalarType<T[P], AggregateNotificationSettings[P]>
+  }
+
+
+
+
+  export type NotificationSettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationSettingsWhereInput
+    orderBy?: NotificationSettingsOrderByWithAggregationInput | NotificationSettingsOrderByWithAggregationInput[]
+    by: NotificationSettingsScalarFieldEnum[] | NotificationSettingsScalarFieldEnum
+    having?: NotificationSettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationSettingsCountAggregateInputType | true
+    _avg?: NotificationSettingsAvgAggregateInputType
+    _sum?: NotificationSettingsSumAggregateInputType
+    _min?: NotificationSettingsMinAggregateInputType
+    _max?: NotificationSettingsMaxAggregateInputType
+  }
+
+  export type NotificationSettingsGroupByOutputType = {
+    id: string
+    userId: string
+    reminderDayBefore: number
+    emailReminders: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: NotificationSettingsCountAggregateOutputType | null
+    _avg: NotificationSettingsAvgAggregateOutputType | null
+    _sum: NotificationSettingsSumAggregateOutputType | null
+    _min: NotificationSettingsMinAggregateOutputType | null
+    _max: NotificationSettingsMaxAggregateOutputType | null
+  }
+
+  type GetNotificationSettingsGroupByPayload<T extends NotificationSettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationSettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationSettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationSettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationSettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    reminderDayBefore?: boolean
+    emailReminders?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationSettings"]>
+
+  export type NotificationSettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    reminderDayBefore?: boolean
+    emailReminders?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationSettings"]>
+
+  export type NotificationSettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    reminderDayBefore?: boolean
+    emailReminders?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationSettings"]>
+
+  export type NotificationSettingsSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    reminderDayBefore?: boolean
+    emailReminders?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NotificationSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "reminderDayBefore" | "emailReminders" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationSettings"]>
+  export type NotificationSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationSettingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationSettingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NotificationSettings"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      reminderDayBefore: number
+      emailReminders: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["notificationSettings"]>
+    composites: {}
+  }
+
+  type NotificationSettingsGetPayload<S extends boolean | null | undefined | NotificationSettingsDefaultArgs> = $Result.GetResult<Prisma.$NotificationSettingsPayload, S>
+
+  type NotificationSettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationSettingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationSettingsCountAggregateInputType | true
+    }
+
+  export interface NotificationSettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NotificationSettings'], meta: { name: 'NotificationSettings' } }
+    /**
+     * Find zero or one NotificationSettings that matches the filter.
+     * @param {NotificationSettingsFindUniqueArgs} args - Arguments to find a NotificationSettings
+     * @example
+     * // Get one NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationSettingsFindUniqueArgs>(args: SelectSubset<T, NotificationSettingsFindUniqueArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NotificationSettings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationSettingsFindUniqueOrThrowArgs} args - Arguments to find a NotificationSettings
+     * @example
+     * // Get one NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationSettingsFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationSettingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsFindFirstArgs} args - Arguments to find a NotificationSettings
+     * @example
+     * // Get one NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationSettingsFindFirstArgs>(args?: SelectSubset<T, NotificationSettingsFindFirstArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationSettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsFindFirstOrThrowArgs} args - Arguments to find a NotificationSettings
+     * @example
+     * // Get one NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationSettingsFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationSettingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NotificationSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.findMany()
+     * 
+     * // Get first 10 NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationSettingsWithIdOnly = await prisma.notificationSettings.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationSettingsFindManyArgs>(args?: SelectSubset<T, NotificationSettingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NotificationSettings.
+     * @param {NotificationSettingsCreateArgs} args - Arguments to create a NotificationSettings.
+     * @example
+     * // Create one NotificationSettings
+     * const NotificationSettings = await prisma.notificationSettings.create({
+     *   data: {
+     *     // ... data to create a NotificationSettings
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationSettingsCreateArgs>(args: SelectSubset<T, NotificationSettingsCreateArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NotificationSettings.
+     * @param {NotificationSettingsCreateManyArgs} args - Arguments to create many NotificationSettings.
+     * @example
+     * // Create many NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationSettingsCreateManyArgs>(args?: SelectSubset<T, NotificationSettingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NotificationSettings and returns the data saved in the database.
+     * @param {NotificationSettingsCreateManyAndReturnArgs} args - Arguments to create many NotificationSettings.
+     * @example
+     * // Create many NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NotificationSettings and only return the `id`
+     * const notificationSettingsWithIdOnly = await prisma.notificationSettings.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationSettingsCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationSettingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NotificationSettings.
+     * @param {NotificationSettingsDeleteArgs} args - Arguments to delete one NotificationSettings.
+     * @example
+     * // Delete one NotificationSettings
+     * const NotificationSettings = await prisma.notificationSettings.delete({
+     *   where: {
+     *     // ... filter to delete one NotificationSettings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationSettingsDeleteArgs>(args: SelectSubset<T, NotificationSettingsDeleteArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NotificationSettings.
+     * @param {NotificationSettingsUpdateArgs} args - Arguments to update one NotificationSettings.
+     * @example
+     * // Update one NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationSettingsUpdateArgs>(args: SelectSubset<T, NotificationSettingsUpdateArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NotificationSettings.
+     * @param {NotificationSettingsDeleteManyArgs} args - Arguments to filter NotificationSettings to delete.
+     * @example
+     * // Delete a few NotificationSettings
+     * const { count } = await prisma.notificationSettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationSettingsDeleteManyArgs>(args?: SelectSubset<T, NotificationSettingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationSettingsUpdateManyArgs>(args: SelectSubset<T, NotificationSettingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationSettings and returns the data updated in the database.
+     * @param {NotificationSettingsUpdateManyAndReturnArgs} args - Arguments to update many NotificationSettings.
+     * @example
+     * // Update many NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NotificationSettings and only return the `id`
+     * const notificationSettingsWithIdOnly = await prisma.notificationSettings.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationSettingsUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationSettingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NotificationSettings.
+     * @param {NotificationSettingsUpsertArgs} args - Arguments to update or create a NotificationSettings.
+     * @example
+     * // Update or create a NotificationSettings
+     * const notificationSettings = await prisma.notificationSettings.upsert({
+     *   create: {
+     *     // ... data to create a NotificationSettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NotificationSettings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationSettingsUpsertArgs>(args: SelectSubset<T, NotificationSettingsUpsertArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NotificationSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsCountArgs} args - Arguments to filter NotificationSettings to count.
+     * @example
+     * // Count the number of NotificationSettings
+     * const count = await prisma.notificationSettings.count({
+     *   where: {
+     *     // ... the filter for the NotificationSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationSettingsCountArgs>(
+      args?: Subset<T, NotificationSettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationSettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NotificationSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationSettingsAggregateArgs>(args: Subset<T, NotificationSettingsAggregateArgs>): Prisma.PrismaPromise<GetNotificationSettingsAggregateType<T>>
+
+    /**
+     * Group by NotificationSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationSettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationSettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationSettingsGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationSettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationSettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NotificationSettings model
+   */
+  readonly fields: NotificationSettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NotificationSettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NotificationSettings model
+   */
+  interface NotificationSettingsFieldRefs {
+    readonly id: FieldRef<"NotificationSettings", 'String'>
+    readonly userId: FieldRef<"NotificationSettings", 'String'>
+    readonly reminderDayBefore: FieldRef<"NotificationSettings", 'Int'>
+    readonly emailReminders: FieldRef<"NotificationSettings", 'Boolean'>
+    readonly createdAt: FieldRef<"NotificationSettings", 'DateTime'>
+    readonly updatedAt: FieldRef<"NotificationSettings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NotificationSettings findUnique
+   */
+  export type NotificationSettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationSettings to fetch.
+     */
+    where: NotificationSettingsWhereUniqueInput
+  }
+
+  /**
+   * NotificationSettings findUniqueOrThrow
+   */
+  export type NotificationSettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationSettings to fetch.
+     */
+    where: NotificationSettingsWhereUniqueInput
+  }
+
+  /**
+   * NotificationSettings findFirst
+   */
+  export type NotificationSettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationSettings to fetch.
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationSettings to fetch.
+     */
+    orderBy?: NotificationSettingsOrderByWithRelationInput | NotificationSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationSettings.
+     */
+    cursor?: NotificationSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationSettings.
+     */
+    distinct?: NotificationSettingsScalarFieldEnum | NotificationSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationSettings findFirstOrThrow
+   */
+  export type NotificationSettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationSettings to fetch.
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationSettings to fetch.
+     */
+    orderBy?: NotificationSettingsOrderByWithRelationInput | NotificationSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationSettings.
+     */
+    cursor?: NotificationSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationSettings.
+     */
+    distinct?: NotificationSettingsScalarFieldEnum | NotificationSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationSettings findMany
+   */
+  export type NotificationSettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationSettings to fetch.
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationSettings to fetch.
+     */
+    orderBy?: NotificationSettingsOrderByWithRelationInput | NotificationSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NotificationSettings.
+     */
+    cursor?: NotificationSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationSettings.
+     */
+    skip?: number
+    distinct?: NotificationSettingsScalarFieldEnum | NotificationSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationSettings create
+   */
+  export type NotificationSettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NotificationSettings.
+     */
+    data: XOR<NotificationSettingsCreateInput, NotificationSettingsUncheckedCreateInput>
+  }
+
+  /**
+   * NotificationSettings createMany
+   */
+  export type NotificationSettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NotificationSettings.
+     */
+    data: NotificationSettingsCreateManyInput | NotificationSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NotificationSettings createManyAndReturn
+   */
+  export type NotificationSettingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many NotificationSettings.
+     */
+    data: NotificationSettingsCreateManyInput | NotificationSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotificationSettings update
+   */
+  export type NotificationSettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NotificationSettings.
+     */
+    data: XOR<NotificationSettingsUpdateInput, NotificationSettingsUncheckedUpdateInput>
+    /**
+     * Choose, which NotificationSettings to update.
+     */
+    where: NotificationSettingsWhereUniqueInput
+  }
+
+  /**
+   * NotificationSettings updateMany
+   */
+  export type NotificationSettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NotificationSettings.
+     */
+    data: XOR<NotificationSettingsUpdateManyMutationInput, NotificationSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationSettings to update
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * Limit how many NotificationSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationSettings updateManyAndReturn
+   */
+  export type NotificationSettingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to update NotificationSettings.
+     */
+    data: XOR<NotificationSettingsUpdateManyMutationInput, NotificationSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationSettings to update
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * Limit how many NotificationSettings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotificationSettings upsert
+   */
+  export type NotificationSettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NotificationSettings to update in case it exists.
+     */
+    where: NotificationSettingsWhereUniqueInput
+    /**
+     * In case the NotificationSettings found by the `where` argument doesn't exist, create a new NotificationSettings with this data.
+     */
+    create: XOR<NotificationSettingsCreateInput, NotificationSettingsUncheckedCreateInput>
+    /**
+     * In case the NotificationSettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationSettingsUpdateInput, NotificationSettingsUncheckedUpdateInput>
+  }
+
+  /**
+   * NotificationSettings delete
+   */
+  export type NotificationSettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
+    /**
+     * Filter which NotificationSettings to delete.
+     */
+    where: NotificationSettingsWhereUniqueInput
+  }
+
+  /**
+   * NotificationSettings deleteMany
+   */
+  export type NotificationSettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationSettings to delete
+     */
+    where?: NotificationSettingsWhereInput
+    /**
+     * Limit how many NotificationSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationSettings without action
+   */
+  export type NotificationSettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationSettings
+     */
+    select?: NotificationSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationSettings
+     */
+    omit?: NotificationSettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationSettingsInclude<ExtArgs> | null
   }
 
 
@@ -6890,7 +9539,6 @@ export namespace Prisma {
     email: 'email',
     emailVerified: 'emailVerified',
     image: 'image',
-    customavatar: 'customavatar',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -6945,18 +9593,50 @@ export namespace Prisma {
 
   export const SubscriptionScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     name: 'name',
+    platform: 'platform',
     plan: 'plan',
     amount: 'amount',
+    currency: 'currency',
     billingCycle: 'billingCycle',
+    interval: 'interval',
     nextBillingDate: 'nextBillingDate',
     reminderBefore: 'reminderBefore',
-    userId: 'userId',
-    createdAt: 'createdAt',
+    status: 'status',
+    createAt: 'createAt',
     updatedAt: 'updatedAt'
   };
 
   export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+  export const SubscriptionHistoryScalarFieldEnum: {
+    id: 'id',
+    subscriptionId: 'subscriptionId',
+    userId: 'userId',
+    name: 'name',
+    platform: 'platform',
+    plan: 'plan',
+    amount: 'amount',
+    currency: 'currency',
+    billingCycle: 'billingCycle',
+    endedAt: 'endedAt'
+  };
+
+  export type SubscriptionHistoryScalarFieldEnum = (typeof SubscriptionHistoryScalarFieldEnum)[keyof typeof SubscriptionHistoryScalarFieldEnum]
+
+
+  export const NotificationSettingsScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    reminderDayBefore: 'reminderDayBefore',
+    emailReminders: 'emailReminders',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NotificationSettingsScalarFieldEnum = (typeof NotificationSettingsScalarFieldEnum)[keyof typeof NotificationSettingsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7024,16 +9704,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Decimal'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Decimal[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -7048,6 +9728,34 @@ export namespace Prisma {
    * Reference to a field of type 'BillingCycle[]'
    */
   export type ListEnumBillingCycleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillingCycle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionStatus'
+   */
+  export type EnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionStatus[]'
+   */
+  export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>
     
 
 
@@ -7077,12 +9785,13 @@ export namespace Prisma {
     email?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
     image?: StringNullableFilter<"User"> | string | null
-    customavatar?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     subscriptions?: SubscriptionListRelationFilter
+    history?: SubscriptionHistoryListRelationFilter
+    settings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7091,12 +9800,13 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     emailVerified?: SortOrder
     image?: SortOrderInput | SortOrder
-    customavatar?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     subscriptions?: SubscriptionOrderByRelationAggregateInput
+    history?: SubscriptionHistoryOrderByRelationAggregateInput
+    settings?: NotificationSettingsOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7108,12 +9818,13 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
     image?: StringNullableFilter<"User"> | string | null
-    customavatar?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     subscriptions?: SubscriptionListRelationFilter
+    history?: SubscriptionHistoryListRelationFilter
+    settings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7122,7 +9833,6 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     emailVerified?: SortOrder
     image?: SortOrderInput | SortOrder
-    customavatar?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -7139,7 +9849,6 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
-    customavatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -7371,30 +10080,40 @@ export namespace Prisma {
     OR?: SubscriptionWhereInput[]
     NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
     id?: StringFilter<"Subscription"> | string
+    userId?: StringFilter<"Subscription"> | string
     name?: StringFilter<"Subscription"> | string
+    platform?: StringNullableFilter<"Subscription"> | string | null
     plan?: StringNullableFilter<"Subscription"> | string | null
-    amount?: IntFilter<"Subscription"> | number
+    amount?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleFilter<"Subscription"> | $Enums.BillingCycle
+    interval?: IntFilter<"Subscription"> | number
     nextBillingDate?: DateTimeFilter<"Subscription"> | Date | string
     reminderBefore?: IntFilter<"Subscription"> | number
-    userId?: StringFilter<"Subscription"> | string
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
+    createAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    history?: SubscriptionHistoryListRelationFilter
   }
 
   export type SubscriptionOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
+    platform?: SortOrderInput | SortOrder
     plan?: SortOrderInput | SortOrder
     amount?: SortOrder
+    currency?: SortOrder
     billingCycle?: SortOrder
+    interval?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    history?: SubscriptionHistoryOrderByRelationAggregateInput
   }
 
   export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
@@ -7402,28 +10121,37 @@ export namespace Prisma {
     AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
     OR?: SubscriptionWhereInput[]
     NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    userId?: StringFilter<"Subscription"> | string
     name?: StringFilter<"Subscription"> | string
+    platform?: StringNullableFilter<"Subscription"> | string | null
     plan?: StringNullableFilter<"Subscription"> | string | null
-    amount?: IntFilter<"Subscription"> | number
+    amount?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleFilter<"Subscription"> | $Enums.BillingCycle
+    interval?: IntFilter<"Subscription"> | number
     nextBillingDate?: DateTimeFilter<"Subscription"> | Date | string
     reminderBefore?: IntFilter<"Subscription"> | number
-    userId?: StringFilter<"Subscription"> | string
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
+    createAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    history?: SubscriptionHistoryListRelationFilter
   }, "id">
 
   export type SubscriptionOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
+    platform?: SortOrderInput | SortOrder
     plan?: SortOrderInput | SortOrder
     amount?: SortOrder
+    currency?: SortOrder
     billingCycle?: SortOrder
+    interval?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SubscriptionCountOrderByAggregateInput
     _avg?: SubscriptionAvgOrderByAggregateInput
@@ -7437,15 +10165,166 @@ export namespace Prisma {
     OR?: SubscriptionScalarWhereWithAggregatesInput[]
     NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Subscription"> | string
+    userId?: StringWithAggregatesFilter<"Subscription"> | string
     name?: StringWithAggregatesFilter<"Subscription"> | string
+    platform?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     plan?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
-    amount?: IntWithAggregatesFilter<"Subscription"> | number
+    amount?: DecimalWithAggregatesFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleWithAggregatesFilter<"Subscription"> | $Enums.BillingCycle
+    interval?: IntWithAggregatesFilter<"Subscription"> | number
     nextBillingDate?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     reminderBefore?: IntWithAggregatesFilter<"Subscription"> | number
-    userId?: StringWithAggregatesFilter<"Subscription"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    status?: EnumSubscriptionStatusWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionStatus
+    createAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+  }
+
+  export type SubscriptionHistoryWhereInput = {
+    AND?: SubscriptionHistoryWhereInput | SubscriptionHistoryWhereInput[]
+    OR?: SubscriptionHistoryWhereInput[]
+    NOT?: SubscriptionHistoryWhereInput | SubscriptionHistoryWhereInput[]
+    id?: StringFilter<"SubscriptionHistory"> | string
+    subscriptionId?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    userId?: StringFilter<"SubscriptionHistory"> | string
+    name?: StringFilter<"SubscriptionHistory"> | string
+    platform?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    plan?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    amount?: DecimalFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"SubscriptionHistory"> | string
+    billingCycle?: EnumBillingCycleFilter<"SubscriptionHistory"> | $Enums.BillingCycle
+    endedAt?: DateTimeFilter<"SubscriptionHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+  }
+
+  export type SubscriptionHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    platform?: SortOrderInput | SortOrder
+    plan?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    billingCycle?: SortOrder
+    endedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    subscription?: SubscriptionOrderByWithRelationInput
+  }
+
+  export type SubscriptionHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SubscriptionHistoryWhereInput | SubscriptionHistoryWhereInput[]
+    OR?: SubscriptionHistoryWhereInput[]
+    NOT?: SubscriptionHistoryWhereInput | SubscriptionHistoryWhereInput[]
+    subscriptionId?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    userId?: StringFilter<"SubscriptionHistory"> | string
+    name?: StringFilter<"SubscriptionHistory"> | string
+    platform?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    plan?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    amount?: DecimalFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"SubscriptionHistory"> | string
+    billingCycle?: EnumBillingCycleFilter<"SubscriptionHistory"> | $Enums.BillingCycle
+    endedAt?: DateTimeFilter<"SubscriptionHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+  }, "id">
+
+  export type SubscriptionHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    platform?: SortOrderInput | SortOrder
+    plan?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    billingCycle?: SortOrder
+    endedAt?: SortOrder
+    _count?: SubscriptionHistoryCountOrderByAggregateInput
+    _avg?: SubscriptionHistoryAvgOrderByAggregateInput
+    _max?: SubscriptionHistoryMaxOrderByAggregateInput
+    _min?: SubscriptionHistoryMinOrderByAggregateInput
+    _sum?: SubscriptionHistorySumOrderByAggregateInput
+  }
+
+  export type SubscriptionHistoryScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionHistoryScalarWhereWithAggregatesInput | SubscriptionHistoryScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionHistoryScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionHistoryScalarWhereWithAggregatesInput | SubscriptionHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
+    subscriptionId?: StringNullableWithAggregatesFilter<"SubscriptionHistory"> | string | null
+    userId?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
+    name?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
+    platform?: StringNullableWithAggregatesFilter<"SubscriptionHistory"> | string | null
+    plan?: StringNullableWithAggregatesFilter<"SubscriptionHistory"> | string | null
+    amount?: DecimalWithAggregatesFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
+    billingCycle?: EnumBillingCycleWithAggregatesFilter<"SubscriptionHistory"> | $Enums.BillingCycle
+    endedAt?: DateTimeWithAggregatesFilter<"SubscriptionHistory"> | Date | string
+  }
+
+  export type NotificationSettingsWhereInput = {
+    AND?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
+    OR?: NotificationSettingsWhereInput[]
+    NOT?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
+    id?: StringFilter<"NotificationSettings"> | string
+    userId?: StringFilter<"NotificationSettings"> | string
+    reminderDayBefore?: IntFilter<"NotificationSettings"> | number
+    emailReminders?: BoolFilter<"NotificationSettings"> | boolean
+    createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationSettingsOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    reminderDayBefore?: SortOrder
+    emailReminders?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationSettingsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
+    OR?: NotificationSettingsWhereInput[]
+    NOT?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
+    reminderDayBefore?: IntFilter<"NotificationSettings"> | number
+    emailReminders?: BoolFilter<"NotificationSettings"> | boolean
+    createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type NotificationSettingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    reminderDayBefore?: SortOrder
+    emailReminders?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NotificationSettingsCountOrderByAggregateInput
+    _avg?: NotificationSettingsAvgOrderByAggregateInput
+    _max?: NotificationSettingsMaxOrderByAggregateInput
+    _min?: NotificationSettingsMinOrderByAggregateInput
+    _sum?: NotificationSettingsSumOrderByAggregateInput
+  }
+
+  export type NotificationSettingsScalarWhereWithAggregatesInput = {
+    AND?: NotificationSettingsScalarWhereWithAggregatesInput | NotificationSettingsScalarWhereWithAggregatesInput[]
+    OR?: NotificationSettingsScalarWhereWithAggregatesInput[]
+    NOT?: NotificationSettingsScalarWhereWithAggregatesInput | NotificationSettingsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NotificationSettings"> | string
+    userId?: StringWithAggregatesFilter<"NotificationSettings"> | string
+    reminderDayBefore?: IntWithAggregatesFilter<"NotificationSettings"> | number
+    emailReminders?: BoolWithAggregatesFilter<"NotificationSettings"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"NotificationSettings"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NotificationSettings"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -7454,12 +10333,13 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7468,12 +10348,13 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7482,12 +10363,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7496,12 +10378,13 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7510,7 +10393,6 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7521,7 +10403,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7532,7 +10413,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7790,89 +10670,272 @@ export namespace Prisma {
   export type SubscriptionCreateInput = {
     id?: string
     name: string
+    platform?: string | null
     plan?: string | null
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     billingCycle: $Enums.BillingCycle
+    interval?: number
     nextBillingDate: Date | string
-    reminderBefore: number
-    createdAt?: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSubscriptionsInput
+    history?: SubscriptionHistoryCreateNestedManyWithoutSubscriptionInput
   }
 
   export type SubscriptionUncheckedCreateInput = {
     id?: string
-    name: string
-    plan?: string | null
-    amount: number
-    billingCycle: $Enums.BillingCycle
-    nextBillingDate: Date | string
-    reminderBefore: number
     userId: string
-    createdAt?: Date | string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    billingCycle: $Enums.BillingCycle
+    interval?: number
+    nextBillingDate: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
     updatedAt?: Date | string
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutSubscriptionInput
   }
 
   export type SubscriptionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubscriptionsNestedInput
+    history?: SubscriptionHistoryUpdateManyWithoutSubscriptionNestedInput
   }
 
   export type SubscriptionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionNestedInput
   }
 
   export type SubscriptionCreateManyInput = {
     id?: string
-    name: string
-    plan?: string | null
-    amount: number
-    billingCycle: $Enums.BillingCycle
-    nextBillingDate: Date | string
-    reminderBefore: number
     userId: string
-    createdAt?: Date | string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    billingCycle: $Enums.BillingCycle
+    interval?: number
+    nextBillingDate: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SubscriptionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubscriptionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryCreateInput = {
+    id?: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+    user: UserCreateNestedOneWithoutHistoryInput
+    subscription?: SubscriptionCreateNestedOneWithoutHistoryInput
+  }
+
+  export type SubscriptionHistoryUncheckedCreateInput = {
+    id?: string
+    subscriptionId?: string | null
+    userId: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+  }
+
+  export type SubscriptionHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutHistoryNestedInput
+    subscription?: SubscriptionUpdateOneWithoutHistoryNestedInput
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryCreateManyInput = {
+    id?: string
+    subscriptionId?: string | null
+    userId: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+  }
+
+  export type SubscriptionHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationSettingsCreateInput = {
+    id?: string
+    reminderDayBefore?: number
+    emailReminders?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSettingsInput
+  }
+
+  export type NotificationSettingsUncheckedCreateInput = {
+    id?: string
+    userId: string
+    reminderDayBefore?: number
+    emailReminders?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationSettingsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    emailReminders?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSettingsNestedInput
+  }
+
+  export type NotificationSettingsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    emailReminders?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationSettingsCreateManyInput = {
+    id?: string
+    userId: string
+    reminderDayBefore?: number
+    emailReminders?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationSettingsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    emailReminders?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationSettingsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7941,6 +11004,17 @@ export namespace Prisma {
     none?: SubscriptionWhereInput
   }
 
+  export type SubscriptionHistoryListRelationFilter = {
+    every?: SubscriptionHistoryWhereInput
+    some?: SubscriptionHistoryWhereInput
+    none?: SubscriptionHistoryWhereInput
+  }
+
+  export type NotificationSettingsNullableScalarRelationFilter = {
+    is?: NotificationSettingsWhereInput | null
+    isNot?: NotificationSettingsWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -7958,13 +11032,16 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type SubscriptionHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    customavatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7975,7 +11052,6 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    customavatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -7986,7 +11062,6 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     image?: SortOrder
-    customavatar?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8187,6 +11262,24 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumBillingCycleFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8198,60 +11291,100 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type EnumBillingCycleFilter<$PrismaModel = never> = {
-    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
-    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
+  export type EnumSubscriptionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusFilter<$PrismaModel> | $Enums.SubscriptionStatus
   }
 
   export type SubscriptionCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
+    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
+    currency?: SortOrder
     billingCycle?: SortOrder
+    interval?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SubscriptionAvgOrderByAggregateInput = {
     amount?: SortOrder
+    interval?: SortOrder
     reminderBefore?: SortOrder
   }
 
   export type SubscriptionMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
+    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
+    currency?: SortOrder
     billingCycle?: SortOrder
+    interval?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SubscriptionMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
+    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
+    currency?: SortOrder
     billingCycle?: SortOrder
+    interval?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SubscriptionSumOrderByAggregateInput = {
     amount?: SortOrder
+    interval?: SortOrder
     reminderBefore?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type EnumBillingCycleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel> | $Enums.BillingCycle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBillingCycleFilter<$PrismaModel>
+    _max?: NestedEnumBillingCycleFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8270,14 +11403,101 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumBillingCycleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
-    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel> | $Enums.BillingCycle
+  export type EnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBillingCycleFilter<$PrismaModel>
-    _max?: NestedEnumBillingCycleFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+  }
+
+  export type SubscriptionNullableScalarRelationFilter = {
+    is?: SubscriptionWhereInput | null
+    isNot?: SubscriptionWhereInput | null
+  }
+
+  export type SubscriptionHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    platform?: SortOrder
+    plan?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    billingCycle?: SortOrder
+    endedAt?: SortOrder
+  }
+
+  export type SubscriptionHistoryAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type SubscriptionHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    platform?: SortOrder
+    plan?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    billingCycle?: SortOrder
+    endedAt?: SortOrder
+  }
+
+  export type SubscriptionHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    platform?: SortOrder
+    plan?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    billingCycle?: SortOrder
+    endedAt?: SortOrder
+  }
+
+  export type SubscriptionHistorySumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type NotificationSettingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    reminderDayBefore?: SortOrder
+    emailReminders?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationSettingsAvgOrderByAggregateInput = {
+    reminderDayBefore?: SortOrder
+  }
+
+  export type NotificationSettingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    reminderDayBefore?: SortOrder
+    emailReminders?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationSettingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    reminderDayBefore?: SortOrder
+    emailReminders?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationSettingsSumOrderByAggregateInput = {
+    reminderDayBefore?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -8301,6 +11521,19 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
   }
 
+  export type SubscriptionHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutUserInput, SubscriptionHistoryUncheckedCreateWithoutUserInput> | SubscriptionHistoryCreateWithoutUserInput[] | SubscriptionHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutUserInput | SubscriptionHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: SubscriptionHistoryCreateManyUserInputEnvelope
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+  }
+
+  export type NotificationSettingsCreateNestedOneWithoutUserInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    connect?: NotificationSettingsWhereUniqueInput
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -8320,6 +11553,19 @@ export namespace Prisma {
     connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput | SubscriptionCreateOrConnectWithoutUserInput[]
     createMany?: SubscriptionCreateManyUserInputEnvelope
     connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+  }
+
+  export type SubscriptionHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutUserInput, SubscriptionHistoryUncheckedCreateWithoutUserInput> | SubscriptionHistoryCreateWithoutUserInput[] | SubscriptionHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutUserInput | SubscriptionHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: SubscriptionHistoryCreateManyUserInputEnvelope
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+  }
+
+  export type NotificationSettingsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    connect?: NotificationSettingsWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8380,6 +11626,30 @@ export namespace Prisma {
     deleteMany?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
   }
 
+  export type SubscriptionHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutUserInput, SubscriptionHistoryUncheckedCreateWithoutUserInput> | SubscriptionHistoryCreateWithoutUserInput[] | SubscriptionHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutUserInput | SubscriptionHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: SubscriptionHistoryUpsertWithWhereUniqueWithoutUserInput | SubscriptionHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SubscriptionHistoryCreateManyUserInputEnvelope
+    set?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    disconnect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    delete?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    update?: SubscriptionHistoryUpdateWithWhereUniqueWithoutUserInput | SubscriptionHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SubscriptionHistoryUpdateManyWithWhereWithoutUserInput | SubscriptionHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SubscriptionHistoryScalarWhereInput | SubscriptionHistoryScalarWhereInput[]
+  }
+
+  export type NotificationSettingsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    upsert?: NotificationSettingsUpsertWithoutUserInput
+    disconnect?: NotificationSettingsWhereInput | boolean
+    delete?: NotificationSettingsWhereInput | boolean
+    connect?: NotificationSettingsWhereUniqueInput
+    update?: XOR<XOR<NotificationSettingsUpdateToOneWithWhereWithoutUserInput, NotificationSettingsUpdateWithoutUserInput>, NotificationSettingsUncheckedUpdateWithoutUserInput>
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -8422,6 +11692,30 @@ export namespace Prisma {
     deleteMany?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
   }
 
+  export type SubscriptionHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutUserInput, SubscriptionHistoryUncheckedCreateWithoutUserInput> | SubscriptionHistoryCreateWithoutUserInput[] | SubscriptionHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutUserInput | SubscriptionHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: SubscriptionHistoryUpsertWithWhereUniqueWithoutUserInput | SubscriptionHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SubscriptionHistoryCreateManyUserInputEnvelope
+    set?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    disconnect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    delete?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    update?: SubscriptionHistoryUpdateWithWhereUniqueWithoutUserInput | SubscriptionHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SubscriptionHistoryUpdateManyWithWhereWithoutUserInput | SubscriptionHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SubscriptionHistoryScalarWhereInput | SubscriptionHistoryScalarWhereInput[]
+  }
+
+  export type NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    upsert?: NotificationSettingsUpsertWithoutUserInput
+    disconnect?: NotificationSettingsWhereInput | boolean
+    delete?: NotificationSettingsWhereInput | boolean
+    connect?: NotificationSettingsWhereUniqueInput
+    update?: XOR<XOR<NotificationSettingsUpdateToOneWithWhereWithoutUserInput, NotificationSettingsUpdateWithoutUserInput>, NotificationSettingsUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -8460,6 +11754,32 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type SubscriptionHistoryCreateNestedManyWithoutSubscriptionInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutSubscriptionInput, SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput> | SubscriptionHistoryCreateWithoutSubscriptionInput[] | SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput | SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput[]
+    createMany?: SubscriptionHistoryCreateManySubscriptionInputEnvelope
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+  }
+
+  export type SubscriptionHistoryUncheckedCreateNestedManyWithoutSubscriptionInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutSubscriptionInput, SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput> | SubscriptionHistoryCreateWithoutSubscriptionInput[] | SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput | SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput[]
+    createMany?: SubscriptionHistoryCreateManySubscriptionInputEnvelope
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumBillingCycleFieldUpdateOperationsInput = {
+    set?: $Enums.BillingCycle
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -8468,8 +11788,8 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type EnumBillingCycleFieldUpdateOperationsInput = {
-    set?: $Enums.BillingCycle
+  export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SubscriptionStatus
   }
 
   export type UserUpdateOneRequiredWithoutSubscriptionsNestedInput = {
@@ -8478,6 +11798,78 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutSubscriptionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionsInput, UserUpdateWithoutSubscriptionsInput>, UserUncheckedUpdateWithoutSubscriptionsInput>
+  }
+
+  export type SubscriptionHistoryUpdateManyWithoutSubscriptionNestedInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutSubscriptionInput, SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput> | SubscriptionHistoryCreateWithoutSubscriptionInput[] | SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput | SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput[]
+    upsert?: SubscriptionHistoryUpsertWithWhereUniqueWithoutSubscriptionInput | SubscriptionHistoryUpsertWithWhereUniqueWithoutSubscriptionInput[]
+    createMany?: SubscriptionHistoryCreateManySubscriptionInputEnvelope
+    set?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    disconnect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    delete?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    update?: SubscriptionHistoryUpdateWithWhereUniqueWithoutSubscriptionInput | SubscriptionHistoryUpdateWithWhereUniqueWithoutSubscriptionInput[]
+    updateMany?: SubscriptionHistoryUpdateManyWithWhereWithoutSubscriptionInput | SubscriptionHistoryUpdateManyWithWhereWithoutSubscriptionInput[]
+    deleteMany?: SubscriptionHistoryScalarWhereInput | SubscriptionHistoryScalarWhereInput[]
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionNestedInput = {
+    create?: XOR<SubscriptionHistoryCreateWithoutSubscriptionInput, SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput> | SubscriptionHistoryCreateWithoutSubscriptionInput[] | SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput[]
+    connectOrCreate?: SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput | SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput[]
+    upsert?: SubscriptionHistoryUpsertWithWhereUniqueWithoutSubscriptionInput | SubscriptionHistoryUpsertWithWhereUniqueWithoutSubscriptionInput[]
+    createMany?: SubscriptionHistoryCreateManySubscriptionInputEnvelope
+    set?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    disconnect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    delete?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    connect?: SubscriptionHistoryWhereUniqueInput | SubscriptionHistoryWhereUniqueInput[]
+    update?: SubscriptionHistoryUpdateWithWhereUniqueWithoutSubscriptionInput | SubscriptionHistoryUpdateWithWhereUniqueWithoutSubscriptionInput[]
+    updateMany?: SubscriptionHistoryUpdateManyWithWhereWithoutSubscriptionInput | SubscriptionHistoryUpdateManyWithWhereWithoutSubscriptionInput[]
+    deleteMany?: SubscriptionHistoryScalarWhereInput | SubscriptionHistoryScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutHistoryInput = {
+    create?: XOR<UserCreateWithoutHistoryInput, UserUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHistoryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SubscriptionCreateNestedOneWithoutHistoryInput = {
+    create?: XOR<SubscriptionCreateWithoutHistoryInput, SubscriptionUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutHistoryInput
+    connect?: SubscriptionWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutHistoryNestedInput = {
+    create?: XOR<UserCreateWithoutHistoryInput, UserUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHistoryInput
+    upsert?: UserUpsertWithoutHistoryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHistoryInput, UserUpdateWithoutHistoryInput>, UserUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type SubscriptionUpdateOneWithoutHistoryNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutHistoryInput, SubscriptionUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutHistoryInput
+    upsert?: SubscriptionUpsertWithoutHistoryInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutHistoryInput, SubscriptionUpdateWithoutHistoryInput>, SubscriptionUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type UserCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSettingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
+    create?: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSettingsInput
+    upsert?: UserUpsertWithoutSettingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSettingsInput, UserUpdateWithoutSettingsInput>, UserUncheckedUpdateWithoutSettingsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8627,11 +12019,55 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type NestedEnumBillingCycleFilter<$PrismaModel = never> = {
     equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
     in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
     notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
     not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
+  }
+
+  export type NestedEnumSubscriptionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusFilter<$PrismaModel> | $Enums.SubscriptionStatus
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel> | $Enums.BillingCycle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBillingCycleFilter<$PrismaModel>
+    _max?: NestedEnumBillingCycleFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8661,14 +12097,14 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
-    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel> | $Enums.BillingCycle
+  export type NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBillingCycleFilter<$PrismaModel>
-    _max?: NestedEnumBillingCycleFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -8744,25 +12180,35 @@ export namespace Prisma {
   export type SubscriptionCreateWithoutUserInput = {
     id?: string
     name: string
+    platform?: string | null
     plan?: string | null
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     billingCycle: $Enums.BillingCycle
+    interval?: number
     nextBillingDate: Date | string
-    reminderBefore: number
-    createdAt?: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
     updatedAt?: Date | string
+    history?: SubscriptionHistoryCreateNestedManyWithoutSubscriptionInput
   }
 
   export type SubscriptionUncheckedCreateWithoutUserInput = {
     id?: string
     name: string
+    platform?: string | null
     plan?: string | null
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     billingCycle: $Enums.BillingCycle
+    interval?: number
     nextBillingDate: Date | string
-    reminderBefore: number
-    createdAt?: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
     updatedAt?: Date | string
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutSubscriptionInput
   }
 
   export type SubscriptionCreateOrConnectWithoutUserInput = {
@@ -8773,6 +12219,61 @@ export namespace Prisma {
   export type SubscriptionCreateManyUserInputEnvelope = {
     data: SubscriptionCreateManyUserInput | SubscriptionCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type SubscriptionHistoryCreateWithoutUserInput = {
+    id?: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+    subscription?: SubscriptionCreateNestedOneWithoutHistoryInput
+  }
+
+  export type SubscriptionHistoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    subscriptionId?: string | null
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+  }
+
+  export type SubscriptionHistoryCreateOrConnectWithoutUserInput = {
+    where: SubscriptionHistoryWhereUniqueInput
+    create: XOR<SubscriptionHistoryCreateWithoutUserInput, SubscriptionHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type SubscriptionHistoryCreateManyUserInputEnvelope = {
+    data: SubscriptionHistoryCreateManyUserInput | SubscriptionHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationSettingsCreateWithoutUserInput = {
+    id?: string
+    reminderDayBefore?: number
+    emailReminders?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationSettingsUncheckedCreateWithoutUserInput = {
+    id?: string
+    reminderDayBefore?: number
+    emailReminders?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationSettingsCreateOrConnectWithoutUserInput = {
+    where: NotificationSettingsWhereUniqueInput
+    create: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -8861,15 +12362,78 @@ export namespace Prisma {
     OR?: SubscriptionScalarWhereInput[]
     NOT?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
     id?: StringFilter<"Subscription"> | string
+    userId?: StringFilter<"Subscription"> | string
     name?: StringFilter<"Subscription"> | string
+    platform?: StringNullableFilter<"Subscription"> | string | null
     plan?: StringNullableFilter<"Subscription"> | string | null
-    amount?: IntFilter<"Subscription"> | number
+    amount?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleFilter<"Subscription"> | $Enums.BillingCycle
+    interval?: IntFilter<"Subscription"> | number
     nextBillingDate?: DateTimeFilter<"Subscription"> | Date | string
     reminderBefore?: IntFilter<"Subscription"> | number
-    userId?: StringFilter<"Subscription"> | string
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
+    createAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+  }
+
+  export type SubscriptionHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: SubscriptionHistoryWhereUniqueInput
+    update: XOR<SubscriptionHistoryUpdateWithoutUserInput, SubscriptionHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<SubscriptionHistoryCreateWithoutUserInput, SubscriptionHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type SubscriptionHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: SubscriptionHistoryWhereUniqueInput
+    data: XOR<SubscriptionHistoryUpdateWithoutUserInput, SubscriptionHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SubscriptionHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: SubscriptionHistoryScalarWhereInput
+    data: XOR<SubscriptionHistoryUpdateManyMutationInput, SubscriptionHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SubscriptionHistoryScalarWhereInput = {
+    AND?: SubscriptionHistoryScalarWhereInput | SubscriptionHistoryScalarWhereInput[]
+    OR?: SubscriptionHistoryScalarWhereInput[]
+    NOT?: SubscriptionHistoryScalarWhereInput | SubscriptionHistoryScalarWhereInput[]
+    id?: StringFilter<"SubscriptionHistory"> | string
+    subscriptionId?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    userId?: StringFilter<"SubscriptionHistory"> | string
+    name?: StringFilter<"SubscriptionHistory"> | string
+    platform?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    plan?: StringNullableFilter<"SubscriptionHistory"> | string | null
+    amount?: DecimalFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"SubscriptionHistory"> | string
+    billingCycle?: EnumBillingCycleFilter<"SubscriptionHistory"> | $Enums.BillingCycle
+    endedAt?: DateTimeFilter<"SubscriptionHistory"> | Date | string
+  }
+
+  export type NotificationSettingsUpsertWithoutUserInput = {
+    update: XOR<NotificationSettingsUpdateWithoutUserInput, NotificationSettingsUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    where?: NotificationSettingsWhereInput
+  }
+
+  export type NotificationSettingsUpdateToOneWithWhereWithoutUserInput = {
+    where?: NotificationSettingsWhereInput
+    data: XOR<NotificationSettingsUpdateWithoutUserInput, NotificationSettingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationSettingsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    emailReminders?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationSettingsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    emailReminders?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -8878,11 +12442,12 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -8891,11 +12456,12 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -8920,11 +12486,12 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -8933,11 +12500,12 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -8946,11 +12514,12 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -8959,11 +12528,12 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -8988,11 +12558,12 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -9001,11 +12572,12 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSubscriptionsInput = {
@@ -9014,11 +12586,12 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -9027,16 +12600,51 @@ export namespace Prisma {
     email?: string | null
     emailVerified?: boolean
     image?: string | null
-    customavatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutSubscriptionsInput, UserUncheckedCreateWithoutSubscriptionsInput>
+  }
+
+  export type SubscriptionHistoryCreateWithoutSubscriptionInput = {
+    id?: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+    user: UserCreateNestedOneWithoutHistoryInput
+  }
+
+  export type SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput = {
+    id?: string
+    userId: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+  }
+
+  export type SubscriptionHistoryCreateOrConnectWithoutSubscriptionInput = {
+    where: SubscriptionHistoryWhereUniqueInput
+    create: XOR<SubscriptionHistoryCreateWithoutSubscriptionInput, SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type SubscriptionHistoryCreateManySubscriptionInputEnvelope = {
+    data: SubscriptionHistoryCreateManySubscriptionInput | SubscriptionHistoryCreateManySubscriptionInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutSubscriptionsInput = {
@@ -9056,11 +12664,12 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -9069,11 +12678,256 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    customavatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type SubscriptionHistoryUpsertWithWhereUniqueWithoutSubscriptionInput = {
+    where: SubscriptionHistoryWhereUniqueInput
+    update: XOR<SubscriptionHistoryUpdateWithoutSubscriptionInput, SubscriptionHistoryUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<SubscriptionHistoryCreateWithoutSubscriptionInput, SubscriptionHistoryUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type SubscriptionHistoryUpdateWithWhereUniqueWithoutSubscriptionInput = {
+    where: SubscriptionHistoryWhereUniqueInput
+    data: XOR<SubscriptionHistoryUpdateWithoutSubscriptionInput, SubscriptionHistoryUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type SubscriptionHistoryUpdateManyWithWhereWithoutSubscriptionInput = {
+    where: SubscriptionHistoryScalarWhereInput
+    data: XOR<SubscriptionHistoryUpdateManyMutationInput, SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionInput>
+  }
+
+  export type UserCreateWithoutHistoryInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHistoryInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    settings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHistoryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutHistoryInput, UserUncheckedCreateWithoutHistoryInput>
+  }
+
+  export type SubscriptionCreateWithoutHistoryInput = {
+    id?: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    billingCycle: $Enums.BillingCycle
+    interval?: number
+    nextBillingDate: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSubscriptionsInput
+  }
+
+  export type SubscriptionUncheckedCreateWithoutHistoryInput = {
+    id?: string
+    userId: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    billingCycle: $Enums.BillingCycle
+    interval?: number
+    nextBillingDate: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionCreateOrConnectWithoutHistoryInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutHistoryInput, SubscriptionUncheckedCreateWithoutHistoryInput>
+  }
+
+  export type UserUpsertWithoutHistoryInput = {
+    update: XOR<UserUpdateWithoutHistoryInput, UserUncheckedUpdateWithoutHistoryInput>
+    create: XOR<UserCreateWithoutHistoryInput, UserUncheckedCreateWithoutHistoryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHistoryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHistoryInput, UserUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type UserUpdateWithoutHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    settings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type SubscriptionUpsertWithoutHistoryInput = {
+    update: XOR<SubscriptionUpdateWithoutHistoryInput, SubscriptionUncheckedUpdateWithoutHistoryInput>
+    create: XOR<SubscriptionCreateWithoutHistoryInput, SubscriptionUncheckedCreateWithoutHistoryInput>
+    where?: SubscriptionWhereInput
+  }
+
+  export type SubscriptionUpdateToOneWithWhereWithoutHistoryInput = {
+    where?: SubscriptionWhereInput
+    data: XOR<SubscriptionUpdateWithoutHistoryInput, SubscriptionUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type SubscriptionUpdateWithoutHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
+    nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderBefore?: IntFieldUpdateOperationsInput | number
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSubscriptionsNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
+    nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderBefore?: IntFieldUpdateOperationsInput | number
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutSettingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSettingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSettingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type UserUpsertWithoutSettingsInput = {
+    update: XOR<UserUpdateWithoutSettingsInput, UserUncheckedUpdateWithoutSettingsInput>
+    create: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSettingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSettingsInput, UserUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type UserUpdateWithoutSettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -9104,13 +12958,29 @@ export namespace Prisma {
   export type SubscriptionCreateManyUserInput = {
     id?: string
     name: string
+    platform?: string | null
     plan?: string | null
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
     billingCycle: $Enums.BillingCycle
+    interval?: number
     nextBillingDate: Date | string
-    reminderBefore: number
-    createdAt?: Date | string
+    reminderBefore?: number
+    status?: $Enums.SubscriptionStatus
+    createAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type SubscriptionHistoryCreateManyUserInput = {
+    id?: string
+    subscriptionId?: string | null
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -9191,37 +13061,135 @@ export namespace Prisma {
   export type SubscriptionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    history?: SubscriptionHistoryUpdateManyWithoutSubscriptionNestedInput
   }
 
   export type SubscriptionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    history?: SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionNestedInput
   }
 
   export type SubscriptionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    interval?: IntFieldUpdateOperationsInput | number
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reminderBefore?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscription?: SubscriptionUpdateOneWithoutHistoryNestedInput
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryCreateManySubscriptionInput = {
+    id?: string
+    userId: string
+    name: string
+    platform?: string | null
+    plan?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency: string
+    billingCycle: $Enums.BillingCycle
+    endedAt?: Date | string
+  }
+
+  export type SubscriptionHistoryUpdateWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutHistoryNestedInput
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    endedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

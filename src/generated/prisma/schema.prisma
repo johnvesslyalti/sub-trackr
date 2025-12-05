@@ -1,3 +1,7 @@
+// -------------------------------
+// Prisma Setup
+// -------------------------------
+
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -7,13 +11,16 @@ datasource db {
   provider = "postgresql"
 }
 
+// -------------------------------
+// User & Auth Models (BetterAuth)
+// -------------------------------
+
 model User {
   id            String  @id @default(cuid())
   name          String?
   email         String? @unique
   emailVerified Boolean @default(false)
   image         String?
-  customavatar  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -21,6 +28,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   subscriptions Subscription[]
+  history       SubscriptionHistory[]
+  settings      NotificationSettings?
 
   @@map("user")
 }
@@ -77,25 +86,86 @@ model Verification {
   @@map("verification")
 }
 
+// -------------------------------
+// Core App Models
+// -------------------------------
+
 model Subscription {
-  id              String       @id @default(cuid())
-  name            String
-  plan            String?
-  amount          Int // or Decimal if you want
-  billingCycle    BillingCycle
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name     String
+  platform String?
+  plan     String?
+
+  amount   Decimal @db.Decimal(10, 2)
+  currency String  @default("INR")
+
+  billingCycle BillingCycle
+  interval     Int          @default(1)
+
   nextBillingDate DateTime
-  reminderBefore  Int
-  userId          String
+  reminderBefore  Int      @default(3)
+
+  status SubscriptionStatus @default(ACTIVE)
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  history SubscriptionHistory[]
+
+  @@index([userId, nextBillingDate])
+  @@index([userId, platform])
+  @@index([userId, status])
+}
+
+model SubscriptionHistory {
+  id             String  @id @default(cuid())
+  subscriptionId String?
+  userId         String
+
+  name         String
+  platform     String?
+  plan         String?
+  amount       Decimal      @db.Decimal(10, 2)
+  currency     String
+  billingCycle BillingCycle
+  endedAt      DateTime     @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription Subscription? @relation(fields: [subscriptionId], references: [id])
+
+  @@index([userId, endedAt])
+  @@index([platform])
+}
+
+model NotificationSettings {
+  id                String  @id @default(cuid())
+  userId            String  @unique
+  reminderDayBefore Int     @default(3)
+  emailReminders    Boolean @default(true)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+// -------------------------------
+// Enums
+// -------------------------------
 
 enum BillingCycle {
   DAILY
   WEEKLY
   MONTHLY
   YEARLY
+  CUSTOM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAUSED
 }

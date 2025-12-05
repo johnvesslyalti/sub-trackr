@@ -11,3 +11,5 @@ export const historySchema = z.object({
     billingCycle: z.enum(BillingCycle),
     endedAt: z.date().default(new Date())
 })
+
+export type historyInput = z.infer<typeof historySchema>

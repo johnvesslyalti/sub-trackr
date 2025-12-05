@@ -18,3 +18,7 @@ export const createSubscriptionSchema = z.object({
 
     status: z.enum(SubscriptionStatus).default("ACTIVE"),
 })
+
+export const updateSubscriptionSchema = createSubscriptionSchema.partial()
+
+export type subscriptionInput = z.infer<typeof createSubscriptionSchema>;

@@ -7,6 +7,7 @@ Features:
     - Google OAUTH Login
     - Add, Edit, Delete Subscriptions
     - History of the previous subscriptions by platforms
+    - Sorting and filtering
     - Flexible Billing Cycles (Weekly/Monthly/Yearly/Custom)
     - Email Remainders before renenwals
     - Interactive Dashboard Charts or PDF
@@ -32,6 +33,7 @@ Tech Stack:
 
         - Next.js Server Actions
         - Next.js API Routes (for auth, webhooks, exports)
+        - Zod Validation
         - PostgreSQL
         - Prisma ORM
         - Better AUTH

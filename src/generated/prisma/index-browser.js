@@ -199,7 +199,7 @@ exports.Prisma.SubscriptionHistoryScalarFieldEnum = {
 exports.Prisma.NotificationSettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  reminderDayBefore: 'reminderDayBefore',
+  reminderDaysBefore: 'reminderDaysBefore',
   emailReminders: 'emailReminders',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

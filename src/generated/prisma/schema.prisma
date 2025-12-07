@@ -141,10 +141,10 @@ model SubscriptionHistory {
 }
 
 model NotificationSettings {
-  id                String  @id @default(cuid())
-  userId            String  @unique
-  reminderDayBefore Int     @default(3)
-  emailReminders    Boolean @default(true)
+  id                 String  @id @default(cuid())
+  userId             String  @unique
+  reminderDaysBefore Int     @default(3)
+  emailReminders     Boolean @default(true)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

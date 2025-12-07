@@ -8427,17 +8427,17 @@ export namespace Prisma {
   }
 
   export type NotificationSettingsAvgAggregateOutputType = {
-    reminderDayBefore: number | null
+    reminderDaysBefore: number | null
   }
 
   export type NotificationSettingsSumAggregateOutputType = {
-    reminderDayBefore: number | null
+    reminderDaysBefore: number | null
   }
 
   export type NotificationSettingsMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    reminderDayBefore: number | null
+    reminderDaysBefore: number | null
     emailReminders: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8446,7 +8446,7 @@ export namespace Prisma {
   export type NotificationSettingsMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    reminderDayBefore: number | null
+    reminderDaysBefore: number | null
     emailReminders: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8455,7 +8455,7 @@ export namespace Prisma {
   export type NotificationSettingsCountAggregateOutputType = {
     id: number
     userId: number
-    reminderDayBefore: number
+    reminderDaysBefore: number
     emailReminders: number
     createdAt: number
     updatedAt: number
@@ -8464,17 +8464,17 @@ export namespace Prisma {
 
 
   export type NotificationSettingsAvgAggregateInputType = {
-    reminderDayBefore?: true
+    reminderDaysBefore?: true
   }
 
   export type NotificationSettingsSumAggregateInputType = {
-    reminderDayBefore?: true
+    reminderDaysBefore?: true
   }
 
   export type NotificationSettingsMinAggregateInputType = {
     id?: true
     userId?: true
-    reminderDayBefore?: true
+    reminderDaysBefore?: true
     emailReminders?: true
     createdAt?: true
     updatedAt?: true
@@ -8483,7 +8483,7 @@ export namespace Prisma {
   export type NotificationSettingsMaxAggregateInputType = {
     id?: true
     userId?: true
-    reminderDayBefore?: true
+    reminderDaysBefore?: true
     emailReminders?: true
     createdAt?: true
     updatedAt?: true
@@ -8492,7 +8492,7 @@ export namespace Prisma {
   export type NotificationSettingsCountAggregateInputType = {
     id?: true
     userId?: true
-    reminderDayBefore?: true
+    reminderDaysBefore?: true
     emailReminders?: true
     createdAt?: true
     updatedAt?: true
@@ -8588,7 +8588,7 @@ export namespace Prisma {
   export type NotificationSettingsGroupByOutputType = {
     id: string
     userId: string
-    reminderDayBefore: number
+    reminderDaysBefore: number
     emailReminders: boolean
     createdAt: Date
     updatedAt: Date
@@ -8616,7 +8616,7 @@ export namespace Prisma {
   export type NotificationSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    reminderDayBefore?: boolean
+    reminderDaysBefore?: boolean
     emailReminders?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8626,7 +8626,7 @@ export namespace Prisma {
   export type NotificationSettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    reminderDayBefore?: boolean
+    reminderDaysBefore?: boolean
     emailReminders?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8636,7 +8636,7 @@ export namespace Prisma {
   export type NotificationSettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    reminderDayBefore?: boolean
+    reminderDaysBefore?: boolean
     emailReminders?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8646,13 +8646,13 @@ export namespace Prisma {
   export type NotificationSettingsSelectScalar = {
     id?: boolean
     userId?: boolean
-    reminderDayBefore?: boolean
+    reminderDaysBefore?: boolean
     emailReminders?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type NotificationSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "reminderDayBefore" | "emailReminders" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationSettings"]>
+  export type NotificationSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "reminderDaysBefore" | "emailReminders" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationSettings"]>
   export type NotificationSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8671,7 +8671,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      reminderDayBefore: number
+      reminderDaysBefore: number
       emailReminders: boolean
       createdAt: Date
       updatedAt: Date
@@ -9101,7 +9101,7 @@ export namespace Prisma {
   interface NotificationSettingsFieldRefs {
     readonly id: FieldRef<"NotificationSettings", 'String'>
     readonly userId: FieldRef<"NotificationSettings", 'String'>
-    readonly reminderDayBefore: FieldRef<"NotificationSettings", 'Int'>
+    readonly reminderDaysBefore: FieldRef<"NotificationSettings", 'Int'>
     readonly emailReminders: FieldRef<"NotificationSettings", 'Boolean'>
     readonly createdAt: FieldRef<"NotificationSettings", 'DateTime'>
     readonly updatedAt: FieldRef<"NotificationSettings", 'DateTime'>
@@ -9630,7 +9630,7 @@ export namespace Prisma {
   export const NotificationSettingsScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    reminderDayBefore: 'reminderDayBefore',
+    reminderDaysBefore: 'reminderDaysBefore',
     emailReminders: 'emailReminders',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -10271,7 +10271,7 @@ export namespace Prisma {
     NOT?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
     id?: StringFilter<"NotificationSettings"> | string
     userId?: StringFilter<"NotificationSettings"> | string
-    reminderDayBefore?: IntFilter<"NotificationSettings"> | number
+    reminderDaysBefore?: IntFilter<"NotificationSettings"> | number
     emailReminders?: BoolFilter<"NotificationSettings"> | boolean
     createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
     updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
@@ -10281,7 +10281,7 @@ export namespace Prisma {
   export type NotificationSettingsOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
     emailReminders?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10294,7 +10294,7 @@ export namespace Prisma {
     AND?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
     OR?: NotificationSettingsWhereInput[]
     NOT?: NotificationSettingsWhereInput | NotificationSettingsWhereInput[]
-    reminderDayBefore?: IntFilter<"NotificationSettings"> | number
+    reminderDaysBefore?: IntFilter<"NotificationSettings"> | number
     emailReminders?: BoolFilter<"NotificationSettings"> | boolean
     createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
     updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
@@ -10304,7 +10304,7 @@ export namespace Prisma {
   export type NotificationSettingsOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
     emailReminders?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10321,7 +10321,7 @@ export namespace Prisma {
     NOT?: NotificationSettingsScalarWhereWithAggregatesInput | NotificationSettingsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"NotificationSettings"> | string
     userId?: StringWithAggregatesFilter<"NotificationSettings"> | string
-    reminderDayBefore?: IntWithAggregatesFilter<"NotificationSettings"> | number
+    reminderDaysBefore?: IntWithAggregatesFilter<"NotificationSettings"> | number
     emailReminders?: BoolWithAggregatesFilter<"NotificationSettings"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"NotificationSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"NotificationSettings"> | Date | string
@@ -10880,7 +10880,7 @@ export namespace Prisma {
 
   export type NotificationSettingsCreateInput = {
     id?: string
-    reminderDayBefore?: number
+    reminderDaysBefore?: number
     emailReminders?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10890,7 +10890,7 @@ export namespace Prisma {
   export type NotificationSettingsUncheckedCreateInput = {
     id?: string
     userId: string
-    reminderDayBefore?: number
+    reminderDaysBefore?: number
     emailReminders?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10898,7 +10898,7 @@ export namespace Prisma {
 
   export type NotificationSettingsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    reminderDaysBefore?: IntFieldUpdateOperationsInput | number
     emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10908,7 +10908,7 @@ export namespace Prisma {
   export type NotificationSettingsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    reminderDaysBefore?: IntFieldUpdateOperationsInput | number
     emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10917,7 +10917,7 @@ export namespace Prisma {
   export type NotificationSettingsCreateManyInput = {
     id?: string
     userId: string
-    reminderDayBefore?: number
+    reminderDaysBefore?: number
     emailReminders?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10925,7 +10925,7 @@ export namespace Prisma {
 
   export type NotificationSettingsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    reminderDaysBefore?: IntFieldUpdateOperationsInput | number
     emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10934,7 +10934,7 @@ export namespace Prisma {
   export type NotificationSettingsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    reminderDaysBefore?: IntFieldUpdateOperationsInput | number
     emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11468,20 +11468,20 @@ export namespace Prisma {
   export type NotificationSettingsCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
     emailReminders?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type NotificationSettingsAvgOrderByAggregateInput = {
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
   }
 
   export type NotificationSettingsMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
     emailReminders?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11490,14 +11490,14 @@ export namespace Prisma {
   export type NotificationSettingsMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
     emailReminders?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type NotificationSettingsSumOrderByAggregateInput = {
-    reminderDayBefore?: SortOrder
+    reminderDaysBefore?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -12257,7 +12257,7 @@ export namespace Prisma {
 
   export type NotificationSettingsCreateWithoutUserInput = {
     id?: string
-    reminderDayBefore?: number
+    reminderDaysBefore?: number
     emailReminders?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12265,7 +12265,7 @@ export namespace Prisma {
 
   export type NotificationSettingsUncheckedCreateWithoutUserInput = {
     id?: string
-    reminderDayBefore?: number
+    reminderDaysBefore?: number
     emailReminders?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12422,7 +12422,7 @@ export namespace Prisma {
 
   export type NotificationSettingsUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    reminderDaysBefore?: IntFieldUpdateOperationsInput | number
     emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12430,7 +12430,7 @@ export namespace Prisma {
 
   export type NotificationSettingsUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reminderDayBefore?: IntFieldUpdateOperationsInput | number
+    reminderDaysBefore?: IntFieldUpdateOperationsInput | number
     emailReminders?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

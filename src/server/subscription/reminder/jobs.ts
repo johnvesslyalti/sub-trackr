@@ -1,7 +1,7 @@
 // src/server/reminder/jobs.ts
 "use server";
 
-import { sendReminderEmail } from "@/lib/email"; // you implement this
+import { sendReminderEmail } from "@/lib/email";
 import prisma from "@/lib/prisma";
 
 export async function sendUpcomingRenewalReminders() {

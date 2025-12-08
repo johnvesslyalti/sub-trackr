@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Image from "next/image";
 import { FaGoogle, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { authClient } from "@/lib/auth-client";
 
 export default function Hero() {

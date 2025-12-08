@@ -45,18 +45,17 @@ import { cn } from "@/lib/utils";
 import { BillingCycle } from "@/generated/prisma";
 import { addSubscription } from "@/server/subscription/actions";
 
-// --- FIX: Define Local Schema to override loose types from shared lib ---
+// --- FIX: Simplified Schema (Removed .default() to fix type clash) ---
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
     amount: z.number().min(0, "Amount must be positive"),
-    currency: z.string().default("USD"),
-    billingCycle: z.nativeEnum(BillingCycle), // Ensures strict Enum match
+    currency: z.string(), // Removed .default("USD") - handle in useForm
+    billingCycle: z.nativeEnum(BillingCycle),
     platform: z.string().optional(),
     interval: z.number().int().min(1, "Interval must be at least 1"),
     startDate: z.date(),
 });
 
-// Infer strict types from our local schema
 type FormValues = z.infer<typeof formSchema>;
 
 export function AddSubscriptionDialog() {
@@ -69,8 +68,8 @@ export function AddSubscriptionDialog() {
         defaultValues: {
             name: "",
             amount: 0,
-            currency: "USD",
-            billingCycle: "MONTHLY" as BillingCycle, // Cast to satisfy enum
+            currency: "USD", // Default value set here
+            billingCycle: "MONTHLY" as BillingCycle,
             platform: "",
             interval: 1,
             startDate: new Date(),
@@ -80,7 +79,6 @@ export function AddSubscriptionDialog() {
     async function onSubmit(data: FormValues) {
         startTransition(async () => {
             try {
-                // Pass data to server action (which validates it again)
                 const result = await addSubscription(data);
 
                 if (result.success) {

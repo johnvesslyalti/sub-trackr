@@ -1,13 +1,14 @@
-import 'server-only'; // 1. Prevents client-side accidental import
+import 'server-only';
 
 import { BillingCycle, SubscriptionStatus, Prisma } from "@/generated/prisma";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
-import { cache } from "react"; // 2. Request deduping
+import { cache } from "react";
 import { z } from "zod";
 
-// 3. Define Zod schema for robust URL param parsing
+// --- Validation Schemas ---
+
 const subscriptionQuerySchema = z.object({
     page: z.coerce.number().min(1).default(1),
     pageSize: z.coerce.number().min(1).max(100).default(10),
@@ -21,6 +22,8 @@ const subscriptionQuerySchema = z.object({
 
 export type GetSubscriptionsInput = z.infer<typeof subscriptionQuerySchema>;
 
+// --- Helper Functions ---
+
 async function getUserIdOrThrow() {
     const session = await auth.api.getSession({
         headers: await headers(),
@@ -29,28 +32,30 @@ async function getUserIdOrThrow() {
     return session.user.id;
 }
 
-// 4. Wrap in cache() so multiple components can call this without multiple DB hits
+// --- Queries ---
+
+// 1. Get List of Subscriptions (with Pagination & Filters)
 export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     const userId = await getUserIdOrThrow();
 
-    // 5. Parse and sanitize inputs (handles "10" string -> 10 number)
+    // Parse inputs
     const {
         page,
         pageSize,
         status,
-        platform,
         billingCycle,
+        platform,
         search,
         sortBy,
         sortOrder
     } = subscriptionQuerySchema.parse(input);
 
-    // 6. Type-safe Where Clause
+    // Build Where Clause
     const where: Prisma.SubscriptionWhereInput = {
         userId,
         ...(status && { status }),
         ...(billingCycle && { billingCycle }),
-        ...(platform && { platform: { contains: platform, mode: 'insensitive' } }), // Allow partial platform match?
+        ...(platform && { platform: { contains: platform, mode: 'insensitive' } }),
         ...(search && {
             OR: [
                 { name: { contains: search, mode: "insensitive" } },
@@ -70,8 +75,14 @@ export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
             prisma.subscription.count({ where }),
         ]);
 
+        // Serialize Decimal to number
+        const serializedItems = items.map((item) => ({
+            ...item,
+            amount: item.amount.toNumber()
+        }));
+
         return {
-            items,
+            items: serializedItems,
             total,
             page,
             pageSize,
@@ -83,18 +94,80 @@ export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     }
 });
 
-// Helper: Get summary stats (optional but useful)
-export const getSubscriptionStats = cache(async () => {
+// 2. Get Dashboard Statistics (Pie Chart + Bar Chart Data)
+export const getDashboardStats = cache(async () => {
     const userId = await getUserIdOrThrow();
 
-    const stats = await prisma.subscription.aggregate({
-        where: { userId, status: 'ACTIVE' },
-        _sum: { amount: true },
-        _count: { id: true }
-    });
+    // Fetch all metrics in parallel
+    const [activeCount, canceledCount, spendRaw, upcomingRaw] = await Promise.all([
+        prisma.subscription.count({
+            where: { userId, status: SubscriptionStatus.ACTIVE }
+        }),
+
+        prisma.subscription.count({
+            where: { userId, status: SubscriptionStatus.CANCELED }
+        }),
+
+        // Group by 'name' (Service) to avoid empty "Other" results if platform is missing
+        prisma.subscription.groupBy({
+            by: ['name'],
+            where: {
+                userId,
+                status: SubscriptionStatus.ACTIVE
+            },
+            _sum: { amount: true },
+        }),
+
+        // Upcoming Bills (Next 5)
+        prisma.subscription.findMany({
+            where: {
+                userId,
+                status: SubscriptionStatus.ACTIVE,
+                nextBillingDate: { gte: new Date() }
+            },
+            orderBy: { nextBillingDate: 'asc' },
+            take: 5,
+            select: { name: true, amount: true, nextBillingDate: true }
+        })
+    ]);
+
+    // --- LOGIC: Top 4 + Others ---
+
+    // 1. Format and Sort Descending
+    // Note: We explicitly type the map parameter to fix 'any' error
+    const allItems = spendRaw.map((item) => ({
+        platform: item.name || "Other",
+        amount: item._sum.amount ? item._sum.amount.toNumber() : 0,
+    })).sort((a, b) => b.amount - a.amount);
+
+    // 2. Separate Top 4 from the Rest
+    const top4 = allItems.slice(0, 4);
+    const rest = allItems.slice(4);
+
+    // 3. Calculate "Others" sum
+    const otherAmount = rest.reduce((sum, item) => sum + item.amount, 0);
+
+    // 4. Combine
+    const spendByPlatform = [...top4];
+    if (otherAmount > 0) {
+        spendByPlatform.push({ platform: "Others", amount: otherAmount });
+    }
+
+    // --- End Logic ---
+
+    // Calculate Total Monthly Spend
+    const estimatedMonthlySpend = spendByPlatform.reduce((acc, curr) => acc + curr.amount, 0);
+
+    const upcoming = upcomingRaw.map((item) => ({
+        name: item.name,
+        amount: item.amount.toNumber(),
+    }));
 
     return {
-        totalMonthlySpend: stats._sum.amount || 0,
-        activeSubscriptions: stats._count.id
+        activeCount,
+        canceledCount,
+        estimatedMonthlySpend,
+        spendByPlatform,
+        upcoming
     };
 });

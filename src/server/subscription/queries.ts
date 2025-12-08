@@ -1,80 +1,100 @@
-'use server';
+import 'server-only'; // 1. Prevents client-side accidental import
 
-import { BillingCycle, SubscriptionStatus } from "@/generated/prisma";
+import { BillingCycle, SubscriptionStatus, Prisma } from "@/generated/prisma";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
+import { cache } from "react"; // 2. Request deduping
+import { z } from "zod";
 
-type SortField = "nextBillingDate" | "amount" | "createdAt";
-type SortOrder = "asc" | "desc"
+// 3. Define Zod schema for robust URL param parsing
+const subscriptionQuerySchema = z.object({
+    page: z.coerce.number().min(1).default(1),
+    pageSize: z.coerce.number().min(1).max(100).default(10),
+    status: z.nativeEnum(SubscriptionStatus).optional(),
+    billingCycle: z.nativeEnum(BillingCycle).optional(),
+    platform: z.string().optional(),
+    search: z.string().optional(),
+    sortBy: z.enum(["nextBillingDate", "amount", "createdAt"]).default("nextBillingDate"),
+    sortOrder: z.enum(["asc", "desc"]).default("asc"),
+});
 
-export type SubscriptionFilters = {
-    status?: SubscriptionStatus;
-    platform?: string,
-    billingCycle?: BillingCycle;
-    search?: string;
-}
-
-export type PaginationParams = {
-    page?: number;
-    pageSize?: number;
-};
-
-export type SortParams = {
-    sortBy?: SortField;
-    sortOrder?: SortOrder;
-}
+export type GetSubscriptionsInput = z.infer<typeof subscriptionQuerySchema>;
 
 async function getUserIdOrThrow() {
     const session = await auth.api.getSession({
-        headers: await headers()
+        headers: await headers(),
     });
     if (!session || !session.user) throw new Error("Unauthorized");
-    return session.user.id
+    return session.user.id;
 }
 
-export async function getSubscriptions(
-    filters: SubscriptionFilters = {},
-    pagination: PaginationParams = {},
-    sort: SortParams = {}
-) {
+// 4. Wrap in cache() so multiple components can call this without multiple DB hits
+export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     const userId = await getUserIdOrThrow();
 
-    const { status, platform, billingCycle, search } = filters;
+    // 5. Parse and sanitize inputs (handles "10" string -> 10 number)
+    const {
+        page,
+        pageSize,
+        status,
+        platform,
+        billingCycle,
+        search,
+        sortBy,
+        sortOrder
+    } = subscriptionQuerySchema.parse(input);
 
-    const page = pagination.page && pagination.page > 0 ? pagination.page : 1;
-    const pageSize = pagination.pageSize && pagination.pageSize > 0 ? pagination.pageSize : 10;
-
-    const sortBy = sort.sortBy || "nextBillingDate";
-    const sortOrder = sort.sortOrder || "asc";
-
-    const where = {
+    // 6. Type-safe Where Clause
+    const where: Prisma.SubscriptionWhereInput = {
         userId,
         ...(status && { status }),
-        ...(platform && { platform }),
         ...(billingCycle && { billingCycle }),
+        ...(platform && { platform: { contains: platform, mode: 'insensitive' } }), // Allow partial platform match?
         ...(search && {
             OR: [
-                { name: { contains: search, mode: "insensitive" as const } },
-                { platform: { contains: search, mode: "insensitive" as const } }
+                { name: { contains: search, mode: "insensitive" } },
+                { platform: { contains: search, mode: "insensitive" } },
             ],
         }),
     };
-    const [items, total] = await Promise.all([
-        prisma.subscription.findMany({
-            where,
-            orderBy: { [sortBy]: sortOrder },
-            skip: (page - 1) * pageSize,
-            take: pageSize,
-        }),
-        prisma.subscription.count({ where })
-    ]);
+
+    try {
+        const [items, total] = await Promise.all([
+            prisma.subscription.findMany({
+                where,
+                orderBy: { [sortBy]: sortOrder },
+                skip: (page - 1) * pageSize,
+                take: pageSize,
+            }),
+            prisma.subscription.count({ where }),
+        ]);
+
+        return {
+            items,
+            total,
+            page,
+            pageSize,
+            totalPages: Math.ceil(total / pageSize),
+        };
+    } catch (err) {
+        console.error("Error fetching subscriptions:", err);
+        throw new Error("Failed to load subscriptions");
+    }
+});
+
+// Helper: Get summary stats (optional but useful)
+export const getSubscriptionStats = cache(async () => {
+    const userId = await getUserIdOrThrow();
+
+    const stats = await prisma.subscription.aggregate({
+        where: { userId, status: 'ACTIVE' },
+        _sum: { amount: true },
+        _count: { id: true }
+    });
 
     return {
-        items,
-        total,
-        page,
-        pageSize,
-        pages: Math.ceil(total / pageSize),
-    }
-}
+        totalMonthlySpend: stats._sum.amount || 0,
+        activeSubscriptions: stats._count.id
+    };
+});

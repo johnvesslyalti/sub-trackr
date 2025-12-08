@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button"; // Optional: if you want to use
 
 const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Subscriptions", href: "/dashboard/subscriptions", icon: CreditCard },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: "Subscriptions", href: "/subscriptions", icon: CreditCard },
+    { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export function Sidebar() {

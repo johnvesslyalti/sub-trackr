@@ -11,8 +11,8 @@ import { authClient } from "@/lib/auth-client";
 // Mobile only nav items
 const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Subscriptions", href: "/dashboard/subscriptions", icon: CreditCard },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: "Subscriptions", href: "/subscriptions", icon: CreditCard },
+    { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export default function Navbar() {

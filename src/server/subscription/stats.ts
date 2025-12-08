@@ -1,4 +1,5 @@
-import 'server-only'; // Protects backend logic
+// src/server/subscription/stats.ts
+import 'server-only';
 
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
@@ -23,11 +24,10 @@ async function getUserIdOrThrow() {
 export const getDashboardStats = cache(async () => {
     const userId = await getUserIdOrThrow();
 
-    // 1. Parallelize all independent queries
     const [
         activeCount,
         canceledCount,
-        upcoming,
+        upcomingRaw, // Rename this to 'Raw'
         spendByPlatform,
         subsForCalc
     ] = await Promise.all([
@@ -39,72 +39,58 @@ export const getDashboardStats = cache(async () => {
             where: { userId, status: SubscriptionStatus.CANCELED },
         }),
 
-        // B. Upcoming list (Fetch full objects here as they are for display)
+        // B. Upcoming list
         prisma.subscription.findMany({
-            where: {
-                userId,
-                status: SubscriptionStatus.ACTIVE,
-                // Optional: Filter out dates far in the past? 
-                // nextBillingDate: { gte: new Date() } 
-            },
+            where: { userId, status: SubscriptionStatus.ACTIVE },
             orderBy: { nextBillingDate: "asc" },
             take: 5,
         }),
 
-        // C. Group by Platform (Database level aggregation)
+        // C. Group by Platform
         prisma.subscription.groupBy({
             by: ["platform"],
             _sum: { amount: true },
             where: { userId, status: SubscriptionStatus.ACTIVE },
         }),
 
-        // D. Optimized Fetch for Math (Only fetch what we need)
+        // D. Optimized Fetch for Math
         prisma.subscription.findMany({
             where: { userId, status: SubscriptionStatus.ACTIVE },
             select: {
                 amount: true,
                 billingCycle: true,
-                interval: true, // Assuming your schema has this
-                currency: true, // Useful if you want to support multi-currency later
+                interval: true,
             },
         }),
     ]);
 
-    // 2. Calculate Monthly Spend in memory (Cheaper than complex SQL for mixed intervals)
+    // 2. Calculate Monthly Spend
     const estimatedMonthlySpend = subsForCalc.reduce((acc, sub) => {
         const amount = sub.amount.toNumber();
-        // Default to 1 to prevent Division by Zero if interval is null/0
         const interval = sub.interval || 1;
-
         let monthly = 0;
 
         switch (sub.billingCycle) {
-            case BillingCycle.MONTHLY:
-                monthly = amount / interval;
-                break;
-            case BillingCycle.YEARLY:
-                monthly = amount / (12 * interval);
-                break;
-            case BillingCycle.WEEKLY:
-                // (Amount * 52 weeks) / 12 months
-                monthly = (amount * 52) / (12 * interval);
-                break;
-            case BillingCycle.DAILY:
-                // (Amount * 365 days) / 12 months
-                monthly = (amount * 365) / (12 * interval);
-                break;
-            default:
-                monthly = 0;
+            case BillingCycle.MONTHLY: monthly = amount / interval; break;
+            case BillingCycle.YEARLY: monthly = amount / (12 * interval); break;
+            case BillingCycle.WEEKLY: monthly = (amount * 52) / (12 * interval); break;
+            case BillingCycle.DAILY: monthly = (amount * 365) / (12 * interval); break;
+            default: monthly = 0;
         }
-
         return acc + monthly;
     }, 0);
 
     return {
         activeCount,
         canceledCount,
-        upcoming,
-        // Return a clean 2-decimal number
+        // --- FIX IS HERE ---
+        // Convert Prisma objects (Decimal) to Plain objects (number)
+        upcoming: upcomingRaw.map(sub => ({
+            id: sub.id,
+            name: sub.name,
+            amount: sub.amount.toNumber(),
+            nextBillingDate: sub.nextBillingDate,
+        })),
         estimatedMonthlySpend: toFixedNumber(estimatedMonthlySpend),
         spendByPlatform: spendByPlatform.map((row) => ({
             platform: row.platform || "Other",

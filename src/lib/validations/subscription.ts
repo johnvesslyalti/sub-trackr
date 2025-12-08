@@ -1,25 +1,19 @@
-import { BillingCycle, SubscriptionStatus } from "@/generated/prisma";
-import z from "zod";
+//src/lib/validations/subscription.ts
+import { z } from "zod";
+import { BillingCycle } from "@/generated/prisma"; // Adjust path if needed
 
 export const createSubscriptionSchema = z.object({
     name: z.string().min(1, "Name is required"),
-    platform: z.string().optional().nullable(),
-    plan: z.string().optional().nullable(),
-
-    amount: z.number().nonnegative("Amount must be a positive"),
-
-    current: z.string().default("INR"),
-
-    billingCycle: z.enum(BillingCycle),
-    interval: z.coerce.number().int().min(1).default(1),
-
-    nextBillingDate: z.coerce.date(),
-    reminderBefore: z.coerce.number().int().min(0).default(3),
-
-    status: z.enum(SubscriptionStatus).default("ACTIVE"),
-})
-
-export const updateSubscriptionSchema = createSubscriptionSchema.partial()
+    amount: z.coerce.number().min(0.01, "Amount must be greater than 0"),
+    currency: z.string().default("USD"),
+    billingCycle: z.nativeEnum(BillingCycle),
+    platform: z.string().optional(),
+    interval: z.coerce.number().default(1),
+    startDate: z.date().optional().default(new Date()),
+});
 
 export type createSubscriptionInput = z.infer<typeof createSubscriptionSchema>;
+
+// Just in case you need update schema later
+export const updateSubscriptionSchema = createSubscriptionSchema.partial();
 export type updateSubscriptionInput = z.infer<typeof updateSubscriptionSchema>;

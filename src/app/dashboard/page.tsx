@@ -1,15 +1,25 @@
-// src/app/(dashboard)/page.tsx
 import { getDashboardStats } from "@/server/subscription/stats";
 import { DashboardView } from "@/components/dashboard/DashboardView";
+import { AddSubscriptionDialog } from "@/components/dashboard/AddSubscriptionDialog"; // Import here
 
 export default async function DashboardPage() {
     const stats = await getDashboardStats();
 
     return (
-        <div className="p-8">
-            <div className="mb-8">
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-                <p className="text-gray-500">Overview of your subscription expenses</p>
+        <div className="space-y-8">
+            {/* Header Section */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h1 className="text-2xl font-bold tracking-tight text-foreground">
+                        Dashboard
+                    </h1>
+                    <p className="text-muted-foreground">
+                        Overview of your subscription expenses
+                    </p>
+                </div>
+
+                {/* The Action Button */}
+                <AddSubscriptionDialog />
             </div>
 
             <DashboardView stats={stats} />

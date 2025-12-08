@@ -4,7 +4,7 @@ import type { Metadata } from 'next'; // 1. Import Metadata type
 import { ThemeProvider } from "../components/ThemeProvider";
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import { Sidebar } from '@/components/dashboard/Sidebar';
+import { SidebarGuard } from '@/components/dashboard/SidebarGuard';
 
 // 2. Define Metadata using the Next.js API
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         {/* Flex container for Sidebar + Main Content */}
                         <div className="flex flex-1 overflow-hidden">
                             {/* 2. Sidebar (Fixed width) */}
-                            <Sidebar />
+                            <SidebarGuard />
 
                             {/* 3. Main Content Wrapper (Scrollable) */}
                             {/* We made this a flex-col so the footer sits at the bottom */}

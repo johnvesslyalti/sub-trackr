@@ -1,23 +1,6 @@
 import { getSubscriptions } from "@/server/subscription/queries";
-
-// Fix imports
-import dynamic from "next/dynamic";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { SubscriptionsView } from "@/components/dashboard/SubscriptionView";
-
-const AddSubscriptionDialog = dynamic(
-    () => import("@/components/dashboard/AddSubscriptionDialog").then((mod) => mod.AddSubscriptionDialog),
-    {
-        ssr: false,
-        loading: () => (
-            <Button className="gap-2">
-                <Plus className="h-4 w-4" />
-                Add Subscription
-            </Button>
-        ),
-    }
-);
+import { AddSubscriptionDialogClient } from "@/components/dashboard/AddSubscriptionDialogClient";
 
 type PageProps = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -43,7 +26,7 @@ export default async function SubscriptionsPage(props: PageProps) {
                         Manage your active and canceled subscriptions.
                     </p>
                 </div>
-                <AddSubscriptionDialog />
+                <AddSubscriptionDialogClient />
             </div>
 
             <SubscriptionsView initialData={{ ...data, items: sanitizedItems }} />

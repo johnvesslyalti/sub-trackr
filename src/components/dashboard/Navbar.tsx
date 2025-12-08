@@ -54,12 +54,13 @@ export default function Navbar() {
                     href={session ? "/dashboard" : "/"}
                     className="flex items-center gap-2 mr-8"
                 >
-                    <div className="relative h-8 w-8 overflow-hidden rounded-lg">
+                    <div className="relative h-9 w-9 overflow-hidden rounded-lg">
                         <Image
-                            src="/subtrackr-icon.png"
-                            alt="SubTrackr"
+                            src="/subtrackr-logo.svg"
+                            alt="SubTrackr logo"
                             fill
-                            className="object-cover"
+                            className="object-contain"
+                            priority
                         />
                     </div>
                     <span className="text-lg font-bold tracking-tight text-foreground hidden sm:block">

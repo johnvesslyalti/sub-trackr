@@ -44,7 +44,7 @@ type SubscriptionItem = {
     status: SubscriptionStatus;
     billingCycle: BillingCycle;
     nextBillingDate: Date | null;
-    platform: string | null;
+    // The 'platform' field has been REMOVED from the type definition here.
 };
 
 type SubscriptionsViewProps = {
@@ -159,9 +159,10 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                                     <TableCell className="font-medium">
                                         <div className="flex flex-col">
                                             <span className="text-foreground">{sub.name}</span>
-                                            {sub.platform && (
+                                            {/* **REMOVED** the 'platform' display block */}
+                                            {/* {sub.platform && (
                                                 <span className="text-xs text-muted-foreground">{sub.platform}</span>
-                                            )}
+                                            )} */}
                                         </div>
                                     </TableCell>
 

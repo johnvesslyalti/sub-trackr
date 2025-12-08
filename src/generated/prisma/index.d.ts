@@ -6017,10 +6017,11 @@ export namespace Prisma {
     currency: string | null
     billingCycle: $Enums.BillingCycle | null
     interval: number | null
+    startDate: Date | null
     nextBillingDate: Date | null
     reminderBefore: number | null
     status: $Enums.SubscriptionStatus | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -6034,10 +6035,11 @@ export namespace Prisma {
     currency: string | null
     billingCycle: $Enums.BillingCycle | null
     interval: number | null
+    startDate: Date | null
     nextBillingDate: Date | null
     reminderBefore: number | null
     status: $Enums.SubscriptionStatus | null
-    createAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
   }
 
@@ -6051,10 +6053,11 @@ export namespace Prisma {
     currency: number
     billingCycle: number
     interval: number
+    startDate: number
     nextBillingDate: number
     reminderBefore: number
     status: number
-    createAt: number
+    createdAt: number
     updatedAt: number
     _all: number
   }
@@ -6082,10 +6085,11 @@ export namespace Prisma {
     currency?: true
     billingCycle?: true
     interval?: true
+    startDate?: true
     nextBillingDate?: true
     reminderBefore?: true
     status?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -6099,10 +6103,11 @@ export namespace Prisma {
     currency?: true
     billingCycle?: true
     interval?: true
+    startDate?: true
     nextBillingDate?: true
     reminderBefore?: true
     status?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
   }
 
@@ -6116,10 +6121,11 @@ export namespace Prisma {
     currency?: true
     billingCycle?: true
     interval?: true
+    startDate?: true
     nextBillingDate?: true
     reminderBefore?: true
     status?: true
-    createAt?: true
+    createdAt?: true
     updatedAt?: true
     _all?: true
   }
@@ -6220,10 +6226,11 @@ export namespace Prisma {
     currency: string
     billingCycle: $Enums.BillingCycle
     interval: number
+    startDate: Date
     nextBillingDate: Date
-    reminderBefore: number
+    reminderBefore: number | null
     status: $Enums.SubscriptionStatus
-    createAt: Date
+    createdAt: Date
     updatedAt: Date
     _count: SubscriptionCountAggregateOutputType | null
     _avg: SubscriptionAvgAggregateOutputType | null
@@ -6256,10 +6263,11 @@ export namespace Prisma {
     currency?: boolean
     billingCycle?: boolean
     interval?: boolean
+    startDate?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
     status?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     history?: boolean | Subscription$historyArgs<ExtArgs>
@@ -6276,10 +6284,11 @@ export namespace Prisma {
     currency?: boolean
     billingCycle?: boolean
     interval?: boolean
+    startDate?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
     status?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
@@ -6294,10 +6303,11 @@ export namespace Prisma {
     currency?: boolean
     billingCycle?: boolean
     interval?: boolean
+    startDate?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
     status?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
@@ -6312,14 +6322,15 @@ export namespace Prisma {
     currency?: boolean
     billingCycle?: boolean
     interval?: boolean
+    startDate?: boolean
     nextBillingDate?: boolean
     reminderBefore?: boolean
     status?: boolean
-    createAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "platform" | "plan" | "amount" | "currency" | "billingCycle" | "interval" | "nextBillingDate" | "reminderBefore" | "status" | "createAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "platform" | "plan" | "amount" | "currency" | "billingCycle" | "interval" | "startDate" | "nextBillingDate" | "reminderBefore" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     history?: boolean | Subscription$historyArgs<ExtArgs>
@@ -6348,10 +6359,11 @@ export namespace Prisma {
       currency: string
       billingCycle: $Enums.BillingCycle
       interval: number
+      startDate: Date
       nextBillingDate: Date
-      reminderBefore: number
+      reminderBefore: number | null
       status: $Enums.SubscriptionStatus
-      createAt: Date
+      createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["subscription"]>
     composites: {}
@@ -6787,10 +6799,11 @@ export namespace Prisma {
     readonly currency: FieldRef<"Subscription", 'String'>
     readonly billingCycle: FieldRef<"Subscription", 'BillingCycle'>
     readonly interval: FieldRef<"Subscription", 'Int'>
+    readonly startDate: FieldRef<"Subscription", 'DateTime'>
     readonly nextBillingDate: FieldRef<"Subscription", 'DateTime'>
     readonly reminderBefore: FieldRef<"Subscription", 'Int'>
     readonly status: FieldRef<"Subscription", 'SubscriptionStatus'>
-    readonly createAt: FieldRef<"Subscription", 'DateTime'>
+    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
     readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
   }
     
@@ -9601,10 +9614,11 @@ export namespace Prisma {
     currency: 'currency',
     billingCycle: 'billingCycle',
     interval: 'interval',
+    startDate: 'startDate',
     nextBillingDate: 'nextBillingDate',
     reminderBefore: 'reminderBefore',
     status: 'status',
-    createAt: 'createAt',
+    createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
@@ -10088,10 +10102,11 @@ export namespace Prisma {
     currency?: StringFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleFilter<"Subscription"> | $Enums.BillingCycle
     interval?: IntFilter<"Subscription"> | number
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
     nextBillingDate?: DateTimeFilter<"Subscription"> | Date | string
-    reminderBefore?: IntFilter<"Subscription"> | number
+    reminderBefore?: IntNullableFilter<"Subscription"> | number | null
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
-    createAt?: DateTimeFilter<"Subscription"> | Date | string
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     history?: SubscriptionHistoryListRelationFilter
@@ -10107,10 +10122,11 @@ export namespace Prisma {
     currency?: SortOrder
     billingCycle?: SortOrder
     interval?: SortOrder
+    startDate?: SortOrder
     nextBillingDate?: SortOrder
-    reminderBefore?: SortOrder
+    reminderBefore?: SortOrderInput | SortOrder
     status?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     history?: SubscriptionHistoryOrderByRelationAggregateInput
@@ -10129,10 +10145,11 @@ export namespace Prisma {
     currency?: StringFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleFilter<"Subscription"> | $Enums.BillingCycle
     interval?: IntFilter<"Subscription"> | number
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
     nextBillingDate?: DateTimeFilter<"Subscription"> | Date | string
-    reminderBefore?: IntFilter<"Subscription"> | number
+    reminderBefore?: IntNullableFilter<"Subscription"> | number | null
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
-    createAt?: DateTimeFilter<"Subscription"> | Date | string
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     history?: SubscriptionHistoryListRelationFilter
@@ -10148,10 +10165,11 @@ export namespace Prisma {
     currency?: SortOrder
     billingCycle?: SortOrder
     interval?: SortOrder
+    startDate?: SortOrder
     nextBillingDate?: SortOrder
-    reminderBefore?: SortOrder
+    reminderBefore?: SortOrderInput | SortOrder
     status?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SubscriptionCountOrderByAggregateInput
     _avg?: SubscriptionAvgOrderByAggregateInput
@@ -10173,10 +10191,11 @@ export namespace Prisma {
     currency?: StringWithAggregatesFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleWithAggregatesFilter<"Subscription"> | $Enums.BillingCycle
     interval?: IntWithAggregatesFilter<"Subscription"> | number
+    startDate?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     nextBillingDate?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
-    reminderBefore?: IntWithAggregatesFilter<"Subscription"> | number
+    reminderBefore?: IntNullableWithAggregatesFilter<"Subscription"> | number | null
     status?: EnumSubscriptionStatusWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionStatus
-    createAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
   }
 
@@ -10676,10 +10695,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSubscriptionsInput
     history?: SubscriptionHistoryCreateNestedManyWithoutSubscriptionInput
@@ -10695,10 +10715,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutSubscriptionInput
   }
@@ -10712,10 +10733,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubscriptionsNestedInput
     history?: SubscriptionHistoryUpdateManyWithoutSubscriptionNestedInput
@@ -10731,10 +10753,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     history?: SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionNestedInput
   }
@@ -10749,10 +10772,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -10765,10 +10789,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10782,10 +10807,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11291,6 +11317,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumSubscriptionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
@@ -11308,10 +11345,11 @@ export namespace Prisma {
     currency?: SortOrder
     billingCycle?: SortOrder
     interval?: SortOrder
+    startDate?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
     status?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -11331,10 +11369,11 @@ export namespace Prisma {
     currency?: SortOrder
     billingCycle?: SortOrder
     interval?: SortOrder
+    startDate?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
     status?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -11348,10 +11387,11 @@ export namespace Prisma {
     currency?: SortOrder
     billingCycle?: SortOrder
     interval?: SortOrder
+    startDate?: SortOrder
     nextBillingDate?: SortOrder
     reminderBefore?: SortOrder
     status?: SortOrder
-    createAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -11401,6 +11441,22 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -11788,6 +11844,14 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
     set?: $Enums.SubscriptionStatus
   }
@@ -12097,6 +12161,33 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
@@ -12186,10 +12277,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     history?: SubscriptionHistoryCreateNestedManyWithoutSubscriptionInput
   }
@@ -12203,10 +12295,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     history?: SubscriptionHistoryUncheckedCreateNestedManyWithoutSubscriptionInput
   }
@@ -12370,10 +12463,11 @@ export namespace Prisma {
     currency?: StringFilter<"Subscription"> | string
     billingCycle?: EnumBillingCycleFilter<"Subscription"> | $Enums.BillingCycle
     interval?: IntFilter<"Subscription"> | number
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
     nextBillingDate?: DateTimeFilter<"Subscription"> | Date | string
-    reminderBefore?: IntFilter<"Subscription"> | number
+    reminderBefore?: IntNullableFilter<"Subscription"> | number | null
     status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
-    createAt?: DateTimeFilter<"Subscription"> | Date | string
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
   }
 
@@ -12744,10 +12838,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSubscriptionsInput
   }
@@ -12762,10 +12857,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -12833,10 +12929,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubscriptionsNestedInput
   }
@@ -12851,10 +12948,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12964,10 +13062,11 @@ export namespace Prisma {
     currency?: string
     billingCycle: $Enums.BillingCycle
     interval?: number
+    startDate?: Date | string
     nextBillingDate: Date | string
-    reminderBefore?: number
+    reminderBefore?: number | null
     status?: $Enums.SubscriptionStatus
-    createAt?: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -13067,10 +13166,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     history?: SubscriptionHistoryUpdateManyWithoutSubscriptionNestedInput
   }
@@ -13084,10 +13184,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     history?: SubscriptionHistoryUncheckedUpdateManyWithoutSubscriptionNestedInput
   }
@@ -13101,10 +13202,11 @@ export namespace Prisma {
     currency?: StringFieldUpdateOperationsInput | string
     billingCycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     interval?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     nextBillingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reminderBefore?: IntFieldUpdateOperationsInput | number
+    reminderBefore?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

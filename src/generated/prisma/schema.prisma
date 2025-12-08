@@ -105,12 +105,17 @@ model Subscription {
   billingCycle BillingCycle
   interval     Int          @default(1)
 
+  // --- ADD THIS FIELD ---
+  startDate DateTime @default(now())
+
+  // --- ENSURE THIS IS NOT OPTIONAL ---
   nextBillingDate DateTime
-  reminderBefore  Int      @default(3)
 
-  status SubscriptionStatus @default(ACTIVE)
+  reminderBefore Int?               @default(3) // Changed to optional (?) based on previous advice
+  status         SubscriptionStatus @default(ACTIVE)
 
-  createAt  DateTime @default(now())
+  // --- FIX TYPO (Optional but recommended) ---
+  createdAt DateTime @default(now()) // You had "createAt" before
   updatedAt DateTime @updatedAt
 
   history SubscriptionHistory[]

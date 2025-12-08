@@ -176,10 +176,11 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   currency: 'currency',
   billingCycle: 'billingCycle',
   interval: 'interval',
+  startDate: 'startDate',
   nextBillingDate: 'nextBillingDate',
   reminderBefore: 'reminderBefore',
   status: 'status',
-  createAt: 'createAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 

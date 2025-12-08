@@ -1,25 +1,55 @@
+//app/layout.tsx
 import './globals.css';
+import type { Metadata } from 'next'; // 1. Import Metadata type
 import { ThemeProvider } from "../components/ThemeProvider";
-import LenisProvider from '@/components/LenisProvider';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
+import { Sidebar } from '@/components/dashboard/Sidebar';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+// 2. Define Metadata using the Next.js API
+export const metadata: Metadata = {
+    title: "SubTrackr",
+    description: "Track your subscriptions efficiently", // Add a description
+    viewport: "width=device-width, initial-scale=1",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html suppressHydrationWarning>
-            <head>
-                <title>SubTrackr</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
+        // 3. Add lang attribute
+        <html lang="en" suppressHydrationWarning>
             <body>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem={true}
-                    disableTransitionOnChange={true}>
-                    <main>{children}</main>
-                    <footer className="mt-12">
-                        <Footer />
-                    </footer>
+                    disableTransitionOnChange={true}
+                >
+                    {/* H-screen ensures it takes exactly the browser height */}
+                    <div className="flex h-screen flex-col bg-background text-foreground">
+                        {/* 1. Global Navbar (Fixed at top) */}
+                        <Navbar />
+
+                        {/* Flex container for Sidebar + Main Content */}
+                        <div className="flex flex-1 overflow-hidden">
+                            {/* 2. Sidebar (Fixed width) */}
+                            <Sidebar />
+
+                            {/* 3. Main Content Wrapper (Scrollable) */}
+                            {/* We made this a flex-col so the footer sits at the bottom */}
+                            <main className="flex flex-1 flex-col overflow-y-auto">
+
+                                {/* Content Area - flex-1 pushes footer down if content is short */}
+                                <div className="flex-1 container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+                                    {children}
+                                </div>
+
+                                {/* 4. Footer (Now inside the scrollable area) */}
+                                <footer>
+                                    <Footer />
+                                </footer>
+                            </main>
+                        </div>
+                    </div>
                 </ThemeProvider>
             </body>
         </html>

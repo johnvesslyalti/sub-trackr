@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { format } from "date-fns";
 import { Search, Filter, MoreHorizontal, Trash2, Edit } from "lucide-react";
-import { useDebouncedCallback } from "use-debounce"; // npm install use-debounce
+import { useDebouncedCallback } from "use-debounce";
 
 import {
     Table,
@@ -32,7 +32,6 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { SubscriptionStatus, BillingCycle } from "@/generated/prisma";
-// You'll need to export this
 import { toast } from "sonner";
 import { deleteSubscription } from "@/server/subscription/actions";
 
@@ -63,7 +62,7 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
     const searchParams = useSearchParams();
     const [isPending, startTransition] = useTransition();
 
-    // Handle Search (Debounced to avoid spamming server)
+    // Handle Search 
     const handleSearch = useDebouncedCallback((term: string) => {
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -103,7 +102,7 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
     }
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-20">
             {/* --- Filters Toolbar --- */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                 <div className="relative flex-1">
@@ -157,7 +156,6 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                         ) : (
                             initialData.items.map((sub) => (
                                 <TableRow key={sub.id}>
-                                    {/* Name & Platform */}
                                     <TableCell className="font-medium">
                                         <div className="flex flex-col">
                                             <span className="text-foreground">{sub.name}</span>
@@ -167,7 +165,6 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                                         </div>
                                     </TableCell>
 
-                                    {/* Price */}
                                     <TableCell>
                                         {new Intl.NumberFormat('en-US', {
                                             style: 'currency',
@@ -175,24 +172,20 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                                         }).format(sub.amount)}
                                     </TableCell>
 
-                                    {/* Status */}
                                     <TableCell className="hidden sm:table-cell">
                                         <StatusBadge status={sub.status} />
                                     </TableCell>
 
-                                    {/* Cycle */}
                                     <TableCell className="hidden md:table-cell text-muted-foreground lowercase">
                                         {sub.billingCycle}
                                     </TableCell>
 
-                                    {/* Next Date */}
                                     <TableCell className="hidden md:table-cell text-muted-foreground">
                                         {sub.nextBillingDate
                                             ? format(new Date(sub.nextBillingDate), "MMM d, yyyy")
                                             : "-"}
                                     </TableCell>
 
-                                    {/* Actions */}
                                     <TableCell>
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
@@ -222,7 +215,7 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                 </Table>
             </div>
 
-            {/* Pagination Footer (Simple) */}
+            {/* Pagination Footer */}
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
                     variant="outline"
@@ -256,7 +249,6 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
     );
 }
 
-// Helper Component for Badges
 function StatusBadge({ status }: { status: SubscriptionStatus }) {
     if (status === "ACTIVE") {
         return (

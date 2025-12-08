@@ -1,3 +1,4 @@
+// src/server/subscription/queries.ts
 import 'server-only';
 
 import { BillingCycle, SubscriptionStatus, Prisma } from "@/generated/prisma";
@@ -34,23 +35,14 @@ async function getUserIdOrThrow() {
 
 // --- Queries ---
 
-// 1. Get List of Subscriptions (with Pagination & Filters)
+// 1. Get List of Subscriptions
 export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     const userId = await getUserIdOrThrow();
 
-    // Parse inputs
     const {
-        page,
-        pageSize,
-        status,
-        billingCycle,
-        platform,
-        search,
-        sortBy,
-        sortOrder
+        page, pageSize, status, billingCycle, platform, search, sortBy, sortOrder
     } = subscriptionQuerySchema.parse(input);
 
-    // Build Where Clause
     const where: Prisma.SubscriptionWhereInput = {
         userId,
         ...(status && { status }),
@@ -75,7 +67,6 @@ export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
             prisma.subscription.count({ where }),
         ]);
 
-        // Serialize Decimal to number
         const serializedItems = items.map((item) => ({
             ...item,
             amount: item.amount.toNumber()
@@ -94,11 +85,10 @@ export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     }
 });
 
-// 2. Get Dashboard Statistics (Pie Chart + Bar Chart Data)
+// 2. Get Dashboard Statistics (FIXED LOGIC)
 export const getDashboardStats = cache(async () => {
     const userId = await getUserIdOrThrow();
 
-    // Fetch all metrics in parallel
     const [activeCount, canceledCount, spendRaw, upcomingRaw] = await Promise.all([
         prisma.subscription.count({
             where: { userId, status: SubscriptionStatus.ACTIVE }
@@ -108,7 +98,7 @@ export const getDashboardStats = cache(async () => {
             where: { userId, status: SubscriptionStatus.CANCELED }
         }),
 
-        // Group by 'name' (Service) to avoid empty "Other" results if platform is missing
+        // GROUP BY NAME (Because your 'platform' column is empty)
         prisma.subscription.groupBy({
             by: ['name'],
             where: {
@@ -118,7 +108,6 @@ export const getDashboardStats = cache(async () => {
             _sum: { amount: true },
         }),
 
-        // Upcoming Bills (Next 5)
         prisma.subscription.findMany({
             where: {
                 userId,
@@ -131,31 +120,24 @@ export const getDashboardStats = cache(async () => {
         })
     ]);
 
-    // --- LOGIC: Top 4 + Others ---
-
-    // 1. Format and Sort Descending
-    // Note: We explicitly type the map parameter to fix 'any' error
+    // --- CRITICAL FIX HERE ---
     const allItems = spendRaw.map((item) => ({
+        // We grouped by 'name', so we MUST use 'item.name'.
+        // If we use 'item.platform', it will be undefined -> "Other".
         platform: item.name || "Other",
         amount: item._sum.amount ? item._sum.amount.toNumber() : 0,
     })).sort((a, b) => b.amount - a.amount);
 
-    // 2. Separate Top 4 from the Rest
+    // --- Top 4 + Others Logic ---
     const top4 = allItems.slice(0, 4);
     const rest = allItems.slice(4);
-
-    // 3. Calculate "Others" sum
     const otherAmount = rest.reduce((sum, item) => sum + item.amount, 0);
 
-    // 4. Combine
     const spendByPlatform = [...top4];
     if (otherAmount > 0) {
         spendByPlatform.push({ platform: "Others", amount: otherAmount });
     }
 
-    // --- End Logic ---
-
-    // Calculate Total Monthly Spend
     const estimatedMonthlySpend = spendByPlatform.reduce((acc, curr) => acc + curr.amount, 0);
 
     const upcoming = upcomingRaw.map((item) => ({

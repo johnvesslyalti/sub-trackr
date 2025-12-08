@@ -10,11 +10,6 @@ export default async function SubscriptionsPage(props: PageProps) {
     const searchParams = await props.searchParams;
     const data = await getSubscriptions(searchParams as any);
 
-    const sanitizedItems = data.items.map((sub) => ({
-        ...sub,
-        amount: sub.amount.toNumber(),
-    }));
-
     return (
         <div className="space-y-6 p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -29,7 +24,7 @@ export default async function SubscriptionsPage(props: PageProps) {
                 <AddSubscriptionDialogClient />
             </div>
 
-            <SubscriptionsView initialData={{ ...data, items: sanitizedItems }} />
+            <SubscriptionsView initialData={{ ...data }} />
         </div>
     );
 }

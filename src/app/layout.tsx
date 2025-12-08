@@ -16,12 +16,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     defaultTheme="system"
                     enableSystem={true}
                     disableTransitionOnChange={true}>
-                    <LenisProvider>
-                        <main>{children}</main>
-                        <footer className="mt-12">
-                            <Footer />
-                        </footer>
-                    </LenisProvider>
+                    <main>{children}</main>
+                    <footer className="mt-12">
+                        <Footer />
+                    </footer>
                 </ThemeProvider>
             </body>
         </html>

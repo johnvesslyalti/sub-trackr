@@ -4,10 +4,12 @@
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { BillingCycle, SubscriptionStatus } from "@/generated/prisma";
-
+import { headers } from "next/headers";
 
 async function getUserIdOrThrow() {
-    const session = await auth.api.getSession()
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
     if (!session || !session.user) throw new Error("Unauthorized");
     return session.user.id;
 }

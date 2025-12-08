@@ -1,4 +1,3 @@
-// src/server/subscription/actions.ts
 "use server";
 
 import { SubscriptionStatus, BillingCycle } from "@/generated/prisma";
@@ -12,41 +11,24 @@ import { headers } from "next/headers";
 
 // --- Helper Functions ---
 
-/**
- * Calculates the next billing date based on start date, interval, and cycle.
- */
 function calculateNextBillingDate(startDate: Date, interval: number, cycle: BillingCycle): Date {
     const date = new Date(startDate);
-
     switch (cycle) {
-        case "DAILY":
-            date.setDate(date.getDate() + interval);
-            break;
-        case "WEEKLY":
-            date.setDate(date.getDate() + (interval * 7));
-            break;
-        case "MONTHLY":
-            date.setMonth(date.getMonth() + interval);
-            break;
-        case "YEARLY":
-            date.setFullYear(date.getFullYear() + interval);
-            break;
-        case "CUSTOM":
-            date.setMonth(date.getMonth() + interval);
-            break;
+        case "DAILY": date.setDate(date.getDate() + interval); break;
+        case "WEEKLY": date.setDate(date.getDate() + (interval * 7)); break;
+        case "MONTHLY": date.setMonth(date.getMonth() + interval); break;
+        case "YEARLY": date.setFullYear(date.getFullYear() + interval); break;
+        case "CUSTOM": date.setMonth(date.getMonth() + interval); break;
     }
-
     return date;
 }
 
-/**
- * FIX: Converts Prisma Decimal objects to plain numbers for JSON serialization.
- */
+// Helper to convert Decimal to Number for the frontend
 function serializeSubscription(sub: any) {
     if (!sub) return null;
     return {
         ...sub,
-        amount: sub.amount.toNumber(), // Converts Decimal(10.99) -> 10.99
+        amount: sub.amount.toNumber(),
     };
 }
 
@@ -90,6 +72,7 @@ export async function addSubscription(input: unknown): Promise<ActionResponse<an
             billingCycle as BillingCycle
         );
 
+        // Create subscription (Platform field is removed)
         const subscription = await prisma.subscription.create({
             data: {
                 ...parsed.data,
@@ -98,7 +81,6 @@ export async function addSubscription(input: unknown): Promise<ActionResponse<an
             },
         });
 
-        // FIX: Return serialized data
         return { success: true, data: serializeSubscription(subscription) };
     } catch (error) {
         console.error("Failed to add subscription:", error);
@@ -131,7 +113,6 @@ export async function updateSubscription(
             data: parsed.data,
         });
 
-        // FIX: Return serialized data
         return { success: true, data: serializeSubscription(updated) };
     } catch (error) {
         console.error("Update failed:", error);
@@ -157,9 +138,9 @@ export async function deleteSubscription(id: string): Promise<ActionResponse> {
                     subscriptionId: sub.id,
                     userId,
                     name: sub.name,
-                    platform: sub.platform,
+                    // REMOVED: platform
                     plan: sub.plan,
-                    amount: sub.amount, // History schema also uses Decimal, so this is fine internally
+                    amount: sub.amount,
                     currency: sub.currency,
                     billingCycle: sub.billingCycle,
                     endedAt: new Date(),
@@ -195,7 +176,7 @@ export async function cancelSubscription(id: string): Promise<ActionResponse<any
                     subscriptionId: sub.id,
                     userId,
                     name: sub.name,
-                    platform: sub.platform,
+                    // REMOVED: platform
                     plan: sub.plan,
                     amount: sub.amount,
                     currency: sub.currency,
@@ -211,7 +192,6 @@ export async function cancelSubscription(id: string): Promise<ActionResponse<any
             }),
         ]);
 
-        // FIX: Return serialized data
         return { success: true, data: serializeSubscription(updatedSub) };
     } catch (error) {
         console.error("Cancel failed:", error);

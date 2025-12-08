@@ -6011,7 +6011,6 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     name: string | null
-    platform: string | null
     plan: string | null
     amount: Decimal | null
     currency: string | null
@@ -6029,7 +6028,6 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     name: string | null
-    platform: string | null
     plan: string | null
     amount: Decimal | null
     currency: string | null
@@ -6047,7 +6045,6 @@ export namespace Prisma {
     id: number
     userId: number
     name: number
-    platform: number
     plan: number
     amount: number
     currency: number
@@ -6079,7 +6076,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     name?: true
-    platform?: true
     plan?: true
     amount?: true
     currency?: true
@@ -6097,7 +6093,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     name?: true
-    platform?: true
     plan?: true
     amount?: true
     currency?: true
@@ -6115,7 +6110,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     name?: true
-    platform?: true
     plan?: true
     amount?: true
     currency?: true
@@ -6220,7 +6214,6 @@ export namespace Prisma {
     id: string
     userId: string
     name: string
-    platform: string | null
     plan: string | null
     amount: Decimal
     currency: string
@@ -6257,7 +6250,6 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -6278,7 +6270,6 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -6297,7 +6288,6 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -6316,7 +6306,6 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -6330,7 +6319,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "platform" | "plan" | "amount" | "currency" | "billingCycle" | "interval" | "startDate" | "nextBillingDate" | "reminderBefore" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "plan" | "amount" | "currency" | "billingCycle" | "interval" | "startDate" | "nextBillingDate" | "reminderBefore" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     history?: boolean | Subscription$historyArgs<ExtArgs>
@@ -6353,7 +6342,6 @@ export namespace Prisma {
       id: string
       userId: string
       name: string
-      platform: string | null
       plan: string | null
       amount: Prisma.Decimal
       currency: string
@@ -6793,7 +6781,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Subscription", 'String'>
     readonly userId: FieldRef<"Subscription", 'String'>
     readonly name: FieldRef<"Subscription", 'String'>
-    readonly platform: FieldRef<"Subscription", 'String'>
     readonly plan: FieldRef<"Subscription", 'String'>
     readonly amount: FieldRef<"Subscription", 'Decimal'>
     readonly currency: FieldRef<"Subscription", 'String'>
@@ -7268,7 +7255,6 @@ export namespace Prisma {
     subscriptionId: string | null
     userId: string | null
     name: string | null
-    platform: string | null
     plan: string | null
     amount: Decimal | null
     currency: string | null
@@ -7281,7 +7267,6 @@ export namespace Prisma {
     subscriptionId: string | null
     userId: string | null
     name: string | null
-    platform: string | null
     plan: string | null
     amount: Decimal | null
     currency: string | null
@@ -7294,7 +7279,6 @@ export namespace Prisma {
     subscriptionId: number
     userId: number
     name: number
-    platform: number
     plan: number
     amount: number
     currency: number
@@ -7317,7 +7301,6 @@ export namespace Prisma {
     subscriptionId?: true
     userId?: true
     name?: true
-    platform?: true
     plan?: true
     amount?: true
     currency?: true
@@ -7330,7 +7313,6 @@ export namespace Prisma {
     subscriptionId?: true
     userId?: true
     name?: true
-    platform?: true
     plan?: true
     amount?: true
     currency?: true
@@ -7343,7 +7325,6 @@ export namespace Prisma {
     subscriptionId?: true
     userId?: true
     name?: true
-    platform?: true
     plan?: true
     amount?: true
     currency?: true
@@ -7443,7 +7424,6 @@ export namespace Prisma {
     subscriptionId: string | null
     userId: string
     name: string
-    platform: string | null
     plan: string | null
     amount: Decimal
     currency: string
@@ -7475,7 +7455,6 @@ export namespace Prisma {
     subscriptionId?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -7490,7 +7469,6 @@ export namespace Prisma {
     subscriptionId?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -7505,7 +7483,6 @@ export namespace Prisma {
     subscriptionId?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -7520,7 +7497,6 @@ export namespace Prisma {
     subscriptionId?: boolean
     userId?: boolean
     name?: boolean
-    platform?: boolean
     plan?: boolean
     amount?: boolean
     currency?: boolean
@@ -7528,7 +7504,7 @@ export namespace Prisma {
     endedAt?: boolean
   }
 
-  export type SubscriptionHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subscriptionId" | "userId" | "name" | "platform" | "plan" | "amount" | "currency" | "billingCycle" | "endedAt", ExtArgs["result"]["subscriptionHistory"]>
+  export type SubscriptionHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subscriptionId" | "userId" | "name" | "plan" | "amount" | "currency" | "billingCycle" | "endedAt", ExtArgs["result"]["subscriptionHistory"]>
   export type SubscriptionHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     subscription?: boolean | SubscriptionHistory$subscriptionArgs<ExtArgs>
@@ -7553,7 +7529,6 @@ export namespace Prisma {
       subscriptionId: string | null
       userId: string
       name: string
-      platform: string | null
       plan: string | null
       amount: Prisma.Decimal
       currency: string
@@ -7988,7 +7963,6 @@ export namespace Prisma {
     readonly subscriptionId: FieldRef<"SubscriptionHistory", 'String'>
     readonly userId: FieldRef<"SubscriptionHistory", 'String'>
     readonly name: FieldRef<"SubscriptionHistory", 'String'>
-    readonly platform: FieldRef<"SubscriptionHistory", 'String'>
     readonly plan: FieldRef<"SubscriptionHistory", 'String'>
     readonly amount: FieldRef<"SubscriptionHistory", 'Decimal'>
     readonly currency: FieldRef<"SubscriptionHistory", 'String'>
@@ -9608,7 +9582,6 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     name: 'name',
-    platform: 'platform',
     plan: 'plan',
     amount: 'amount',
     currency: 'currency',
@@ -9630,7 +9603,6 @@ export namespace Prisma {
     subscriptionId: 'subscriptionId',
     userId: 'userId',
     name: 'name',
-    platform: 'platform',
     plan: 'plan',
     amount: 'amount',
     currency: 'currency',
@@ -10096,7 +10068,6 @@ export namespace Prisma {
     id?: StringFilter<"Subscription"> | string
     userId?: StringFilter<"Subscription"> | string
     name?: StringFilter<"Subscription"> | string
-    platform?: StringNullableFilter<"Subscription"> | string | null
     plan?: StringNullableFilter<"Subscription"> | string | null
     amount?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"Subscription"> | string
@@ -10116,7 +10087,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrderInput | SortOrder
     plan?: SortOrderInput | SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -10139,7 +10109,6 @@ export namespace Prisma {
     NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
     userId?: StringFilter<"Subscription"> | string
     name?: StringFilter<"Subscription"> | string
-    platform?: StringNullableFilter<"Subscription"> | string | null
     plan?: StringNullableFilter<"Subscription"> | string | null
     amount?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"Subscription"> | string
@@ -10159,7 +10128,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrderInput | SortOrder
     plan?: SortOrderInput | SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -10185,7 +10153,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Subscription"> | string
     userId?: StringWithAggregatesFilter<"Subscription"> | string
     name?: StringWithAggregatesFilter<"Subscription"> | string
-    platform?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     plan?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     amount?: DecimalWithAggregatesFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
     currency?: StringWithAggregatesFilter<"Subscription"> | string
@@ -10207,7 +10174,6 @@ export namespace Prisma {
     subscriptionId?: StringNullableFilter<"SubscriptionHistory"> | string | null
     userId?: StringFilter<"SubscriptionHistory"> | string
     name?: StringFilter<"SubscriptionHistory"> | string
-    platform?: StringNullableFilter<"SubscriptionHistory"> | string | null
     plan?: StringNullableFilter<"SubscriptionHistory"> | string | null
     amount?: DecimalFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"SubscriptionHistory"> | string
@@ -10222,7 +10188,6 @@ export namespace Prisma {
     subscriptionId?: SortOrderInput | SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrderInput | SortOrder
     plan?: SortOrderInput | SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -10240,7 +10205,6 @@ export namespace Prisma {
     subscriptionId?: StringNullableFilter<"SubscriptionHistory"> | string | null
     userId?: StringFilter<"SubscriptionHistory"> | string
     name?: StringFilter<"SubscriptionHistory"> | string
-    platform?: StringNullableFilter<"SubscriptionHistory"> | string | null
     plan?: StringNullableFilter<"SubscriptionHistory"> | string | null
     amount?: DecimalFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"SubscriptionHistory"> | string
@@ -10255,7 +10219,6 @@ export namespace Prisma {
     subscriptionId?: SortOrderInput | SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrderInput | SortOrder
     plan?: SortOrderInput | SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -10276,7 +10239,6 @@ export namespace Prisma {
     subscriptionId?: StringNullableWithAggregatesFilter<"SubscriptionHistory"> | string | null
     userId?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
     name?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
-    platform?: StringNullableWithAggregatesFilter<"SubscriptionHistory"> | string | null
     plan?: StringNullableWithAggregatesFilter<"SubscriptionHistory"> | string | null
     amount?: DecimalWithAggregatesFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
     currency?: StringWithAggregatesFilter<"SubscriptionHistory"> | string
@@ -10689,7 +10651,6 @@ export namespace Prisma {
   export type SubscriptionCreateInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -10709,7 +10670,6 @@ export namespace Prisma {
     id?: string
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -10727,7 +10687,6 @@ export namespace Prisma {
   export type SubscriptionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10747,7 +10706,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10766,7 +10724,6 @@ export namespace Prisma {
     id?: string
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -10783,7 +10740,6 @@ export namespace Prisma {
   export type SubscriptionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10801,7 +10757,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10818,7 +10773,6 @@ export namespace Prisma {
   export type SubscriptionHistoryCreateInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -10833,7 +10787,6 @@ export namespace Prisma {
     subscriptionId?: string | null
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -10844,7 +10797,6 @@ export namespace Prisma {
   export type SubscriptionHistoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10859,7 +10811,6 @@ export namespace Prisma {
     subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10872,7 +10823,6 @@ export namespace Prisma {
     subscriptionId?: string | null
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -10883,7 +10833,6 @@ export namespace Prisma {
   export type SubscriptionHistoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -10896,7 +10845,6 @@ export namespace Prisma {
     subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -11339,7 +11287,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -11363,7 +11310,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -11381,7 +11327,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -11479,7 +11424,6 @@ export namespace Prisma {
     subscriptionId?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -11496,7 +11440,6 @@ export namespace Prisma {
     subscriptionId?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -11509,7 +11452,6 @@ export namespace Prisma {
     subscriptionId?: SortOrder
     userId?: SortOrder
     name?: SortOrder
-    platform?: SortOrder
     plan?: SortOrder
     amount?: SortOrder
     currency?: SortOrder
@@ -12271,7 +12213,6 @@ export namespace Prisma {
   export type SubscriptionCreateWithoutUserInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -12289,7 +12230,6 @@ export namespace Prisma {
   export type SubscriptionUncheckedCreateWithoutUserInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -12317,7 +12257,6 @@ export namespace Prisma {
   export type SubscriptionHistoryCreateWithoutUserInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -12330,7 +12269,6 @@ export namespace Prisma {
     id?: string
     subscriptionId?: string | null
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -12457,7 +12395,6 @@ export namespace Prisma {
     id?: StringFilter<"Subscription"> | string
     userId?: StringFilter<"Subscription"> | string
     name?: StringFilter<"Subscription"> | string
-    platform?: StringNullableFilter<"Subscription"> | string | null
     plan?: StringNullableFilter<"Subscription"> | string | null
     amount?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"Subscription"> | string
@@ -12495,7 +12432,6 @@ export namespace Prisma {
     subscriptionId?: StringNullableFilter<"SubscriptionHistory"> | string | null
     userId?: StringFilter<"SubscriptionHistory"> | string
     name?: StringFilter<"SubscriptionHistory"> | string
-    platform?: StringNullableFilter<"SubscriptionHistory"> | string | null
     plan?: StringNullableFilter<"SubscriptionHistory"> | string | null
     amount?: DecimalFilter<"SubscriptionHistory"> | Decimal | DecimalJsLike | number | string
     currency?: StringFilter<"SubscriptionHistory"> | string
@@ -12710,7 +12646,6 @@ export namespace Prisma {
   export type SubscriptionHistoryCreateWithoutSubscriptionInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -12723,7 +12658,6 @@ export namespace Prisma {
     id?: string
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -12832,7 +12766,6 @@ export namespace Prisma {
   export type SubscriptionCreateWithoutHistoryInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -12851,7 +12784,6 @@ export namespace Prisma {
     id?: string
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -12923,7 +12855,6 @@ export namespace Prisma {
   export type SubscriptionUpdateWithoutHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -12942,7 +12873,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13056,7 +12986,6 @@ export namespace Prisma {
   export type SubscriptionCreateManyUserInput = {
     id?: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency?: string
@@ -13074,7 +13003,6 @@ export namespace Prisma {
     id?: string
     subscriptionId?: string | null
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -13160,7 +13088,6 @@ export namespace Prisma {
   export type SubscriptionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13178,7 +13105,6 @@ export namespace Prisma {
   export type SubscriptionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13196,7 +13122,6 @@ export namespace Prisma {
   export type SubscriptionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13213,7 +13138,6 @@ export namespace Prisma {
   export type SubscriptionHistoryUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13226,7 +13150,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13238,7 +13161,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13250,7 +13172,6 @@ export namespace Prisma {
     id?: string
     userId: string
     name: string
-    platform?: string | null
     plan?: string | null
     amount: Decimal | DecimalJsLike | number | string
     currency: string
@@ -13261,7 +13182,6 @@ export namespace Prisma {
   export type SubscriptionHistoryUpdateWithoutSubscriptionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13274,7 +13194,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string
@@ -13286,7 +13205,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    platform?: NullableStringFieldUpdateOperationsInput | string | null
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     currency?: StringFieldUpdateOperationsInput | string

@@ -95,9 +95,8 @@ model Subscription {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  name     String
-  platform String?
-  plan     String?
+  name String
+  plan String?
 
   amount   Decimal @db.Decimal(10, 2)
   currency String  @default("INR")
@@ -121,7 +120,6 @@ model Subscription {
   history SubscriptionHistory[]
 
   @@index([userId, nextBillingDate])
-  @@index([userId, platform])
   @@index([userId, status])
 }
 
@@ -131,7 +129,6 @@ model SubscriptionHistory {
   userId         String
 
   name         String
-  platform     String?
   plan         String?
   amount       Decimal      @db.Decimal(10, 2)
   currency     String
@@ -142,7 +139,6 @@ model SubscriptionHistory {
   subscription Subscription? @relation(fields: [subscriptionId], references: [id])
 
   @@index([userId, endedAt])
-  @@index([platform])
 }
 
 model NotificationSettings {

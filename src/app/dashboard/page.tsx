@@ -2,6 +2,8 @@ import { getDashboardStats } from "@/server/subscription/stats";
 import { DashboardView } from "@/components/dashboard/DashboardView";
 import { AddSubscriptionDialogClient } from "@/components/dashboard/AddSubscriptionDialogClient";
 
+export const dynamic = "force-dynamic"; // <--- ADD THIS
+
 export default async function DashboardPage() {
     const stats = await getDashboardStats();
 

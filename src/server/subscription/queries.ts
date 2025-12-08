@@ -15,7 +15,6 @@ const subscriptionQuerySchema = z.object({
     pageSize: z.coerce.number().min(1).max(100).default(10),
     status: z.nativeEnum(SubscriptionStatus).optional(),
     billingCycle: z.nativeEnum(BillingCycle).optional(),
-    platform: z.string().optional(),
     search: z.string().optional(),
     sortBy: z.enum(["nextBillingDate", "amount", "createdAt"]).default("nextBillingDate"),
     sortOrder: z.enum(["asc", "desc"]).default("asc"),
@@ -40,18 +39,16 @@ export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     const userId = await getUserIdOrThrow();
 
     const {
-        page, pageSize, status, billingCycle, platform, search, sortBy, sortOrder
+        page, pageSize, status, billingCycle, search, sortBy, sortOrder
     } = subscriptionQuerySchema.parse(input);
 
     const where: Prisma.SubscriptionWhereInput = {
         userId,
         ...(status && { status }),
         ...(billingCycle && { billingCycle }),
-        ...(platform && { platform: { contains: platform, mode: 'insensitive' } }),
         ...(search && {
             OR: [
                 { name: { contains: search, mode: "insensitive" } },
-                { platform: { contains: search, mode: "insensitive" } },
             ],
         }),
     };
@@ -85,27 +82,19 @@ export const getSubscriptions = cache(async (input: GetSubscriptionsInput) => {
     }
 });
 
-// 2. Get Dashboard Statistics (FIXED LOGIC)
-export const getDashboardStats = cache(async () => {
+// 2. Get Dashboard Statistics (FIXED: Manual Aggregation by Name)
+export const getDashboardStats = async () => {
     const userId = await getUserIdOrThrow();
 
-    const [activeCount, canceledCount, spendRaw, upcomingRaw] = await Promise.all([
-        prisma.subscription.count({
-            where: { userId, status: SubscriptionStatus.ACTIVE }
+    const [activeSubs, canceledCount, upcomingRaw] = await Promise.all([
+        // FIX: Fetch raw list instead of using groupBy
+        prisma.subscription.findMany({
+            where: { userId, status: SubscriptionStatus.ACTIVE },
+            select: { name: true, amount: true }
         }),
 
         prisma.subscription.count({
             where: { userId, status: SubscriptionStatus.CANCELED }
-        }),
-
-        // GROUP BY NAME (Because your 'platform' column is empty)
-        prisma.subscription.groupBy({
-            by: ['name'],
-            where: {
-                userId,
-                status: SubscriptionStatus.ACTIVE
-            },
-            _sum: { amount: true },
         }),
 
         prisma.subscription.findMany({
@@ -120,15 +109,24 @@ export const getDashboardStats = cache(async () => {
         })
     ]);
 
-    // --- CRITICAL FIX HERE ---
-    const allItems = spendRaw.map((item) => ({
-        // We grouped by 'name', so we MUST use 'item.name'.
-        // If we use 'item.platform', it will be undefined -> "Other".
-        platform: item.name || "Other",
-        amount: item._sum.amount ? item._sum.amount.toNumber() : 0,
-    })).sort((a, b) => b.amount - a.amount);
+    // --- MANUAL AGGREGATION (Group by Name) ---
+    const spendMap = new Map<string, number>();
 
-    // --- Top 4 + Others Logic ---
+    for (const sub of activeSubs) {
+        // Use Name as the label (e.g. "Netflix")
+        const label = sub.name;
+        const amount = sub.amount.toNumber();
+
+        const current = spendMap.get(label) || 0;
+        spendMap.set(label, current + amount);
+    }
+
+    // Convert Map to Array & Sort by Amount
+    const allItems = Array.from(spendMap.entries())
+        .map(([platform, amount]) => ({ platform, amount }))
+        .sort((a, b) => b.amount - a.amount);
+
+    // Logic: Top 4 + Others
     const top4 = allItems.slice(0, 4);
     const rest = allItems.slice(4);
     const otherAmount = rest.reduce((sum, item) => sum + item.amount, 0);
@@ -138,6 +136,7 @@ export const getDashboardStats = cache(async () => {
         spendByPlatform.push({ platform: "Others", amount: otherAmount });
     }
 
+    // Calculate Totals
     const estimatedMonthlySpend = spendByPlatform.reduce((acc, curr) => acc + curr.amount, 0);
 
     const upcoming = upcomingRaw.map((item) => ({
@@ -146,10 +145,10 @@ export const getDashboardStats = cache(async () => {
     }));
 
     return {
-        activeCount,
+        activeCount: activeSubs.length,
         canceledCount,
         estimatedMonthlySpend,
         spendByPlatform,
         upcoming
     };
-});
+};

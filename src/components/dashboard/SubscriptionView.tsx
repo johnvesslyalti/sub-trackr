@@ -33,7 +33,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { SubscriptionStatus, BillingCycle } from "@/generated/prisma";
 import { toast } from "sonner";
-import { deleteSubscription } from "@/server/subscription/actions";
+import { deleteSubscription, updateSubscription } from "@/server/subscription/actions";
 
 // Define the shape of the sanitized data
 type SubscriptionItem = {
@@ -74,17 +74,39 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
         router.replace(`?${params.toString()}`);
     }, 300);
 
-    // Handle Status Filter
-    const handleStatusChange = (status: string) => {
+    // Handle Status Filter (Updates URL parameter)
+    const handleStatusFilter = (status: string) => {
         const params = new URLSearchParams(searchParams);
         if (status && status !== "ALL") {
             params.set("status", status);
         } else {
             params.delete("status");
         }
-        params.set("page", "1");
+        params.set("page", "1"); // Reset to page 1
         router.replace(`?${params.toString()}`);
     };
+
+    // Handle Edit/Status Toggle (Updates database record)
+    const handleEditStatus = async (id: string, currentStatus: SubscriptionStatus) => {
+        // Determine the next status (Toggle between ACTIVE and CANCELED)
+        const newStatus = currentStatus === SubscriptionStatus.ACTIVE
+            ? SubscriptionStatus.CANCELED
+            : SubscriptionStatus.ACTIVE;
+
+        if (!confirm(`Are you sure you want to change the status to ${newStatus.toLowerCase()}?`)) return;
+
+        startTransition(async () => {
+            // Assuming your `updateSubscription` action expects an object for updates
+            const result = await updateSubscription(id, { status: newStatus });
+
+            if (result.success) {
+                toast.success(`Subscription status updated to ${newStatus.toLowerCase()}`);
+                router.refresh(); // Refresh data to show the new status
+            } else {
+                toast.error(result.error || "Failed to update subscription status");
+            }
+        });
+    }
 
     // Handle Delete
     const handleDelete = async (id: string) => {
@@ -117,7 +139,8 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
 
                 <Select
                     defaultValue={searchParams.get("status") || "ALL"}
-                    onValueChange={handleStatusChange}
+                    // Correctly call the filter handler
+                    onValueChange={handleStatusFilter}
                 >
                     <SelectTrigger className="w-full sm:w-[180px]">
                         <div className="flex items-center gap-2">
@@ -159,17 +182,13 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                                     <TableCell className="font-medium">
                                         <div className="flex flex-col">
                                             <span className="text-foreground">{sub.name}</span>
-                                            {/* **REMOVED** the 'platform' display block */}
-                                            {/* {sub.platform && (
-                                                <span className="text-xs text-muted-foreground">{sub.platform}</span>
-                                            )} */}
                                         </div>
                                     </TableCell>
 
                                     <TableCell>
                                         {new Intl.NumberFormat('en-US', {
                                             style: 'currency',
-                                            currency: sub.currency
+                                            currency: 'USD'
                                         }).format(sub.amount)}
                                     </TableCell>
 
@@ -197,9 +216,15 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
                                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                <DropdownMenuItem onClick={() => toast.info("Edit feature coming soon!")}>
-                                                    <Edit className="mr-2 h-4 w-4" /> Edit
+
+                                                {/* Updated Edit/Status Toggle functionality */}
+                                                <DropdownMenuItem
+                                                    onClick={() => handleEditStatus(sub.id, sub.status)}
+                                                >
+                                                    <Edit className="mr-2 h-4 w-4" />
+                                                    {sub.status === SubscriptionStatus.ACTIVE ? 'Cancel Subscription' : 'Reactivate Subscription'}
                                                 </DropdownMenuItem>
+
                                                 <DropdownMenuItem
                                                     className="text-destructive focus:text-destructive"
                                                     onClick={() => handleDelete(sub.id)}
@@ -250,6 +275,7 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
     );
 }
 
+// StatusBadge component definition
 function StatusBadge({ status }: { status: SubscriptionStatus }) {
     if (status === "ACTIVE") {
         return (
@@ -258,5 +284,5 @@ function StatusBadge({ status }: { status: SubscriptionStatus }) {
             </Badge>
         );
     }
-    return <Badge variant="secondary">Canceled</Badge>;
+    return <Badge variant="secondary" className="bg-red-500/15 text-red-600 hover:bg-red-500/25 border-red-500/20">Canceled</Badge>;
 }

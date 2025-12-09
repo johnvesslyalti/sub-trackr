@@ -2,12 +2,12 @@
 
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { notificationsSettingsSchema } from "@/lib/validations/settings";
+import { NotificationSettings, notificationsSettingsSchema } from "@/lib/validations/settings";
 import { headers } from "next/headers";
 
-type ActionResponse<T = null> = {
+type ActionResponse = {
     success: boolean;
-    data?: T;
+    data?: NotificationSettings;
     error?: string;
 };
 

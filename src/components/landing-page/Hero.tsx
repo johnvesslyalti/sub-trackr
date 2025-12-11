@@ -120,7 +120,7 @@ export default function Hero() {
             </a>
 
             <a
-              href="https://x.com/johnveslyalti"
+              href="https://x.com/johnvesslyalti"
               target="_blank"
               className="hover:text-gray-400 transition"
             >

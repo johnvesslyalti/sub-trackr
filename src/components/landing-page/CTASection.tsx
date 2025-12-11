@@ -38,7 +38,7 @@ export default function CTASection() {
           className="w-full h-64 md:h-[360px] rounded-2xl overflow-hidden border border-gray-700 shadow-md p-5"
         >
           <Image
-            src="/subtrackr-preview.png"
+            src="/2.png"
             alt="Dashboard Preview"
             width={700}
             height={400}

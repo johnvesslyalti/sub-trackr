@@ -92,7 +92,7 @@ export default function Hero() {
           {/* GIF Preview */}
           <div className="w-full aspect-video rounded-xl overflow-hidden bg-black shadow-md mb-8 p-5 flex items-center justify-center">
             <Image
-              src="/subtrackr-preview.gif"
+              src="/1.jpeg"
               alt="Sub Trackr Preview"
               width={1280}
               height={720}

@@ -11,6 +11,7 @@ type DashboardProps = {
         canceledCount: number;
         estimatedMonthlySpend: number;
         spendByPlatform: { platform: string; amount: number }[];
+        totalSpendByPlatform: { platform: string; amount: number }[];
         upcoming: { name: string; amount: number }[];
     };
 };
@@ -171,7 +172,44 @@ export function DashboardView({ stats }: DashboardProps) {
                     )}
                 </div>
             </div>
-        </div>
+
+            {/* --- Lifetime Spend Section --- */}
+            <div className="rounded-xl border border-border bg-card p-6 shadow-sm text-card-foreground">
+                <h3 className="mb-6 text-lg font-semibold tracking-tight">Total Lifetime Spend</h3>
+                {stats.totalSpendByPlatform && stats.totalSpendByPlatform.length > 0 ? (
+                    <div className="space-y-5">
+                        {stats.totalSpendByPlatform.map((item) => {
+                            const maxLifetime = Math.max(...stats.totalSpendByPlatform.map((i) => i.amount), 1);
+                            const percent = (item.amount / maxLifetime) * 100;
+
+                            return (
+                                <div key={item.platform} className="space-y-2">
+                                    <div className="flex items-center justify-between text-sm">
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                                                {item.platform.charAt(0).toUpperCase()}
+                                            </div>
+                                            <span className="font-medium text-foreground">{item.platform}</span>
+                                        </div>
+                                        <span className="font-bold font-mono">${item.amount.toLocaleString()}</span>
+                                    </div>
+                                    <div className="h-2 w-full rounded-full bg-secondary/50 overflow-hidden">
+                                        <div
+                                            className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                                            style={{ width: `${percent}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div className="flex h-[150px] items-center justify-center rounded-lg border-2 border-dashed border-border bg-accent/50 text-muted-foreground">
+                        <p>No data available</p>
+                    </div>
+                )}
+            </div>
+        </div >
     );
 }
 

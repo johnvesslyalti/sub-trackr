@@ -57,10 +57,22 @@ type SubscriptionsViewProps = {
     };
 };
 
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+
 export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [isPending, startTransition] = useTransition();
+    const [deleteId, setDeleteId] = useState<string | null>(null);
+    const [statusChange, setStatusChange] = useState<{ id: string; newStatus: SubscriptionStatus } | null>(null);
 
     // Handle Search 
     const handleSearch = useDebouncedCallback((term: string) => {
@@ -87,39 +99,50 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
     };
 
     // Handle Edit/Status Toggle (Updates database record)
-    const handleEditStatus = async (id: string, currentStatus: SubscriptionStatus) => {
+    const handleEditStatus = (id: string, currentStatus: SubscriptionStatus) => {
         // Determine the next status (Toggle between ACTIVE and CANCELED)
         const newStatus = currentStatus === SubscriptionStatus.ACTIVE
             ? SubscriptionStatus.CANCELED
             : SubscriptionStatus.ACTIVE;
 
-        if (!confirm(`Are you sure you want to change the status to ${newStatus.toLowerCase()}?`)) return;
+        setStatusChange({ id, newStatus });
+    }
+
+    const handleConfirmStatusChange = async () => {
+        if (!statusChange) return;
 
         startTransition(async () => {
             // Assuming your `updateSubscription` action expects an object for updates
-            const result = await updateSubscription(id, { status: newStatus });
+            const result = await updateSubscription(statusChange.id, { status: statusChange.newStatus });
 
             if (result.success) {
-                toast.success(`Subscription status updated to ${newStatus.toLowerCase()}`);
+                toast.success(`Subscription status updated to ${statusChange.newStatus.toLowerCase()}`);
                 router.refresh(); // Refresh data to show the new status
             } else {
                 toast.error(result.error || "Failed to update subscription status");
             }
+            setStatusChange(null);
         });
     }
 
-    // Handle Delete
-    const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure? This will archive the subscription.")) return;
+    // Handle Delete Trigger (Opens Modal)
+    const handleDeleteClick = (id: string) => {
+        setDeleteId(id);
+    }
+
+    // Confirm Delete (Executes Action)
+    const handleConfirmDelete = async () => {
+        if (!deleteId) return;
 
         startTransition(async () => {
-            const result = await deleteSubscription(id);
+            const result = await deleteSubscription(deleteId);
             if (result.success) {
-                toast.success("Subscription deleted");
+                toast.success("Subscription deleted successfully");
                 router.refresh();
             } else {
-                toast.error("Failed to delete");
+                toast.error("Failed to delete subscription");
             }
+            setDeleteId(null);
         });
     }
 
@@ -227,7 +250,7 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
 
                                                 <DropdownMenuItem
                                                     className="text-destructive focus:text-destructive"
-                                                    onClick={() => handleDelete(sub.id)}
+                                                    onClick={() => handleDeleteClick(sub.id)}
                                                 >
                                                     <Trash2 className="mr-2 h-4 w-4" /> Delete
                                                 </DropdownMenuItem>
@@ -271,6 +294,66 @@ export function SubscriptionsView({ initialData }: SubscriptionsViewProps) {
                     Next
                 </Button>
             </div>
+
+            {/* --- Delete Confirmation Dialog --- */}
+            <Dialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>Delete Subscription</DialogTitle>
+                        <DialogDescription>
+                            Are you sure you want to delete this subscription? This action cannot be undone and will remove it from your history.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="flex gap-2 sm:justify-end">
+                        <Button
+                            variant="outline"
+                            onClick={() => setDeleteId(null)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={handleConfirmDelete}
+                            disabled={isPending}
+                        >
+                            {isPending ? "Deleting..." : "Delete"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* --- Status Change Confirmation Dialog --- */}
+            <Dialog open={!!statusChange} onOpenChange={(open) => !open && setStatusChange(null)}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>
+                            {statusChange?.newStatus === SubscriptionStatus.CANCELED ? 'Cancel Subscription' : 'Reactivate Subscription'}
+                        </DialogTitle>
+                        <DialogDescription>
+                            {statusChange?.newStatus === SubscriptionStatus.CANCELED
+                                ? 'Are you sure you want to cancel this subscription? It will be marked as inactive but kept in your history.'
+                                : 'Are you sure you want to reactivate this subscription? It will be marked as active.'}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="flex gap-2 sm:justify-end">
+                        <Button
+                            variant="outline"
+                            onClick={() => setStatusChange(null)}
+                        >
+                            No, Keep it
+                        </Button>
+                        <Button
+                            variant={statusChange?.newStatus === SubscriptionStatus.CANCELED ? 'destructive' : 'default'}
+                            onClick={handleConfirmStatusChange}
+                            disabled={isPending}
+                        >
+                            {isPending
+                                ? "Updating..."
+                                : (statusChange?.newStatus === SubscriptionStatus.CANCELED ? "Yes, Cancel it" : "Yes, Reactivate")}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

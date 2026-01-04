@@ -47,8 +47,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-md dark:bg-black/80">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link 
-          href={session ? "/dashboard" : "/"} 
+        <Link
+          href="/dashboard"
           className="flex items-center gap-2 transition-opacity hover:opacity-90"
         >
           <div className="relative h-9 w-9 overflow-hidden rounded-lg border border-indigo-100 shadow-sm">
@@ -69,8 +69,8 @@ export default function Navbar() {
         <nav className="hidden items-center gap-6 md:flex">
           {session?.user && (
             <div className="relative" ref={dropdownRef}>
-              <button 
-                onClick={toggleDropdown} 
+              <button
+                onClick={toggleDropdown}
                 className="flex items-center gap-2 rounded-full ring-offset-background transition-all hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2 focus:outline-none"
               >
                 <Avatar className="h-9 w-9 border border-gray-200 shadow-sm">
@@ -84,7 +84,7 @@ export default function Navbar() {
               {/* Refactored Dropdown */}
               {dropdownOpen && (
                 <div className="absolute right-0 mt-3 w-56 origin-top-right rounded-xl border border-gray-100 bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5 animate-in fade-in zoom-in-95 duration-100 dark:bg-zinc-900 dark:border-zinc-800">
-                  
+
                   {/* User Info Header */}
                   <div className="px-3 py-2.5 border-b border-gray-100 dark:border-zinc-800 mb-1">
                     <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
@@ -102,11 +102,11 @@ export default function Navbar() {
                     <User size={16} />
                     Profile
                   </button>
-                  
+
                   {/* Optional Settings Link placeholder */}
                   <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-zinc-800 transition-colors">
-                     <Settings size={16} />
-                     Settings
+                    <Settings size={16} />
+                    Settings
                   </button>
 
                   <div className="my-1 h-px bg-gray-100 dark:bg-zinc-800" />
@@ -144,11 +144,11 @@ export default function Navbar() {
                   <AvatarFallback>{session.user.name?.[0] ?? "U"}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                    <span className="font-medium text-sm">{session.user.name}</span>
-                    <span className="text-xs text-gray-500">{session.user.email}</span>
+                  <span className="font-medium text-sm">{session.user.name}</span>
+                  <span className="text-xs text-gray-500">{session.user.email}</span>
                 </div>
               </div>
-              
+
               <div className="space-y-1">
                 <button
                   onClick={() => { setIsOpen(false); goToProfile(); }}
